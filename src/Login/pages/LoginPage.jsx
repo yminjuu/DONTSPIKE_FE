@@ -8,10 +8,14 @@ import ActiveBtn from '../assets/active.png';
 import DefaultBtn from '../assets/default.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../Recoil';
 
 const LoginPage = () => {
   const [id, setId] = useState('블로킹');
   const [pw, setPw] = useState('1234');
+
+  const [user, setUser] = useRecoilState(userState);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -23,7 +27,8 @@ const LoginPage = () => {
         username: id,
         password: pw,
       });
-      navigate(`/main/${res.data.user_id}`, { replace: true }); // 뒤로가기 방지
+      setUser(res.data.user_id);
+      navigate(`/main`, { replace: true });
     } catch (error) {
       alert('로그인에 실패했습니다. 다시 시도해주세요');
       setId('');

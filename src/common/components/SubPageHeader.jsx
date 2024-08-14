@@ -16,7 +16,7 @@ const SubPageHeader = ({ currState }) => {
       <LogoButton currState={currState}></LogoButton>
       {/* x 버튼 svg 태그 */}
       <ButtonWrapper onClick={onBtnClick}>
-        <Img src={Icon}></Img>
+        <Img src={Icon} alt="음식 이미지"></Img>
       </ButtonWrapper>
     </HeaderWrapper>
   );

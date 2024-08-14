@@ -2,27 +2,35 @@ import MainHeader from '../../common/components/MainHeader';
 import styled from 'styled-components';
 import FoodWikiSearch from '../components/FoodWiki/FoodWikiSearch';
 import FoodCarousel from '../components/FoodWiki/FoodCarousel';
-import { useParams } from 'react-router-dom';
 import React from 'react';
-
-export const FoodWikiIdContext = React.createContext();
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../Recoil';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const FoodWikiPage = () => {
-  const { id } = useParams();
+  const user = useRecoilValue(userState);
+  const navigate = useNavigate();
+
+  // login 상태인지 확인
+  useEffect(() => {
+    if (user === null) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+  if (user === null) return null;
 
   return (
-    <FoodWikiIdContext.Provider value={id}>
-      <PageBackground>
-        <MainHeader currState="foodwiki"></MainHeader>
-        <FoodWikiSearch></FoodWikiSearch>
-        <CarouselBox>
-          <CarouselWrapper>
-            <CarouselTitle>최근 먹은 음식</CarouselTitle>
-            <FoodCarousel></FoodCarousel>
-          </CarouselWrapper>
-        </CarouselBox>
-      </PageBackground>
-    </FoodWikiIdContext.Provider>
+    <PageBackground>
+      <MainHeader currState="foodwiki"></MainHeader>
+      <FoodWikiSearch></FoodWikiSearch>
+      <CarouselBox>
+        <CarouselWrapper>
+          <CarouselTitle>최근 먹은 음식</CarouselTitle>
+          <FoodCarousel></FoodCarousel>
+        </CarouselWrapper>
+      </CarouselBox>
+    </PageBackground>
   );
 };
 

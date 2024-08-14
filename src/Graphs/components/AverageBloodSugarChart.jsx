@@ -3,7 +3,6 @@ import { useEffect, React, useState, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, LabelList } from 'recharts';
 import '../styles/CustomScroll.css';
 import CustomLabel from '../AverageBS/CustomLabel';
-import axios from 'axios';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
 

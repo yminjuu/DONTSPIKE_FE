@@ -1,20 +1,17 @@
 import styled, { css } from 'styled-components';
-import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FoodWikiIdContext } from '../../pages/FoodWikiPage';
 
 const FoodWikiItem = props => {
   const navigate = useNavigate();
-  const id = useContext(FoodWikiIdContext);
 
   const onItemClick = () => {
-    navigate(`/foodWiki/${id}/search?query=${props.foodname}`);
+    navigate(`/foodWiki/search?query=${props.foodname}`);
   };
 
   return (
     <>
       <InfoWrapper onClick={onItemClick}>
-        <FoodImg src={props.url}></FoodImg>
+        <FoodImg src={props.url} alt="음식 이미지"></FoodImg>
         <FoodTitle>{props.foodname}</FoodTitle>
       </InfoWrapper>
     </>

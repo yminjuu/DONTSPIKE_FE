@@ -58,7 +58,7 @@ const ImgBtn = styled.div`
   cursor: pointer;
 `;
 
-const Section4 = ({ id }) => {
+const Section4 = () => {
   const wrapperRef = useRef(null);
 
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const Section4 = ({ id }) => {
         <Text>혈당 스파이크를 방지할 작은 시작,</Text>
         <ImgBtn
           onClick={() => {
-            navigate(`/main/${id}`, { replace: 'true' });
+            navigate(`/main`, { replace: 'true' });
           }}
         >
           <Btn></Btn>

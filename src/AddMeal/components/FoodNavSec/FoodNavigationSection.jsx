@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { css, styled } from 'styled-components';
 import OftFoodItem from '../FoodNavSec/components/OftFoodItem';
 import AddFoodInfo from '../FoodNavSec/components/AddFoodInfo';
 import axios from 'axios';
-import { AddMealIdContext } from '../../pages/AddMealPage';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../Recoil';
 
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
@@ -11,14 +12,14 @@ const compare = (a, b) => {
 
 const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const id = useContext(AddMealIdContext);
+  const user = useRecoilValue(userState);
 
   // 자주 먹은 음식 데이터
   const [favFood, setFavFood] = useState([]);
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/food/favorites/${id}`);
+      const { data } = await axios.get(`${BASE_URL}/api/food/favorites/${user}`);
       console.log('자주 먹은 음식 API 결과 : ', data);
 
       const updatedData = data.map(item => ({

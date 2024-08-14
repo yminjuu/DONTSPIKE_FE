@@ -1,4 +1,4 @@
-import { useSearchParams, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SubPageHeader from '../../common/components/SubPageHeader';
 import FoodWikiLogo from '../assets/FoodWikiLogo.svg?react';
@@ -7,17 +7,18 @@ import Nutrient from '../components/FoodInfo/Nutrient';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import React from 'react';
-
-export const FoodInfoIdContext = React.createContext();
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../Recoil';
 
 const FoodInfoPage = () => {
-  const { id } = useParams();
-
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [foodSearch] = useSearchParams();
   const query = foodSearch.get('query');
 
   const [data, setData] = useState([]);
+
+  const user = useRecoilValue(userState);
+  const navigate = useNavigate();
 
   const fetchFoodWikiSearchResult = async () => {
     try {
@@ -38,28 +39,35 @@ const FoodInfoPage = () => {
     fetchFoodWikiSearchResult();
   }, []);
 
+  // login 상태인지 확인
+  useEffect(() => {
+    if (user === null) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  if (user === null) return null;
+
   return (
-    <FoodInfoIdContext.Provider value={id}>
-      <Wrapper>
-        <HeaderWrapper>
-          <SubPageHeader currState="foodwiki"></SubPageHeader>
-          <LogoWrapper>
-            <FoodWikiLogo></FoodWikiLogo>
-          </LogoWrapper>
-        </HeaderWrapper>
-        <ContentWrapper>
-          <InfoWrapper>
-            <Nutrient {...data}></Nutrient>
-          </InfoWrapper>
-          <TipWrapper>
-            <Tip tip_title="전문가의 소견" tip_content={data.expertOpinion} />
-            <Tip tip_title="적정 섭취량" tip_content={data.properIntake} />
-            <Tip tip_title="추천 섭취 방법" tip_content={data.ingestionMethod} />
-            <Tip tip_title="혈당 지수" tip_content={data.gi} />
-          </TipWrapper>
-        </ContentWrapper>
-      </Wrapper>
-    </FoodInfoIdContext.Provider>
+    <Wrapper>
+      <HeaderWrapper>
+        <SubPageHeader currState="foodwiki"></SubPageHeader>
+        <LogoWrapper>
+          <FoodWikiLogo></FoodWikiLogo>
+        </LogoWrapper>
+      </HeaderWrapper>
+      <ContentWrapper>
+        <InfoWrapper>
+          <Nutrient {...data}></Nutrient>
+        </InfoWrapper>
+        <TipWrapper>
+          <Tip tip_title="전문가의 소견" tip_content={data.expertOpinion} />
+          <Tip tip_title="적정 섭취량" tip_content={data.properIntake} />
+          <Tip tip_title="추천 섭취 방법" tip_content={data.ingestionMethod} />
+          <Tip tip_title="혈당 지수" tip_content={data.gi} />
+        </TipWrapper>
+      </ContentWrapper>
+    </Wrapper>
   );
 };
 

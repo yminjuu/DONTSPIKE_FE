@@ -2,10 +2,12 @@ import SearchSection from '../components/SearchSec/SearchSection';
 import FoodNavigationSection from '../components/FoodNavSec/FoodNavigationSection';
 import styled from 'styled-components';
 import SubPageHeader from '../../common/components/SubPageHeader';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../Recoil';
+import { useNavigate } from 'react-router-dom';
 
 const formatDate = date => {
   const year = date.getFullYear();
@@ -15,24 +17,23 @@ const formatDate = date => {
   return `${year}-${month}-${day}`;
 };
 
-export const AddMealIdContext = React.createContext();
-
 const AddMealPage = () => {
-  const { id } = useParams();
-
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   // SearchSection에서 선택된 날짜 관리
   const [selectedDate, setSelectedDate] = useState();
+  const user = useRecoilValue(userState);
+
+  const navigate = useNavigate();
 
   const fetchMeal = async foodId => {
     const date = new Date(selectedDate);
     try {
       const res = await axios.post(
-        `${BASE_URL}/api/diet/add-food?userId=${id}&foodId=${foodId}&recordDate=${formatDate(date)}`,
+        `${BASE_URL}/api/diet/add-food?userId=${user}&foodId=${foodId}&recordDate=${formatDate(date)}`,
       );
 
       if (res.status === 200) {
-        alert(`${selectedDate.getMonth()}/${selectedDate.getDate()}에 식단이 추가되었어요`);
+        alert(`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}에 식단이 추가되었어요`);
         return true;
       }
       return false;
@@ -43,16 +44,23 @@ const AddMealPage = () => {
     }
   };
 
+  // login 상태인지 확인
+  useEffect(() => {
+    if (user === null) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
+
+  if (user === null) return null;
+
   return (
-    <AddMealIdContext.Provider value={id}>
-      <PageBackground>
-        <SubPageHeader currState="graph"></SubPageHeader>
-        <ContentWrapper>
-          <SearchSection setSelectedDate={setSelectedDate} fetchMeal={fetchMeal}></SearchSection>
-          <FoodNavigationSection selectedDate={selectedDate} fetchMeal={fetchMeal}></FoodNavigationSection>
-        </ContentWrapper>
-      </PageBackground>
-    </AddMealIdContext.Provider>
+    <PageBackground>
+      <SubPageHeader currState="graph"></SubPageHeader>
+      <ContentWrapper>
+        <SearchSection setSelectedDate={setSelectedDate} fetchMeal={fetchMeal}></SearchSection>
+        <FoodNavigationSection selectedDate={selectedDate} fetchMeal={fetchMeal}></FoodNavigationSection>
+      </ContentWrapper>
+    </PageBackground>
   );
 };
 // 1. 검색창

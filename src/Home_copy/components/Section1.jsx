@@ -14,7 +14,7 @@ import { SlLogin } from 'react-icons/sl';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IoIosReturnRight } from 'react-icons/io';
 
-const Section1 = ({ id }) => {
+const Section1 = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Section1 = ({ id }) => {
             <LogoButton></LogoButton>
             <LoginWrapper
               onClick={() => {
-                navigate(`/main/${id}`, { replace: true });
+                navigate(`/main`, { replace: true });
               }}
             >
               <IoIosReturnRight />

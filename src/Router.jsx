@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import styled from 'styled-components';
 import LoginPage from './Login/pages/LoginPage';
 import MainGraphPage from './MainGraph/pages/MainGraphPage';
 import FoodInfoPage from './FoodWiki/pages/FoodInfoPage';
@@ -23,21 +22,21 @@ const router = createBrowserRouter([
     element: <LandingPage></LandingPage>,
   },
   {
-    path: '/main/:id',
+    path: '/main',
     element: <MainGraphPage></MainGraphPage>,
     // 추후 바로 Main으로 연결하되, 로그인 안되어있으면 login page로 route
   },
-  { path: '/addMeal/:id', element: <AddMealPage></AddMealPage> },
+  { path: '/addMeal', element: <AddMealPage></AddMealPage> },
   {
-    path: '/foodWiki/:id/search',
+    path: '/foodWiki/search',
     element: <FoodInfoPage></FoodInfoPage>,
   },
   {
-    path: '/foodWiki/:id',
+    path: '/foodWiki',
     element: <FoodWikiPage></FoodWikiPage>,
   },
   {
-    path: '/landing/:id',
+    path: '/landing',
     element: <LandingPageCopy></LandingPageCopy>,
   },
 ]);

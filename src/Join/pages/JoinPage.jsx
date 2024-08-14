@@ -8,6 +8,8 @@ import DefaultBtn from '../assets/default.png';
 import LoginBtn from '../assets/login.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../Recoil';
 
 const JoinPage = () => {
   const [id, setId] = useState('');
@@ -26,7 +28,7 @@ const JoinPage = () => {
         username: id,
         password: pw,
       });
-      console.log(res.data.message);
+      console.log(res);
       if (res.data.message === '회원가입 성공') {
         setJoinState(true);
       }
@@ -143,7 +145,7 @@ const JoinPage = () => {
           </div>
           <ButtonWrapper
             onClick={() => {
-              navigate(`/main/${id}`);
+              navigate(`/login`);
             }}
           >
             <Button src={LoginBtn}></Button>

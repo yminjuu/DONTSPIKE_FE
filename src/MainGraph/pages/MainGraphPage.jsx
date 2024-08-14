@@ -6,8 +6,10 @@ import FoodBar from '../../Sec2_FoodBar/FoodBar';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../Recoil';
 
 const monthMapping = {
   JANUARY: '1월',
@@ -73,10 +75,10 @@ const calculateDifference = data => {
   return lastAverage - secondLastAverage;
 };
 
-export const MainGraphIdContext = React.createContext();
-
 const MainGraphPage = () => {
-  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [user, setUser] = useRecoilState(userState);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -89,6 +91,13 @@ const MainGraphPage = () => {
   const [averageData, setAverageData] = useState([]); // 평균 그래프 데이터
 
   const [averageOffset, setOffset] = useState(null);
+
+  // login 상태인지 확인
+  useEffect(() => {
+    if (user === null) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
@@ -111,7 +120,7 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food/${id}`); // data를 배열 형식으로 새로 받아옴
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food/${user}`); // data를 배열 형식으로 새로 받아옴
       const newData = [...res.data];
       setMainData(newData.sort(compare));
     } catch (error) {
@@ -122,7 +131,7 @@ const MainGraphPage = () => {
   // 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?user_id=${id}&year=2024`);
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?user_id=${user}&year=2024`);
 
       if (res.status === 200) {
         const parsedData = parseData(res.data.monthly_averages);
@@ -138,33 +147,33 @@ const MainGraphPage = () => {
     }
   };
 
+  if (user === null) return null;
+
   return (
-    <MainGraphIdContext.Provider value={id}>
-      <PageBackground ref={pageContainerRef}>
-        <MainHeader currState="graph"></MainHeader>
-        <SectionsWrapper>
-          {/* 제목 + 혈당 섹션 */}
-          <SectionWrapper>
-            <MainBloodSugar setBS={setBS} mainData={mainData} fetchMainChartData={fetchMainChartData}></MainBloodSugar>
-          </SectionWrapper>
-          {/* 구분선 추가 */}
-          <HorizonWrapper>
-            <svg xmlns="http://www.w3.org/2000/svg" width="1292" height="1" viewBox="0 0 1292 1" fill="none">
-              <path d="M1 0.5L1291 0.5" stroke="#CFCFCF" strokeLinecap="round" />
-            </svg>
-          </HorizonWrapper>
-          {/* 하단 그래프 2개 섹션*/}
-          <SectionWrapper2>
-            <FoodBar></FoodBar>
-            <AverageBloodSugar
-              fetchAverageData={fetchAverageData}
-              averageData={averageData}
-              offset={averageOffset}
-            ></AverageBloodSugar>
-          </SectionWrapper2>
-        </SectionsWrapper>
-      </PageBackground>
-    </MainGraphIdContext.Provider>
+    <PageBackground ref={pageContainerRef}>
+      <MainHeader currState="graph"></MainHeader>
+      <SectionsWrapper>
+        {/* 제목 + 혈당 섹션 */}
+        <SectionWrapper>
+          <MainBloodSugar setBS={setBS} mainData={mainData} fetchMainChartData={fetchMainChartData}></MainBloodSugar>
+        </SectionWrapper>
+        {/* 구분선 추가 */}
+        <HorizonWrapper>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1292" height="1" viewBox="0 0 1292 1" fill="none">
+            <path d="M1 0.5L1291 0.5" stroke="#CFCFCF" strokeLinecap="round" />
+          </svg>
+        </HorizonWrapper>
+        {/* 하단 그래프 2개 섹션*/}
+        <SectionWrapper2>
+          <FoodBar></FoodBar>
+          <AverageBloodSugar
+            fetchAverageData={fetchAverageData}
+            averageData={averageData}
+            offset={averageOffset}
+          ></AverageBloodSugar>
+        </SectionWrapper2>
+      </SectionsWrapper>
+    </PageBackground>
   );
 };
 

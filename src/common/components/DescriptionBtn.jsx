@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { TbFileDescription } from 'react-icons/tb';
-import { MainGraphIdContext } from '../../MainGraph/pages/MainGraphPage';
-import { FoodWikiIdContext } from '../../FoodWiki/pages/FoodWikiPage';
-import { useContext } from 'react';
 
 const DescriptionBtn = () => {
   const navigate = useNavigate();
-  const id = useContext(FoodWikiIdContext) || useContext(MainGraphIdContext);
 
   const onLanding = () => {
-    navigate(`/landing/${id}`, { replace: 'true' }); //뒤로가기 방지
+    navigate(`/landing`, { replace: 'true' }); //뒤로가기 방지
   };
 
   return (

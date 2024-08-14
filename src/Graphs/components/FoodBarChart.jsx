@@ -1,13 +1,14 @@
 // BarChartComponent.jsx
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, LabelList } from 'recharts';
 import CustomBarShape from '../FoodBar/CustomBarShape';
 import CustomLabel from '../FoodBar/CustomLabel';
 import '../styles/CustomScroll.css';
 import axios from 'axios';
-import { MainGraphIdContext } from '../../MainGraph/pages/MainGraphPage';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../Recoil';
 
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
@@ -17,11 +18,11 @@ const FoodBarChart = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [favData, setFavData] = useState([]);
 
-  const id = useContext(MainGraphIdContext);
+  const user = useRecoilValue(userState);
 
   const fetchFavFoodData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/food/favorites/${id}`);
+      const res = await axios.get(`${BASE_URL}/api/food/favorites/${user}`);
       setFavData(res.data.sort(compare));
     } catch (error) {
       console.log(error);

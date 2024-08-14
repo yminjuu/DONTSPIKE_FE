@@ -1,16 +1,13 @@
 import styled, { css } from 'styled-components';
 import LogoButton from './LogoButton';
 import { useNavigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Blackfoodwiki from '../assets/Blackfoodwiki.svg?react';
 import Blackgraph from '../assets/Blackgraph.svg?react';
 import Whitefoodwiki from '../assets/Whitefoodwiki.svg?react';
 import Whitegraph from '../assets/Whitegraph.svg?react';
 import LogoutSection from './LogoutSection';
 
-// MainHeader이 사용되는 위치 중 id context가 존재하는 2가지
-import { FoodWikiIdContext } from '../../FoodWiki/pages/FoodWikiPage';
-import { MainGraphIdContext } from '../../MainGraph/pages/MainGraphPage';
 import DescriptionBtn from './DescriptionBtn';
 
 const MainHeader = ({ currState }) => {
@@ -20,17 +17,15 @@ const MainHeader = ({ currState }) => {
   const [navState, setNavstate] = useState(currState);
   // graph 또는 foodwiki => 버튼 눌렀을 때 graph page로 navigate
 
-  const user_id = useContext(FoodWikiIdContext) || useContext(MainGraphIdContext);
-
   // nav 변경 관리
   const onNavClick = navkey => {
     if (navState === 'graph' && navkey === 'foodwiki') {
       // 현재 그래프 상태이고 foodwiki를 눌렀을 때
-      navigate(`/foodWiki/${user_id}`);
+      navigate(`/foodWiki`);
     } else if (navState === 'foodwiki' && navkey === 'graph') {
       // 현재 푸드위키 상태이고 graph를 눌렀을 때
       setNavstate('freq');
-      navigate(`/main/${user_id}`);
+      navigate(`/main`);
     }
   };
 
