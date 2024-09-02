@@ -285,6 +285,7 @@ const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
   const dataMin = Math.min(...mainData.map(d => d.bloodsugar));
   const chartWidth = calculateChartWidth(mainData.length); // 동적으로 차트의 너비 계산
 
+  console.log('mainData: ', getProcessedDataList(mainData));
   if (mainData.length > 1) {
     return (
       <div

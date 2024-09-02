@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME;
 const BUCKET_REGION = import.meta.env.VITE_BUCKET_REGION;
+const BUCKET_DIRECTORY = import.meta.env.VITE_BUCKET_DIRECTORY;
 
 const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodium, cholesterol }) => {
   // 음식 이름에 공백이 있으면 없애줌
@@ -15,7 +16,9 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
       <Wrapper>
         <BasicWrapper>
           <ImgWrapper
-            src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${removeSpaces(foodname)}.jpg`}
+            src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${BUCKET_DIRECTORY}/${removeSpaces(
+              foodname,
+            )}.jpg`}
           ></ImgWrapper>
           <FoodWrapper>
             <FoodTitle>{foodname}</FoodTitle>

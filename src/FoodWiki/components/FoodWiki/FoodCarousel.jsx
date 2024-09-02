@@ -17,11 +17,14 @@ const FoodSlide = ({ index, foodname }) => {
 
   const BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME;
   const BUCKET_REGION = import.meta.env.VITE_BUCKET_REGION;
+  const BUCKET_DIRECTORY = import.meta.env.VITE_BUCKET_DIRECTORY;
 
   return (
     <Wrapper>
       <StyledImg
-        src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${removeSpaces(foodname)}.jpg`}
+        src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${BUCKET_DIRECTORY}/${removeSpaces(
+          foodname,
+        )}.jpg`}
         onClick={() => {
           navigate(`/foodWiki/search?query=${foodname}`);
         }}

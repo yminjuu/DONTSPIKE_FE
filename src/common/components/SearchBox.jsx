@@ -17,6 +17,7 @@ const SearchBox = ({ type, fetchMeal }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME;
   const BUCKET_REGION = import.meta.env.VITE_BUCKET_REGION;
+  const BUCKET_DIRECTORY = import.meta.env.VITE_BUCKET_DIRECTORY;
 
   // 검색 상태 관리 : 검색 가능(false) / 검색 이미 완료 상태(true)
   const [searchstate, toggleSearchState] = useState(false); //초기 상태: false
@@ -155,7 +156,7 @@ const SearchBox = ({ type, fetchMeal }) => {
             ></SearchItem>
           ) : (
             <FoodWikiItem
-              url={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${removeSpaces(
+              url={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${BUCKET_DIRECTORY}/${removeSpaces(
                 searchResult.foodname,
               )}.jpg`}
               {...searchResult}
