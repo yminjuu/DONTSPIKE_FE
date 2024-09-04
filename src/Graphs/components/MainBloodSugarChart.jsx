@@ -199,6 +199,7 @@ const CustomizedDot = props => {
 };
 
 const CustomizedRegularDot = props => {
+  console.log(props);
   const { cx, cy, payload, stroke } = props;
 
   if (payload.significantIncrease) {
@@ -212,7 +213,7 @@ const CustomizedActiveDot = props => {
   const { cx, cy, payload } = props;
 
   if (payload.significantIncrease) {
-    return <CustomActiveDot cx={cx} cy={cy} fill="#ff0000" />;
+    return <></>;
   }
 
   return <circle cx={cx} cy={cy} r={6} fill="#3053f9" />;
@@ -288,11 +289,7 @@ const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
   console.log('mainData: ', getProcessedDataList(mainData));
   if (mainData.length > 1) {
     return (
-      <div
-        style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }}
-        className="custom-scroll"
-        ref={chartContainerRef}
-      >
+      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
         <div style={{ width: `${chartWidth}px`, height: '275px' }}>
           <LineChart
             width={mainData.length <= 10 ? 700 : mainData.length * 100}
