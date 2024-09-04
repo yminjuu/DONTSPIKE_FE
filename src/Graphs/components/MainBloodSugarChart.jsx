@@ -275,6 +275,7 @@ const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
   // 최초 렌더링시 데이터 가져옴
   useEffect(() => {
     fetchMainChartData();
+    console.log(chartContainerRef.current);
     if (chartContainerRef.current) {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
@@ -288,6 +289,9 @@ const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
 
   console.log('mainData: ', getProcessedDataList(mainData));
   if (mainData.length > 1) {
+    if (chartContainerRef.current) {
+      chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
+    }
     return (
       <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
         <div style={{ width: `${chartWidth}px`, height: '275px' }}>

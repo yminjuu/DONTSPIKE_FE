@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, LabelList } from 'recharts';
 import CustomBarShape from '../FoodBar/CustomBarShape';
 import CustomLabel from '../FoodBar/CustomLabel';
-import '../styles/CustomScroll.css';
 import axios from 'axios';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
@@ -36,7 +35,7 @@ const FoodBarChart = () => {
 
   if (favData.length != 0) {
     return (
-      <div style={{ width: '100%', overflowX: 'hidden', overflowY: 'hidden' }} className="custom-scroll">
+      <div style={{ width: '100%', overflowX: 'hidden', overflowY: 'hidden' }}>
         <div style={{ width: '100%', height: '270px', margin: '0 auto' }}>
           <BarChart
             width={600}

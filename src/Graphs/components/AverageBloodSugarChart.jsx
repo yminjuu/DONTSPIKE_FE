@@ -1,7 +1,6 @@
 // LineChartComponent.jsx
 import { useEffect, React, useState, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, LabelList } from 'recharts';
-import '../styles/CustomScroll.css';
 import CustomLabel from '../AverageBS/CustomLabel';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
@@ -40,12 +39,11 @@ const AverageBloodSugarChart = ({ fetchAverageData, averageData }) => {
   const chartWidth = calculateChartWidth(averageData.length); // 동적으로 차트의 너비 계산
 
   if (averageData.length != 0) {
+    if (chartContainerRef.current) {
+      chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
+    }
     return (
-      <div
-        style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }}
-        className="custom-scroll"
-        ref={chartContainerRef}
-      >
+      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
         <div style={{ width: `${chartWidth}px`, height: '270px' }}>
           <LineChart
             width={averageData.length <= 5 ? 500 : averageData.length * 100}
