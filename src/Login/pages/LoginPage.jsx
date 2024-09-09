@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../Recoil';
+import KakaoBtn from '../assets/kakao.svg?react';
 
 const LoginPage = () => {
   const [id, setId] = useState('블로킹');
@@ -116,34 +117,41 @@ const LoginPage = () => {
             ></StyledInput>
           </InputWrapper>
         </InputsWrapper>
-        <ButtonWrapper>
-          {id == '' || pw == '' ? (
-            <Button src={DefaultBtn}></Button>
-          ) : (
-            <Button src={ActiveBtn} onClick={checkValidJoin}></Button>
-          )}
-        </ButtonWrapper>
-        <JoinWrapper>
-          <div
-            style={{
-              color: '#A0A0A0',
-              fontSize: '0.75rem',
-              fontWeight: '400',
-              textAlign: 'center',
-              height: '1.2rem',
-              lineHeight: '1.2rem',
-            }}
-          >
-            계정이 없으신가요?{' '}
-          </div>
-          <TransparentBtn
-            onClick={() => {
-              navigate('/join');
-            }}
-          >
-            가입하기
-          </TransparentBtn>
-        </JoinWrapper>
+        <ButtonsWrapper>
+          <ButtonWrapper>
+            {id == '' || pw == '' ? (
+              <GeneralBtn>로그인</GeneralBtn>
+            ) : (
+              <GeneralBtn onClick={checkValidJoin}>로그인</GeneralBtn>
+            )}
+          </ButtonWrapper>
+          <Hr />
+          <Button>
+            <KakaoBtn></KakaoBtn>
+          </Button>
+          {/* 카카오 로그인 버튼 */}
+          <JoinWrapper>
+            <div
+              style={{
+                color: '#A0A0A0',
+                fontSize: '0.75rem',
+                fontWeight: '400',
+                textAlign: 'center',
+                height: '1.2rem',
+                lineHeight: '1.2rem',
+              }}
+            >
+              계정이 없으신가요?{' '}
+            </div>
+            <TransparentBtn
+              onClick={() => {
+                navigate('/join');
+              }}
+            >
+              가입하기
+            </TransparentBtn>
+          </JoinWrapper>
+        </ButtonsWrapper>
       </LoginWrapper>
     </Wrapper>
   );
@@ -204,9 +212,9 @@ const Icon = styled.img`
 `;
 
 const LoginWrapper = styled.div`
-  min-width: 25rem;
+  min-width: 28rem;
   width: 30vw;
-  height: 53vh;
+  height: 55vh;
   flex-shrink: 0;
 
   background-color: #ffffff;
@@ -219,13 +227,21 @@ const LoginWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 `;
 
 const JoinWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  padding: 0.5rem;
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
 `;
 
 const LoginText = styled.div`
@@ -292,21 +308,45 @@ const StyledInput = styled.input`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 5vh;
   width: 100%;
-  height: 7vh;
+  gap: 1rem;
 
   display: flex;
-  justify-content: center;
-  align-items: end;
+  flex-direction: column;
+  align-items: center;
+
+  cursor: pointer;
 `;
 
-const Button = styled.img`
-  width: 11rem;
-  height: 3rem;
+const Hr = styled.hr`
+  width: 90%;
+  height: 1px;
+
+  background-color: #dddddd;
+  border: 0;
+`;
+
+const Button = styled.div`
   flex-shrink: 0;
 
   cursor: pointer;
+`;
+
+const GeneralBtn = styled.button`
+  min-width: 15rem;
+  height: 3.1rem;
+
+  background-color: hsl(229.55223880597015, 94.36619718309859%, 58.23529411764705%);
+  border: 1px solid rgb(48, 83, 249);
+  border-radius: 20rem;
+
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const TransparentBtn = styled.button`
