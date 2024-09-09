@@ -7,6 +7,7 @@ import FoodWikiPage from './FoodWiki/pages/FoodWikiPage';
 import LandingPage from './Home/page/LandingPage';
 import JoinPage from './Join/pages/JoinPage';
 import LandingPageCopy from './Home_copy/page/LandingPageCopy';
+import ZoomComponent from './New';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: '/landing',
     element: <LandingPageCopy></LandingPageCopy>,
+  },
+  {
+    path: '/new',
+    element: <ZoomComponent />,
   },
 ]);
 

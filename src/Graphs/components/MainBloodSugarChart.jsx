@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, LabelList } from 'recharts';
 import MainBSToolTip from '../MainBS/MainBSToolTip';
-import '../styles/CustomScroll.css';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
 

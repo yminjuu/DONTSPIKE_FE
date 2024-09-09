@@ -204,6 +204,7 @@ const Icon = styled.img`
 `;
 
 const LoginWrapper = styled.div`
+  min-width: 25rem;
   width: 30vw;
   height: 53vh;
   flex-shrink: 0;
