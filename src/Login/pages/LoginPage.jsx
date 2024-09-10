@@ -126,7 +126,7 @@ const LoginPage = () => {
             )}
           </ButtonWrapper>
           <Hr />
-          <Button>
+          <Button onClick={() => alert('준비 중인 서비스입니다.')}>
             <KakaoBtn></KakaoBtn>
           </Button>
           {/* 카카오 로그인 버튼 */}
