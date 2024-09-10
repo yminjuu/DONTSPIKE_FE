@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ap.cx/react-fullpage": "^0.3.0",
     "aws-sdk": "^2.1667.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",

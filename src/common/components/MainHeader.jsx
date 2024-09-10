@@ -64,8 +64,6 @@ const MainHeader = ({ currState }) => {
 const StyledMainHeader = styled.header`
   width: 100%;
   height: 8vh;
-  position: sticky;
-  top: 0;
   z-index: 1;
 
   display: flex;

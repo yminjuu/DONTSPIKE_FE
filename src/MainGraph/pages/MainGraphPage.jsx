@@ -152,61 +152,42 @@ const MainGraphPage = () => {
   return (
     <PageBackground ref={pageContainerRef}>
       <MainHeader currState="graph"></MainHeader>
-      <SectionsWrapper>
-        {/* 제목 + 혈당 섹션 */}
-        <SectionWrapper>
-          <MainBloodSugar setBS={setBS} mainData={mainData} fetchMainChartData={fetchMainChartData}></MainBloodSugar>
-        </SectionWrapper>
-        {/* 구분선 추가 */}
-        <HorizonWrapper>
-          <svg xmlns="http://www.w3.org/2000/svg" width="1292" height="1" viewBox="0 0 1292 1" fill="none">
-            <path d="M1 0.5L1291 0.5" stroke="#CFCFCF" strokeLinecap="round" />
-          </svg>
-        </HorizonWrapper>
-        {/* 하단 그래프 2개 섹션*/}
-        <SectionWrapper2>
-          <FoodBar></FoodBar>
-          <AverageBloodSugar
-            fetchAverageData={fetchAverageData}
-            averageData={averageData}
-            offset={averageOffset}
-          ></AverageBloodSugar>
-        </SectionWrapper2>
-      </SectionsWrapper>
+      <ContentWrapper>
+        <RealContentWrapper>{/* fullpage 여기에 구현 */}</RealContentWrapper>
+        {/* <MainBloodSugar setBS={setBS} mainData={mainData} fetchMainChartData={fetchMainChartData}></MainBloodSugar>
+        <FoodBar></FoodBar>
+        <AverageBloodSugar
+          fetchAverageData={fetchAverageData}
+          averageData={averageData}
+          offset={averageOffset}
+        ></AverageBloodSugar> */}
+      </ContentWrapper>
     </PageBackground>
   );
 };
 
 const PageBackground = styled.div`
-  background-image: url('https://raw.githubusercontent.com/yminjuu/DONTSPIKE_FE/328516018febe495fa3f66b464cc9b82e25d8344/public/MainBG.svg');
-  background-size: cover;
-  overflow-y: auto;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e9eaf1;
 `;
 
-const SectionsWrapper = styled.div`
+// content wrapper
+const ContentWrapper = styled.div`
+  width: 100%;
+  height: 92vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  padding: 2rem 4rem;
+  box-sizing: border-box;
 `;
 
-const SectionWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  margin: 1.1rem 4.69rem 1.3rem 4.69rem;
+const RealContentWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
 `;
 
-const SectionWrapper2 = styled.section`
-  display: flex;
-  flex-direction: row;
-  margin: 1.3rem 4.69rem 2.5rem 4.69rem;
-  justify-content: center;
-  gap: 1.13rem;
-`;
-
-const HorizonWrapper = styled.div`
-  width: 80.625rem;
-  height: 1.75rem;
-  flex-shrink: 0;
-`;
 export default MainGraphPage;
