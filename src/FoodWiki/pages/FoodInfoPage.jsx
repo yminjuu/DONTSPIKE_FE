@@ -23,9 +23,7 @@ const FoodInfoPage = () => {
   const fetchFoodWikiSearchResult = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${query}`);
-
       setData(res.data[0]); // state 변경 => 리렌더링
-      console.log(data);
     } catch (error) {
       if (error.response && error.response.status === 404) {
         // 검색 결과 없을 때 처리

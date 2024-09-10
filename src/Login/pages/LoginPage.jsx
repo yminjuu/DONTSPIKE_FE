@@ -330,6 +330,7 @@ const Button = styled.div`
   flex-shrink: 0;
 
   cursor: pointer;
+  border-radius: 4rem;
 `;
 
 const GeneralBtn = styled.button`
@@ -345,8 +346,6 @@ const GeneralBtn = styled.button`
   font-size: 1rem;
 
   cursor: pointer;
-
-  box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const TransparentBtn = styled.button`
