@@ -35,8 +35,8 @@ const FoodWikiPage = () => {
 };
 
 const PageBackground = styled.div`
-  background-image: url('https://raw.githubusercontent.com/yminjuu/DONTSPIKE_FE/328516018febe495fa3f66b464cc9b82e25d8344/public/FoodWikiBG.svg');
   background-size: cover;
+  background-color: #f0f1f5;
 
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ const PageBackground = styled.div`
 
 const CarouselBox = styled.div`
   width: 100%;
-  background-color: #fafff2;
+  background-color: #ffffff;
 
   flex: 1 0 auto;
   border-top: 2px solid #e8e8e8;

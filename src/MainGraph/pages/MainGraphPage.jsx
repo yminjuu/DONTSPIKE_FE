@@ -11,6 +11,8 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../Recoil';
 
+import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
+
 const monthMapping = {
   JANUARY: '1월',
   FEBRUARY: '2월',
@@ -149,45 +151,60 @@ const MainGraphPage = () => {
 
   if (user === null) return null;
 
+  let options = {
+    sectionClassName: 'section',
+    anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
+    scrollBar: false,
+    navigation: true,
+    verticalAlign: false,
+    sectionPaddingTop: '50px',
+    sectionPaddingBottom: '50px',
+    arrowNavigation: true,
+  };
+
   return (
-    <PageBackground ref={pageContainerRef}>
-      <MainHeader currState="graph"></MainHeader>
-      <ContentWrapper>
-        <RealContentWrapper>{/* fullpage 여기에 구현 */}</RealContentWrapper>
-        {/* <MainBloodSugar setBS={setBS} mainData={mainData} fetchMainChartData={fetchMainChartData}></MainBloodSugar>
-        <FoodBar></FoodBar>
-        <AverageBloodSugar
-          fetchAverageData={fetchAverageData}
-          averageData={averageData}
-          offset={averageOffset}
-        ></AverageBloodSugar> */}
-      </ContentWrapper>
-    </PageBackground>
+    <Fullpage>
+      <FullpageNavigation />
+      <MainHeader currState="graph"></MainHeader>{' '}
+      <FullPageSections>
+        <FullpageSection>
+          <ContentWrapper>
+            {' '}
+            <MainBloodSugar setBS={setBS} fetchMainChartData={fetchMainChartData} mainData={mainData}></MainBloodSugar>
+          </ContentWrapper>
+        </FullpageSection>
+        <FullpageSection>
+          <ContentWrapper>
+            <FoodBar />
+          </ContentWrapper>
+        </FullpageSection>
+        <FullpageSection>
+          <ContentWrapper>
+            <AverageBloodSugar
+              fetchAverageData={fetchAverageData}
+              averageData={averageData}
+              offset={averageOffset}
+            ></AverageBloodSugar>
+          </ContentWrapper>
+        </FullpageSection>
+      </FullPageSections>
+    </Fullpage>
   );
 };
-
-const PageBackground = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: #e9eaf1;
-`;
 
 // content wrapper
 const ContentWrapper = styled.div`
   width: 100%;
-  height: 92vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  padding: 2rem 4rem;
+  padding: 5rem 4rem;
   box-sizing: border-box;
-`;
 
-const RealContentWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
+  background-color: #e9eaf1;
+  /* padding으로 인해 이 요소의 크기 변경 x, 자식 요소의 크기 변경 */
 `;
 
 export default MainGraphPage;

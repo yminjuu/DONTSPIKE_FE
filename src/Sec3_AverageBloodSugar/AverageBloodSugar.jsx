@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const AverageBloodSugar = ({ fetchAverageData, averageData, offset }) => {
   useEffect(() => {}, [offset]);
   return (
-    <>
+    <Container>
       <ChartWrapper>
         <ChartTitle>월별 공복 혈당 평균</ChartTitle>
         <GraphWrapper>
@@ -19,9 +19,21 @@ const AverageBloodSugar = ({ fetchAverageData, averageData, offset }) => {
           {averageData.length > 1 ? <AverageGraphToolTip offset={offset}></AverageGraphToolTip> : <></>}
         </GraphWrapper>
       </ChartWrapper>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-top: 5vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ffffff;
+`;
 
 const ChartWrapper = styled.div`
   ${commonGraphWrapper}

@@ -12,7 +12,6 @@ import DescriptionBtn from './DescriptionBtn';
 
 const MainHeader = ({ currState }) => {
   const navigate = useNavigate();
-  console.log(currState);
 
   const [navState, setNavstate] = useState(currState);
   // graph 또는 foodwiki => 버튼 눌렀을 때 graph page로 navigate
@@ -30,41 +29,41 @@ const MainHeader = ({ currState }) => {
   };
 
   return (
-    <>
-      <StyledMainHeader>
-        <LogoButton currState={currState}></LogoButton>
-        {/* 클릭시 그래프 페이지로 이동함 */}
-        <PageStateSection>
-          <ButtonsWrapper>
-            <GraphNavigateButtonWrapper
-              $navState={navState}
-              onClick={() => {
-                onNavClick('graph');
-              }}
-            >
-              {navState === 'graph' ? <Whitegraph></Whitegraph> : <Blackgraph></Blackgraph>}
-              마이그래프
-            </GraphNavigateButtonWrapper>
-            <FoodWikiButtonWrapper $navState={navState} onClick={() => onNavClick('foodwiki')}>
-              {/* 검색 아이콘 svg */}
-              {navState === 'foodwiki' ? <Whitefoodwiki></Whitefoodwiki> : <Blackfoodwiki></Blackfoodwiki>}
-              혈당백과
-            </FoodWikiButtonWrapper>
-          </ButtonsWrapper>
-        </PageStateSection>
-        <RightWrapper>
-          {navState === 'foodwiki' || navState === 'graph' ? <DescriptionBtn></DescriptionBtn> : <></>}
-          <LogoutSection></LogoutSection>
-        </RightWrapper>
-      </StyledMainHeader>
-    </>
+    <StyledMainHeader>
+      <LogoButton currState={currState}></LogoButton>
+      {/* 클릭시 그래프 페이지로 이동함 */}
+      <PageStateSection>
+        <ButtonsWrapper>
+          <GraphNavigateButtonWrapper
+            $navState={navState}
+            onClick={() => {
+              onNavClick('graph');
+            }}
+          >
+            {navState === 'graph' ? <Whitegraph></Whitegraph> : <Blackgraph></Blackgraph>}
+            마이그래프
+          </GraphNavigateButtonWrapper>
+          <FoodWikiButtonWrapper $navState={navState} onClick={() => onNavClick('foodwiki')}>
+            {/* 검색 아이콘 svg */}
+            {navState === 'foodwiki' ? <Whitefoodwiki></Whitefoodwiki> : <Blackfoodwiki></Blackfoodwiki>}
+            혈당백과
+          </FoodWikiButtonWrapper>
+        </ButtonsWrapper>
+      </PageStateSection>
+      <RightWrapper>
+        {navState === 'foodwiki' || navState === 'graph' ? <DescriptionBtn></DescriptionBtn> : <></>}
+        <LogoutSection></LogoutSection>
+      </RightWrapper>
+    </StyledMainHeader>
   );
 };
 
 const StyledMainHeader = styled.header`
   width: 100%;
   height: 8vh;
-  z-index: 1;
+  z-index: 100;
+  position: fixed;
+  top: 0;
 
   display: flex;
   justify-content: space-between;

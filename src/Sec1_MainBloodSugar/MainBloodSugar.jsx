@@ -13,7 +13,7 @@ const MainBloodSugar = ({ setBS, fetchMainChartData, mainData }) => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <Container>
       {/* 제목 */}
       <TitleWrapper>
         <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
@@ -40,9 +40,16 @@ const MainBloodSugar = ({ setBS, fetchMainChartData, mainData }) => {
         </Graph_DiscriptSec>
         <RecordBloodSugar setBS={setBS}></RecordBloodSugar>
       </ChartWrapper>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  margin-top: 5vh;
+  background-color: #ffffff;
+`;
 
 const TitleWrapper = styled.div`
   width: 100%;
