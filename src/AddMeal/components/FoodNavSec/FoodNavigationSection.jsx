@@ -75,32 +75,16 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   return (
     <>
       <PageBackground>
-        {/* <NavWrapper>
-          <NavItem
-            onClick={() => {
-              onNavClick('freq');
-            }}
-            $navstate={navstate}
-            $navkey="freq"
-          >
-            자주 먹었어요!
-          </NavItem>
-          <NavItem
-            onClick={() => {
-              onNavClick('onHand');
-            }}
-            $navstate={navstate}
-            $navkey="onHand"
-          >
-            직접 등록해요!
-          </NavItem>
-        </NavWrapper> */}
         <ItemsWrapper>
+          <Title>자주 먹은 음식</Title>
           <FoodItemWrapper>
             {favFood.map(item => (
               <OftFoodItem key={item.foodDataId} {...item} fetchMeal={fetchMeal}></OftFoodItem>
             ))}
           </FoodItemWrapper>
+        </ItemsWrapper>
+        <ItemsWrapper>
+          <Title>새로운 음식 등록하기</Title>
           <AddFoodInfo onClick={onFoodReg}></AddFoodInfo>
         </ItemsWrapper>
       </PageBackground>
@@ -113,46 +97,26 @@ const PageBackground = styled.div`
   flex-shrink: 0;
 
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const NavWrapper = styled.div`
-  width: 15.875rem;
-  height: 2.5rem;
-  flex-shrink: 0;
-  margin: 1.1rem;
-
-  display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
-const NavItem = styled.div`
-  width: 8.125rem;
-  height: 2.5rem;
-
-  cursor: pointer;
-
-  border-radius: 1.875rem;
-
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 1rem;
+const Title = styled.div`
+  width: 100%;
+  color: #111111;
+  font-size: 1.3rem;
   font-weight: 600;
+
+  padding: 1rem;
 `;
 
 const ItemsWrapper = styled.div`
-  margin: 2rem 4rem;
+  margin: 1rem 2rem;
   flex-shrink: 0;
 
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 3rem;
+  flex-direction: column;
+  justify-content: flex-start;
 
   border-radius: 1rem;
 `;

@@ -4,7 +4,7 @@ import AddFoodBtn from '../assets/AddFoodBtn.svg?react';
 import DisableBtn from '../assets/AddFoodBtnDisable.svg?react';
 import ResetBtn from '../assets/ResetBtn.svg?react';
 import Horizon from '../assets/Horizon.svg?react';
-import wEssential from '../assets/Essential.svg?react';
+import Essential from '../assets/Essential.svg?react';
 import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
@@ -81,8 +81,8 @@ const AddFoodInfo = ({ onClick }) => {
       <TitleWrapper>
         <TitleTextWrapper>
           <TitleText>음식명</TitleText>
+          <Essential />
           {/* 필수 입력 항목 명시 아이콘 */}
-          <Essential></Essential>
         </TitleTextWrapper>
         <BigInput type="name" ref={foodNameRef} onChange={onContentChange} value={foodname}></BigInput>
       </TitleWrapper>
@@ -104,12 +104,15 @@ const AddFoodInfo = ({ onClick }) => {
         </IndexWrapper>
         <InputWrapper>
           {FormInfo.map(item => (
-            <SmallInput
-              key={item.type}
-              type="number"
-              onChange={e => onNutritionChange(e, item.type)}
-              value={nutritionInfo[item.type]}
-            />
+            <div style={{ display: 'flex' }}>
+              <SmallInput
+                key={item.type}
+                type="number"
+                onChange={e => onNutritionChange(e, item.type)}
+                value={nutritionInfo[item.type]}
+              />
+              <Unit>{item.unit}</Unit>
+            </div>
           ))}
         </InputWrapper>
       </InfoWrapper>
@@ -132,7 +135,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
 
   background-color: #ffffff;
   border-radius: 0.625rem;
@@ -160,16 +162,17 @@ const ResetWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  width: 25rem;
   height: 2rem;
   margin-top: 1rem;
+  padding-left: 3.5rem;
 
   display: flex;
+  justify-content: flex-start;
   gap: 0.9rem;
 `;
 
 const TitleTextWrapper = styled.div`
-  height: 2.5rem;
+  height: 3rem;
   color: #111111;
 
   /* Pretendard/Sb/18 */
@@ -182,9 +185,8 @@ const TitleTextWrapper = styled.div`
 `;
 
 const HorizonWrapper = styled.div`
-  width: 25rem;
   height: 2rem;
-  margin: 0.5rem 0rem;
+  margin: 1rem;
 
   display: flex;
   justify-content: space-between;
@@ -198,6 +200,8 @@ const HorizonText = styled.div`
 
   font-size: 0.75rem;
   font-weight: 500;
+
+  padding: 0.8rem;
 `;
 
 const InfoWrapper = styled.div`
@@ -205,6 +209,7 @@ const InfoWrapper = styled.div`
   height: auto;
   display: flex;
   flex-direction: row;
+  gap: 2rem;
 `;
 
 const IndexWrapper = styled.div`
@@ -213,15 +218,19 @@ const IndexWrapper = styled.div`
   justify-content: center;
   gap: 1rem;
 
-  margin-left: 6rem;
+  margin-left: 3.5rem;
+  width: 50%;
 `;
 
 const InputWrapper = styled.div`
-  width: 12rem;
+  width: 50%;
   height: 17rem;
   display: flex;
   flex-direction: column;
   gap: 0.88rem;
+
+  margin-right: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const UnitWrapper = styled.div`
@@ -244,7 +253,6 @@ const TitleText = styled.span`
 `;
 
 const Text = styled.div`
-  width: 7rem;
   height: 2.5rem;
   color: #111111;
 
@@ -270,19 +278,21 @@ const LittleText = styled.div`
 const BigInput = styled.input`
   outline: none;
   border: none;
+  box-sizing: border-box;
 
   display: flex;
-  width: 29.25rem;
-  height: 2.7rem;
+  width: 80%;
+  height: 3rem;
+  padding: 1rem;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
 
-  background-color: #ebeeff;
+  background-color: transparent;
+  border: 1px solid #a0a0a0;
   border-radius: 1rem;
 
   text-align: left;
-  padding: 0rem 1rem;
 `;
 
 const SmallInput = styled.input`
@@ -290,13 +300,12 @@ const SmallInput = styled.input`
   border: none;
 
   display: flex;
-  width: 7rem;
   height: 2.1rem;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
 
-  background-color: #ebeeff;
+  border: 1px solid #a0a0a0;
   border-radius: 1rem;
 
   color: #111111;
@@ -317,11 +326,19 @@ const Unit = styled.span`
   font-weight: 500;
   line-height: 2.5rem;
 
+  margin-left: 0.2rem;
+
   text-align: left;
 `;
 
 const ButtonWrapper = styled.div`
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 1rem;
 `;
 
 export default AddFoodInfo;
