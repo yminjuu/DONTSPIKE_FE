@@ -1,8 +1,6 @@
 import MainBloodSugarChart from '../Graphs/components/MainBloodSugarChart';
 import { commonGraphWrapper } from '../common/styles/commonStyles';
-import { commonChartTitle } from '../common/styles/commonStyles';
 import styled from 'styled-components';
-import MainBloodSugarIcon from './assets/MainBloodSugarIcon.svg?react';
 import AddMealButton from './assets/AddMealButton.svg?react';
 import { useNavigate } from 'react-router-dom';
 import RecordBloodSugar from './components/RecordBloodSugar';
@@ -15,10 +13,6 @@ const MainBloodSugar = ({ setBS, fetchMainChartData, mainData }) => {
   return (
     <Container>
       {/* 제목 */}
-      <TitleWrapper>
-        <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
-        <MainBloodSugarIcon></MainBloodSugarIcon>
-      </TitleWrapper>
       <ChartWrapper>
         <Graph_DiscriptSec>
           <InfoWrapper>
@@ -46,26 +40,8 @@ const MainBloodSugar = ({ setBS, fetchMainChartData, mainData }) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  margin-top: 5vh;
+  margin-top: 3vh;
   background-color: #ffffff;
-`;
-
-const TitleWrapper = styled.div`
-  width: 100%;
-  flex-shrink: 0;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const ChartTitle = styled.div`
-  ${commonChartTitle}
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 0.8rem;
-  padding-right: 0.5rem;
 `;
 
 const ChartWrapper = styled.div`

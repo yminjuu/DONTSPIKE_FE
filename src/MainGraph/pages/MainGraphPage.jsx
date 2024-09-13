@@ -11,6 +11,9 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../Recoil';
 
+import { commonChartTitle } from '../../common/styles/commonStyles';
+import doctor from '../assets/doctor.png';
+
 import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
 
 const monthMapping = {
@@ -151,60 +154,155 @@ const MainGraphPage = () => {
 
   if (user === null) return null;
 
-  let options = {
-    sectionClassName: 'section',
-    anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
-    scrollBar: false,
-    navigation: true,
-    verticalAlign: false,
-    sectionPaddingTop: '50px',
-    sectionPaddingBottom: '50px',
-    arrowNavigation: true,
-  };
-
   return (
     <Fullpage>
       <FullpageNavigation />
       <MainHeader currState="graph"></MainHeader>{' '}
       <FullPageSections>
         <FullpageSection>
-          <ContentWrapper>
+          <SectionWrapper>
+            <TitleWrapper>
+              <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
+            </TitleWrapper>
+            <ContentWrapper>
+              {' '}
+              <MainBloodSugar
+                setBS={setBS}
+                fetchMainChartData={fetchMainChartData}
+                mainData={mainData}
+              ></MainBloodSugar>
+              <TipWrapper>
+                <ImgWrapper src={doctor}></ImgWrapper>
+                <TipBox>
+                  00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
+                  어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
+                  <br />
+                  사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
+                  <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
+                </TipBox>
+              </TipWrapper>
+            </ContentWrapper>
+          </SectionWrapper>
+        </FullpageSection>
+        <FullpageSection>
+          <SectionWrapper>
             {' '}
-            <MainBloodSugar setBS={setBS} fetchMainChartData={fetchMainChartData} mainData={mainData}></MainBloodSugar>
-          </ContentWrapper>
+            <TitleWrapper>
+              <ChartTitle>최근 30일간 가장 자주 먹은 음식</ChartTitle>
+            </TitleWrapper>
+            <ContentWrapper>
+              <FoodBar />
+              <TipWrapper>
+                <ImgWrapper src={doctor}></ImgWrapper>
+                <TipBox>
+                  00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
+                  어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
+                  <br />
+                  사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
+                  <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
+                </TipBox>
+              </TipWrapper>
+            </ContentWrapper>
+          </SectionWrapper>
         </FullpageSection>
         <FullpageSection>
-          <ContentWrapper>
-            <FoodBar />
-          </ContentWrapper>
-        </FullpageSection>
-        <FullpageSection>
-          <ContentWrapper>
-            <AverageBloodSugar
-              fetchAverageData={fetchAverageData}
-              averageData={averageData}
-              offset={averageOffset}
-            ></AverageBloodSugar>
-          </ContentWrapper>
+          <SectionWrapper>
+            {' '}
+            <TitleWrapper>
+              <ChartTitle>월별 공복 혈당 평균</ChartTitle>
+            </TitleWrapper>
+            <ContentWrapper>
+              <AverageBloodSugar
+                fetchAverageData={fetchAverageData}
+                averageData={averageData}
+                offset={averageOffset}
+              ></AverageBloodSugar>
+              <TipWrapper>
+                <ImgWrapper src={doctor}></ImgWrapper>
+                <TipBox>
+                  00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
+                  어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
+                  <br />
+                  사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
+                  <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
+                </TipBox>
+              </TipWrapper>
+            </ContentWrapper>
+          </SectionWrapper>
         </FullpageSection>
       </FullPageSections>
     </Fullpage>
   );
 };
 
-// content wrapper
-const ContentWrapper = styled.div`
-  width: 100%;
+const SectionWrapper = styled.div`
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  padding: 5rem 4rem;
+  background-color: #e9eaf1;
+`;
+// content wrapper
+const ContentWrapper = styled.div`
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   box-sizing: border-box;
 
-  background-color: #e9eaf1;
+  background-color: #ffffff;
   /* padding으로 인해 이 요소의 크기 변경 x, 자식 요소의 크기 변경 */
 `;
+const TitleWrapper = styled.div`
+  width: 100%;
+  padding-left: 8rem;
+  margin-top: 3rem;
+  flex-shrink: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 
+  background-color: #e9eaf1;
+`;
+
+const ChartTitle = styled.div`
+  ${commonChartTitle}
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.8rem;
+  padding-right: 0.5rem;
+`;
+
+const ImgWrapper = styled.img`
+  width: 9rem;
+  height: 10.5rem;
+
+  position: absolute;
+  left: -5rem;
+`;
+
+const TipWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  margin-bottom: 2rem;
+`;
+
+const TipBox = styled.div`
+  padding: 2rem;
+  padding: 2rem 5rem 2rem 5rem;
+  max-width: 65rem;
+
+  border-radius: 1.25rem;
+
+  background-color: #f0f1f5;
+`;
 export default MainGraphPage;

@@ -4,7 +4,7 @@ import AddFoodBtn from '../assets/AddFoodBtn.svg?react';
 import DisableBtn from '../assets/AddFoodBtnDisable.svg?react';
 import ResetBtn from '../assets/ResetBtn.svg?react';
 import Horizon from '../assets/Horizon.svg?react';
-import Essential from '../assets/Essential.svg?react';
+import wEssential from '../assets/Essential.svg?react';
 import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
@@ -112,11 +112,6 @@ const AddFoodInfo = ({ onClick }) => {
             />
           ))}
         </InputWrapper>
-        <UnitWrapper>
-          {FormInfo.map(item => (
-            <Unit key={item.index}>{item.unit}</Unit>
-          ))}
-        </UnitWrapper>
       </InfoWrapper>
       <ButtonWrapper onClick={onRegBtn}>
         {regstate === true ? (
@@ -138,12 +133,15 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  background-color: #ffffff;
+  border-radius: 0.625rem;
 `;
 
 const ResetWrapper = styled.div`
   cursor: pointer;
 
-  width: 45rem;
+  width: 35rem;
   height: 0.9rem;
   display: flex;
   flex-direction: row;
@@ -162,7 +160,7 @@ const ResetWrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  width: 36rem;
+  width: 25rem;
   height: 2rem;
   margin-top: 1rem;
 
@@ -184,7 +182,7 @@ const TitleTextWrapper = styled.div`
 `;
 
 const HorizonWrapper = styled.div`
-  width: 35rem;
+  width: 25rem;
   height: 2rem;
   margin: 0.5rem 0rem;
 
@@ -210,7 +208,6 @@ const InfoWrapper = styled.div`
 `;
 
 const IndexWrapper = styled.div`
-  width: 16rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -220,7 +217,7 @@ const IndexWrapper = styled.div`
 `;
 
 const InputWrapper = styled.div`
-  width: 17.5rem;
+  width: 12rem;
   height: 17rem;
   display: flex;
   flex-direction: column;
@@ -228,7 +225,7 @@ const InputWrapper = styled.div`
 `;
 
 const UnitWrapper = styled.div`
-  height: 17.5rem;
+  height: 12rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -247,7 +244,7 @@ const TitleText = styled.span`
 `;
 
 const Text = styled.div`
-  width: 14rem;
+  width: 7rem;
   height: 2.5rem;
   color: #111111;
 
@@ -293,7 +290,7 @@ const SmallInput = styled.input`
   border: none;
 
   display: flex;
-  width: 15.5rem;
+  width: 7rem;
   height: 2.1rem;
   justify-content: center;
   align-items: center;

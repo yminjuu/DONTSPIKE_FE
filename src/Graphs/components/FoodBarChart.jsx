@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil';
-
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
 };

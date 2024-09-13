@@ -75,7 +75,7 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   return (
     <>
       <PageBackground>
-        <NavWrapper>
+        {/* <NavWrapper>
           <NavItem
             onClick={() => {
               onNavClick('freq');
@@ -94,13 +94,14 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
           >
             직접 등록해요!
           </NavItem>
-        </NavWrapper>
-        <ItemsWrapper $navstate={navstate}>
-          {navstate === 'freq' ? (
-            favFood.map(item => <OftFoodItem key={item.foodDataId} {...item} fetchMeal={fetchMeal}></OftFoodItem>)
-          ) : (
-            <AddFoodInfo onClick={onFoodReg}></AddFoodInfo>
-          )}
+        </NavWrapper> */}
+        <ItemsWrapper>
+          <FoodItemWrapper>
+            {favFood.map(item => (
+              <OftFoodItem key={item.foodDataId} {...item} fetchMeal={fetchMeal}></OftFoodItem>
+            ))}
+          </FoodItemWrapper>
+          <AddFoodInfo onClick={onFoodReg}></AddFoodInfo>
         </ItemsWrapper>
       </PageBackground>
     </>
@@ -142,43 +143,25 @@ const NavItem = styled.div`
 
   font-size: 1rem;
   font-weight: 600;
-
-  ${props =>
-    props.$navstate === props.$navkey
-      ? // 현재 state가 해당 버튼이 눌린 상태라면
-        css`
-          background: #111111;
-          color: white;
-        `
-      : css`
-          background: transparent;
-          color: #707070;
-        `};
-  // 여기 좀 잘한듯 메모
 `;
 
 const ItemsWrapper = styled.div`
-  width: 47.625rem;
-  height: 27rem;
+  margin: 2rem 4rem;
   flex-shrink: 0;
 
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 3rem;
+
+  border-radius: 1rem;
+`;
+
+const FoodItemWrapper = styled.div`
+  display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
-  overflow-y: scroll;
-
-  ${props =>
-    props.$navstate === 'onHand'
-      ? css`
-          background-color: white;
-          border-radius: 1rem;
-          box-shadow: 2px 4px 10px #e8e8e8;
-          height: 28.5rem;
-        `
-      : css`
-          background-color: transparent;
-        `}
+  align-items: center;
 `;
 
 export default FoodNavigationSection;

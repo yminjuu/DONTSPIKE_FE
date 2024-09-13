@@ -10,7 +10,6 @@ const AverageBloodSugar = ({ fetchAverageData, averageData, offset }) => {
   return (
     <Container>
       <ChartWrapper>
-        <ChartTitle>월별 공복 혈당 평균</ChartTitle>
         <GraphWrapper>
           <AverageBloodSugarChart
             fetchAverageData={fetchAverageData}
@@ -26,7 +25,7 @@ const AverageBloodSugar = ({ fetchAverageData, averageData, offset }) => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 5vh;
+  margin-top: 3vh;
 
   display: flex;
   justify-content: center;

@@ -15,6 +15,7 @@ const OftFoodItem = props => {
 
 const ItemWrapper = styled.div`
   height: 5rem;
+  width: 40rem;
   flex-shrink: 0;
 
   border-radius: 0.625rem;

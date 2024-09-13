@@ -8,7 +8,7 @@ const FoodBar = () => {
   return (
     <Container>
       <ChartWrapper>
-        <ChartTitle>최근 30일 간 가장 자주 먹은 음식</ChartTitle>
+        {/* 설명 */}
         <FoodBarChart></FoodBarChart>
       </ChartWrapper>
     </Container>
