@@ -8,6 +8,8 @@ import { userState } from '../../Recoil';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import Background from '../../FoodWiki/assets/background_foodwiki.png';
+
 const FoodWikiPage = () => {
   const user = useRecoilValue(userState);
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ const FoodWikiPage = () => {
 
   return (
     <PageBackground>
+      <BackImg src={Background} />
       <MainHeader currState="foodwiki"></MainHeader>
       <FoodWikiSearch></FoodWikiSearch>
       <CarouselBox>
@@ -41,6 +44,16 @@ const PageBackground = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+`;
+
+const BackImg = styled.img`
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: -5rem;
+
+  z-index: 1;
 `;
 
 const CarouselBox = styled.div`

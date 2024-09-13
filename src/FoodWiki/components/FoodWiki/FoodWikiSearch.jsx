@@ -1,12 +1,12 @@
 import { styled, keyframes } from 'styled-components';
 import SearchBox from '../../../common/components/SearchBox';
-import Taco from '../../../FoodWiki/assets/Taco.svg?react';
+import SearchSec from '../../../FoodWiki/assets/SearchSec.png';
 
 const FoodWikiSearch = () => {
   return (
     <>
       <MainWrapper>
-        <RotatingTaco></RotatingTaco>
+        <RotatingTaco src={SearchSec}></RotatingTaco>
         <Title>혈당백과</Title>
         <Description>음식을 검색해보세요! 혈당 관리에 도움이 되는 방법을 함께 알려드릴게요.</Description>
         <SearchBox type="FoodWiki"></SearchBox>
@@ -17,16 +17,18 @@ const FoodWikiSearch = () => {
 
 const MainWrapper = styled.div`
   margin-top: 3rem;
-  color: #414141;
 
   font-size: 1.25rem;
   font-weight: 400;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  z-index: 0;
-  height: 23rem;
+  z-index: 2;
+  height: 60%;
+
+  position: relative;
 `;
 
 const Title = styled.div`
@@ -67,8 +69,10 @@ const skew = keyframes`
 }
 `;
 
-const RotatingTaco = styled(Taco)`
-  animation: ${skew} 10s infinite linear;
+const RotatingTaco = styled.img`
+  width: 5.0625rem;
+  height: 4.16894rem;
+  flex-shrink: 0;
 `;
 
 export default FoodWikiSearch;

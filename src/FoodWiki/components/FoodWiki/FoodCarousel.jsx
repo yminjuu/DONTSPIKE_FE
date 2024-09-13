@@ -51,6 +51,12 @@ const FoodCarousel = () => {
 
   return (
     <Slider {...settings}>
+      <FoodSlide index={38} foodname="포도"></FoodSlide>
+      <FoodSlide index={39} foodname="딸기"></FoodSlide>
+      <FoodSlide index={40} foodname="바나나"></FoodSlide>
+      <FoodSlide index={41} foodname="오렌지"></FoodSlide>
+      <FoodSlide index={32} foodname="사과"></FoodSlide>
+      <FoodSlide index={33} foodname="수박"></FoodSlide>
       <FoodSlide index={1} foodname="제육볶음"></FoodSlide>
       <FoodSlide index={2} foodname="낙지볶음"></FoodSlide>
       <FoodSlide index={4} foodname="피자"></FoodSlide>
@@ -81,16 +87,11 @@ const FoodCarousel = () => {
       <FoodSlide index={29} foodname="계란 후라이"></FoodSlide>
       <FoodSlide index={30} foodname="그래놀라 시리얼"></FoodSlide>
       <FoodSlide index={31} foodname="콘플레이크 시리얼"></FoodSlide>
-      <FoodSlide index={32} foodname="사과"></FoodSlide>
-      <FoodSlide index={33} foodname="수박"></FoodSlide>
+
       <FoodSlide index={34} foodname="브로콜리"></FoodSlide>
       <FoodSlide index={35} foodname="연어"></FoodSlide>
       <FoodSlide index={36} foodname="현미밥"></FoodSlide>
       <FoodSlide index={37} foodname="두부"></FoodSlide>
-      <FoodSlide index={38} foodname="포도"></FoodSlide>
-      <FoodSlide index={39} foodname="딸기"></FoodSlide>
-      <FoodSlide index={40} foodname="바나나"></FoodSlide>
-      <FoodSlide index={41} foodname="오렌지"></FoodSlide>
     </Slider>
   );
 };
