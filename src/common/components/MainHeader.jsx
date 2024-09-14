@@ -7,11 +7,15 @@ import Blackgraph from '../assets/Blackgraph.svg?react';
 import Whitefoodwiki from '../assets/Whitefoodwiki.svg?react';
 import Whitegraph from '../assets/Whitegraph.svg?react';
 import LogoutSection from './LogoutSection';
+import { modeState } from '../../Recoil';
+import { useRecoilValue } from 'recoil';
 
 import DescriptionBtn from './DescriptionBtn';
 import ModeChange from './ModeChange';
 
 const MainHeader = ({ currState }) => {
+  const mode = useRecoilValue(modeState);
+
   const navigate = useNavigate();
 
   const [navState, setNavstate] = useState(currState);
@@ -38,6 +42,7 @@ const MainHeader = ({ currState }) => {
       <PageStateSection>
         <ButtonsWrapper>
           <GraphNavigateButtonWrapper
+            mode={mode}
             $navState={navState}
             onClick={() => {
               onNavClick('graph');
@@ -46,7 +51,7 @@ const MainHeader = ({ currState }) => {
             {navState === 'graph' ? <Whitegraph></Whitegraph> : <Blackgraph></Blackgraph>}
             마이그래프
           </GraphNavigateButtonWrapper>
-          <FoodWikiButtonWrapper $navState={navState} onClick={() => onNavClick('foodwiki')}>
+          <FoodWikiButtonWrapper mode={mode} $navState={navState} onClick={() => onNavClick('foodwiki')}>
             {/* 검색 아이콘 svg */}
             {navState === 'foodwiki' ? <Whitefoodwiki></Whitefoodwiki> : <Blackfoodwiki></Blackfoodwiki>}
             혈당백과
@@ -105,8 +110,6 @@ const ButtonsWrapper = styled.div`
 `;
 
 const GraphNavigateButtonWrapper = styled.button`
-  width: 7rem;
-  height: 2.5rem;
   flex-shrink: 0;
   border-radius: 1.875rem;
   opacity: var(--sds-size-stroke-border);
@@ -120,9 +123,6 @@ const GraphNavigateButtonWrapper = styled.button`
 
   color: var(--Grayscale-White, #fff);
   /* Pretendard/Sb/16 */
-
-  font-size: 0.83rem;
-  font-weight: 600;
 
   ${props =>
     props.$navState !== 'graph'
@@ -131,11 +131,24 @@ const GraphNavigateButtonWrapper = styled.button`
           color: black;
         `
       : css``}
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 12rem;
+          height: 3.5rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+        `
+      : css`
+          width: 7rem;
+          height: 2.5rem;
+          font-size: 0.83rem;
+          font-weight: 600;
+        `}
 `;
 
 const FoodWikiButtonWrapper = styled.button`
-  width: 7rem;
-  height: 2.5rem;
   flex-shrink: 0;
   border-radius: 1.875rem;
   opacity: var(--sds-size-stroke-border);
@@ -150,9 +163,6 @@ const FoodWikiButtonWrapper = styled.button`
   color: var(--Grayscale-White, #fff);
   /* Pretendard/Sb/16 */
 
-  font-size: 0.83rem;
-  font-weight: 600;
-
   ${props =>
     props.$navState !== 'foodwiki'
       ? css`
@@ -160,6 +170,21 @@ const FoodWikiButtonWrapper = styled.button`
           color: black;
         `
       : css``}
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 12rem;
+          height: 3.5rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+        `
+      : css`
+          width: 7rem;
+          height: 2.5rem;
+          font-size: 0.83rem;
+          font-weight: 600;
+        `}
 `;
 
 export default MainHeader;

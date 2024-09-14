@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, L
 import MainBSToolTip from '../MainBS/MainBSToolTip';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
-import SpikeDotSvg from '../assets/SpikeDot.svg?react';
 
 const isTomorrow = date => {
   const today = new Date();

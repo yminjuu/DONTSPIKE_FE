@@ -1,8 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { TbFileDescription } from 'react-icons/tb';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 const DescriptionBtn = () => {
+  const mode = useRecoilValue(modeState);
   const navigate = useNavigate();
 
   const onLanding = () => {
@@ -12,7 +15,7 @@ const DescriptionBtn = () => {
   return (
     <Wrapper onClick={onLanding}>
       <TbFileDescription />
-      <div style={{ color: '#111111', fontSize: '1rem', fontWeight: '500', display: 'flex' }}>사용 설명서</div>
+      <Text mode={mode}>사용 설명서</Text>
     </Wrapper>
   );
 };
@@ -25,6 +28,22 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+const Text = styled.div`
+  color: #111111;
+  display: flex;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.4rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1rem;
+          font-weight: 500;
+        `}
 `;
 
 export default DescriptionBtn;

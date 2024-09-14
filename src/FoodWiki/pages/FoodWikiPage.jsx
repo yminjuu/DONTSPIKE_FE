@@ -7,12 +7,16 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { modeState } from '../../Recoil';
 
 import Background from '../../FoodWiki/assets/background_foodwiki.png';
 
 const FoodWikiPage = () => {
   const user = useRecoilValue(userState);
   const navigate = useNavigate();
+
+  const mode = useRecoilValue(modeState);
+  // senior or normal
 
   // login 상태인지 확인
   useEffect(() => {
@@ -62,6 +66,7 @@ const CarouselBox = styled.div`
 
   flex: 1 0 auto;
   border-top: 2px solid #e8e8e8;
+  z-index: 2;
 `;
 
 const CarouselWrapper = styled.div`

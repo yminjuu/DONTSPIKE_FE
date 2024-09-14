@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { modeState } from '../../Recoil/index';
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
@@ -7,7 +7,6 @@ import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 const ModeChange = () => {
   const [mode, setMode] = useRecoilState(modeState);
   // 현재 mode 관리
-
   const [openState, setOpenState] = useState(false);
   // 토글이 열렸는지를 관리
 
@@ -18,13 +17,13 @@ const ModeChange = () => {
 
   return (
     <MainWrapper>
-      <Button onClick={() => handleModeChange(false)}>
+      <Button onClick={() => handleModeChange(false)} mode={mode}>
         {openState === false ? <SlArrowDown /> : <SlArrowUp />}
         {mode === 'senior' ? '시니어모드' : '일반모드'}
       </Button>
       {openState === true ? (
-        <DropdownWrapper>
-          <ReverseButton onClick={() => handleModeChange(true)}>
+        <DropdownWrapper mode={mode}>
+          <ReverseButton mode={mode} onClick={() => handleModeChange(true)}>
             {mode === 'senior' ? '일반 모드' : '시니어 모드'}
           </ReverseButton>
         </DropdownWrapper>
@@ -50,12 +49,16 @@ const MainWrapper = styled.div`
 `;
 
 // MainWrapper의 최소한 하나의 자식 요소가 공간 차지를 해야 상위의 display: flex가 알맞게 작동함
-const Button = styled.button`
+const Button = styled.div`
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+
   border: none;
   padding: 0;
   cursor: pointer;
-  width: 8rem;
-  height: 2.5rem;
   flex-shrink: 0;
   z-index: 2;
 
@@ -64,22 +67,34 @@ const Button = styled.button`
   background: #fff;
 
   color: #111;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 2.5rem;
 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 0.4rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 12rem;
+          height: 3.5rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+        `
+      : css`
+          width: 8rem;
+          height: 2.5rem;
+          font-size: 1rem;
+          font-weight: 600;
+          line-height: 2.5rem;
+        `}
 `;
 
 const DropdownWrapper = styled.div`
   cursor: pointer;
   z-index: 1; // 버튼 밑으로 숨어야 하는 div
-  width: 7.625rem;
-  height: 4.8rem;
+
   flex-shrink: 0;
 
   border-bottom-left-radius: 1.25rem;
@@ -89,31 +104,57 @@ const DropdownWrapper = styled.div`
   border: 1px solid #414141;
   background: #111111;
 
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 2.5rem;
-
   position: absolute;
   top: 0;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 12rem;
+          height: 6.9rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+          line-height: 3.5rem;
+        `
+      : css`
+          width: 7.625rem;
+          height: 4.8rem;
+          font-size: 1rem;
+          font-weight: 600;
+          line-height: 2.5rem;
+        `}
 `;
 
-const ReverseButton = styled.button`
+const ReverseButton = styled.div`
   border: none;
   padding: 0;
   background-color: transparent;
   cursor: pointer;
-  width: 7.625rem;
-  height: 2.5rem;
   flex-shrink: 0;
   z-index: 3;
 
   color: #ffffff;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  text-align: end;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 12rem;
+          height: 3.5rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+        `
+      : css`
+          width: 7.625rem;
+          height: 2.4rem;
+          font-size: 1rem;
+          font-weight: 600;
+          line-height: 2.5rem;
+        `}
 `;

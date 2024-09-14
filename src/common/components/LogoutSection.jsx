@@ -1,11 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { modeState, userState } from '../../Recoil';
 
 const LogoutSection = () => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
+  const mode = useRecoilValue(modeState);
 
   const onLogout = () => {
     setUser(null);
@@ -20,7 +21,7 @@ const LogoutSection = () => {
           fill="#111111"
         />
       </svg>
-      <div style={{ color: '#111111', fontSize: '1rem', fontWeight: '500', display: 'flex' }}>로그아웃</div>
+      <Text mode={mode}>로그아웃</Text>
     </Wrapper>
   );
 };
@@ -33,6 +34,22 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+const Text = styled.div`
+  color: #111111;
+  display: flex;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.4rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1rem;
+          font-weight: 500;
+        `}
 `;
 
 export default LogoutSection;
