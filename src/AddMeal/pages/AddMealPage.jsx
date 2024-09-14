@@ -70,7 +70,6 @@ const AddMealPage = () => {
 const PageBackground = styled.div`
   // 사용자가 보는 화면의 크기가 page의 크기가 됨
   width: 100%;
-  height: 100%;
 
   background-color: #f0f1f5;
 `;

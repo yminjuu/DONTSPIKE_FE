@@ -8,10 +8,14 @@ import Essential from '../assets/Essential.svg?react';
 import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../../../Recoil';
 
 // 직접 음식 등록하기
 // 직접 음식 등록하기
 const AddFoodInfo = ({ onClick }) => {
+  const mode = useRecoilValue(modeState);
+
   const [foodname, setFoodname] = useState('');
   const [nutritionInfo, setNutritionInfo] = useState({
     amount: '',
@@ -74,13 +78,13 @@ const AddFoodInfo = ({ onClick }) => {
 
   return (
     <Wrapper>
-      <ResetWrapper onClick={onResetBtn}>
+      <ResetWrapper mode={mode} onClick={onResetBtn}>
         <ResetBtn></ResetBtn>
         입력 초기화
       </ResetWrapper>
       <TitleWrapper>
         <TitleTextWrapper>
-          <TitleText>음식명</TitleText>
+          <TitleText mode={mode}>음식명</TitleText>
           <Essential />
           {/* 필수 입력 항목 명시 아이콘 */}
         </TitleTextWrapper>
@@ -88,7 +92,7 @@ const AddFoodInfo = ({ onClick }) => {
       </TitleWrapper>
       <HorizonWrapper>
         <Horizon></Horizon>
-        <HorizonText>영양정보</HorizonText>
+        <HorizonText mode={mode}>영양정보</HorizonText>
         <Horizon></Horizon>
       </HorizonWrapper>
       {/* 영양정보 horizon  */}
@@ -96,9 +100,13 @@ const AddFoodInfo = ({ onClick }) => {
         <IndexWrapper>
           {FormInfo.map(item => (
             // React.Fragment를 사용하면 여러개의 태그를 map함수를 통해 반환할 수 있다.
-            <Text key={item.index}>
+            <Text mode={mode} key={item.index}>
               {item.index}
-              {item.index === '내용량' ? <LittleText>1인분을 기준으로 내용량을 입력해주세요.</LittleText> : <></>}
+              {item.index === '내용량' ? (
+                <LittleText mode={mode}>1인분을 기준으로 내용량을 입력해주세요.</LittleText>
+              ) : (
+                <></>
+              )}
             </Text>
           ))}
         </IndexWrapper>
@@ -157,8 +165,16 @@ const ResetWrapper = styled.div`
 
   /* Pretendard/Md/12 */
 
-  font-size: 0.75rem;
-  font-weight: 500;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.1rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 0.75rem;
+          font-weight: 500;
+        `}
 `;
 
 const TitleWrapper = styled.div`
@@ -198,10 +214,18 @@ const HorizonText = styled.div`
 
   /* Pretendard/Md/12 */
 
-  font-size: 0.75rem;
-  font-weight: 500;
-
   padding: 0.8rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 0.75rem;
+          font-weight: 500;
+        `}
 `;
 
 const InfoWrapper = styled.div`
@@ -233,37 +257,44 @@ const InputWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
-const UnitWrapper = styled.div`
-  height: 12rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  margin-left: 0.3rem;
-`;
-
 const TitleText = styled.span`
   color: #111111;
 
-  font-size: 1.125rem;
-  font-weight: 600;
-
   text-align: center;
   line-height: 2.5rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.7rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1.125rem;
+          font-weight: 600;
+        `}
 `;
 
 const Text = styled.div`
   height: 2.5rem;
   color: #111111;
 
-  font-size: 1.125rem;
-  font-weight: 600;
-
   text-align: left;
 
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.6rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1.125rem;
+          font-weight: 600;
+        `}
 `;
 
 const LittleText = styled.div`
@@ -272,8 +303,16 @@ const LittleText = styled.div`
 
   /* Pretendard/Md/12 */
 
-  font-size: 0.7rem;
-  font-weight: 400;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 0.9rem;
+          font-weight: 500;
+        `
+      : css`
+          font-size: 0.7rem;
+          font-weight: 400;
+        `}
 `;
 const BigInput = styled.input`
   outline: none;

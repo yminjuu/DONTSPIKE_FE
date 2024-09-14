@@ -173,7 +173,7 @@ const SearchBox = ({ type, fetchMeal }) => {
       </Wrapper>
 
       {/* 위치가 SearchSection 일 때에만 디자인 추가*/}
-      {type === 'SearchSection' ? (
+      {type === 'SearchSection' && mode === 'normal' ? (
         <TransparentWrapper>
           <StyledSalad src={Salad} />
         </TransparentWrapper>
