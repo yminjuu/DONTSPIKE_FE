@@ -83,7 +83,7 @@ const AddInfo = styled.div`
 
   /* Pretendard/Md/16 */
 
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 350;
   opacity: var(--sds-size-stroke-border);
 `;
@@ -106,7 +106,7 @@ const AddSpan = styled.span`
 
   /* Pretendard/Md/16 */
 
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 350;
 `;
 

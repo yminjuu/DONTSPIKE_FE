@@ -3,6 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, L
 import MainBSToolTip from '../MainBS/MainBSToolTip';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
+import SpikeDotSvg from '../assets/SpikeDot.svg?react';
 
 const isTomorrow = date => {
   const today = new Date();
@@ -106,45 +107,47 @@ const CustomActiveDot = ({ cx, cy, fill }) => (
 
 const SpikeDot = ({ cx, cy, fill }) => (
   <svg
-    x={cx - 16.5}
-    y={cy - 24.5} // Adjusted to accommodate the text above the circle
-    width="33"
-    height="41" // Increased height to fit the text above the circle
-    viewBox="0 0 33 41"
+    x={cx - 12.5} // cx와 cy가 SVG 중앙에 위치하도록 조정
+    y={cy - 17.5}
+    width="100"
+    height="100"
+    viewBox="0 0 100 100"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g filter="url(#filter0_d_817_1885)">
-      <circle cx="16.5" cy="24.5" r="13" fill="#FFD7D7" />
-    </g>
-    <g filter="url(#filter1_if_817_1885)">
-      <path
-        d="M10.0356 24.7964L18.7806 14.2803C19.0457 13.9615 19.5598 14.2175 19.4651 14.6212L17.7234 22.0492C17.6685 22.2833 17.8348 22.5113 18.0745 22.5305L21.7654 22.8258C22.0846 22.8513 22.2408 23.2274 22.0336 23.4716L13.3334 33.7234C13.0648 34.0399 12.5527 33.7777 12.6525 33.3748L14.4968 25.9278C14.5582 25.68 14.3707 25.4405 14.1155 25.4405H10.3376C10.0048 25.4405 9.82273 25.0524 10.0356 24.7964Z"
-        fill="#D33F3F"
-      />
-    </g>
     <text
-      x="16.5"
-      y="10" // Positioning the text above the circle
+      x="10" // 텍스트의 x 좌표를 동그라미 중앙으로 맞춤
+      y="40" // 텍스트의 y 좌표를 동그라미 위로 배치
       textAnchor="middle"
-      dy=".3em"
       fill="#D33F3F"
       fontSize="10"
+      dx=".5em"
+      dy=".1em"
       fontWeight="bold"
     >
-      Spike
+      SPIKE!
     </text>
+    <g filter="url(#filter0_i_1404_2810)">
+      <circle cx="13" cy="13.6487" r="13" fill="#D33F3F" />
+    </g>
+    <g filter="url(#filter1_if_1404_2810)">
+      <path
+        d="M6.53558 14.4451L15.2806 3.929C15.5457 3.61022 16.0598 3.86622 15.9651 4.26988L14.2234 11.6979C14.1685 11.932 14.3348 12.16 14.5745 12.1792L18.2654 12.4744C18.5846 12.5 18.7408 12.8761 18.5336 13.1202L9.83339 23.3721C9.56478 23.6886 9.05272 23.4264 9.15252 23.0235L10.9968 15.5765C11.0582 15.3287 10.8707 15.0892 10.6155 15.0892H6.83764C6.50475 15.0892 6.32273 14.7011 6.53558 14.4451Z"
+        fill="#F89E9E"
+      />
+    </g>
     <defs>
       <filter
-        id="filter0_d_817_1885"
-        x="0.625"
-        y="8.625"
-        width="31.5"
-        height="31.5"
+        id="filter0_i_1404_2810"
+        x="0"
+        y="0.648682"
+        width="27.375"
+        height="27.375"
         filterUnits="userSpaceOnUse"
         color-interpolation-filters="sRGB"
       >
         <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"
@@ -153,17 +156,16 @@ const SpikeDot = ({ cx, cy, fill }) => (
         />
         <feOffset dx="1.375" dy="1.375" />
         <feGaussianBlur stdDeviation="1.375" />
-        <feComposite in2="hardAlpha" operator="out" />
-        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_817_1885" />
-        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_817_1885" result="shape" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1404_2810" />
       </filter>
       <filter
-        id="filter1_if_817_1885"
-        x="8.18337"
-        y="13.8761"
+        id="filter1_if_1404_2810"
+        x="6.18337"
+        y="3.52493"
         width="12.7047"
-        height="21.03"
+        height="21.0302"
         filterUnits="userSpaceOnUse"
         color-interpolation-filters="sRGB"
       >
@@ -179,8 +181,8 @@ const SpikeDot = ({ cx, cy, fill }) => (
         <feGaussianBlur stdDeviation="0.521191" />
         <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
         <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0" />
-        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_817_1885" />
-        <feGaussianBlur stdDeviation="0.130298" result="effect2_foregroundBlur_817_1885" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1404_2810" />
+        <feGaussianBlur stdDeviation="0.130298" result="effect2_foregroundBlur_1404_2810" />
       </filter>
     </defs>
   </svg>
@@ -198,7 +200,6 @@ const CustomizedDot = props => {
 };
 
 const CustomizedRegularDot = props => {
-  console.log(props);
   const { cx, cy, payload, stroke } = props;
 
   if (payload.significantIncrease) {
