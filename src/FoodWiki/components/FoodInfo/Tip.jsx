@@ -1,18 +1,23 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Blood from '../../assets/bloodIcon.svg?react';
 import Eat from '../../assets/eatIcon.svg?react';
 import Rec from '../../assets/recIcon.svg?react';
 import Search from '../../assets/searchIcon.svg?react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../../Recoil';
 
 const Tip = ({ tip_title, tip_content }) => {
+  const mode = useRecoilValue(modeState);
+
   return (
+    // 이미지 추가
     <Wrapper>
       <TitleWrapper>
         {tip_title === '전문가의 소견' ? <Search></Search> : <></>}
         {tip_title === '적정 섭취량' ? <Eat></Eat> : <></>}
         {tip_title === '추천 섭취 방법' ? <Rec></Rec> : <></>}
         {tip_title === '혈당 지수' ? <Blood></Blood> : <></>}
-        <Title>{tip_title}</Title>
+        <Title mode={mode}>{tip_title}</Title>
       </TitleWrapper>
       <Content>{tip_content}</Content>
       {/* horizon */}
@@ -51,6 +56,17 @@ const Title = styled.div`
 
   font-size: 1.2rem;
   font-weight: 700;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.8rem;
+          font-weight: 800;
+        `
+      : css`
+          font-size: 1.2rem;
+          font-weight: 700;
+        `}
 `;
 
 const Content = styled.div`
@@ -61,6 +77,19 @@ const Content = styled.div`
   letter-spacing: 0.03rem; //자간
   word-spacing: 0.05rem; //어간
   line-height: 1.5rem; // 행간
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.6rem;
+          font-weight: 700;
+          top: 1.6rem;
+        `
+      : css`
+          font-size: 1.2rem;
+          font-weight: 500;
+          top: 2rem;
+        `}
 `;
 
 export default Tip;

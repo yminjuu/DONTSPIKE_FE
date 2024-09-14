@@ -1,19 +1,21 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SubPageHeader from '../../common/components/SubPageHeader';
-import FoodWikiLogo from '../assets/FoodWikiLogo.svg?react';
 import Tip from '../components/FoodInfo/Tip';
 import Nutrient from '../components/FoodInfo/Nutrient';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../Recoil';
+import { modeState, userState } from '../../Recoil';
+import SearchSec from '../assets/SearchSec.png';
 
 const FoodInfoPage = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [foodSearch] = useSearchParams();
   const query = foodSearch.get('query');
+
+  const mode = useRecoilValue(modeState);
 
   const [data, setData] = useState([]);
 
@@ -50,15 +52,14 @@ const FoodInfoPage = () => {
     <Wrapper>
       <HeaderWrapper>
         <SubPageHeader currState="foodwiki"></SubPageHeader>
-        <LogoWrapper>
-          <FoodWikiLogo></FoodWikiLogo>
-        </LogoWrapper>
+        <LogoWrapper mode={mode}>혈당백과</LogoWrapper>
       </HeaderWrapper>
       <ContentWrapper>
         <InfoWrapper>
           <Nutrient {...data}></Nutrient>
         </InfoWrapper>
         <TipWrapper>
+          <WikiLogo src={SearchSec} />
           <Tip tip_title="전문가의 소견" tip_content={data.expertOpinion} />
           <Tip tip_title="적정 섭취량" tip_content={data.properIntake} />
           <Tip tip_title="추천 섭취 방법" tip_content={data.ingestionMethod} />
@@ -72,16 +73,18 @@ const FoodInfoPage = () => {
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
+
+  background-color: #f0f1f5;
 `;
 
 const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 1vh;
+  padding: 0.7rem;
 
-  background-color: #fafff2;
+  position: relative;
 
-  height: 15vh;
+  border-bottom: 1px solid #cfcfcf;
 `;
 
 const ContentWrapper = styled.div`
@@ -109,19 +112,42 @@ const TipWrapper = styled.div`
   flex-shrink: 0;
 
   border-radius: 0.625rem;
-  border: 1px solid #cfcfcf;
-  background-color: #fafff2;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  background-color: #fff;
+  border-radius: 1rem;
 `;
 
 const LogoWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: absolute;
+  right: 50%;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.8rem;
+          font-weight: 700;
+          top: 1.6rem;
+        `
+      : css`
+          font-size: 1.2rem;
+          font-weight: 500;
+          top: 2rem;
+        `}
+`;
+
+const WikiLogo = styled.img`
+  width: 4.5rem;
+  height: 4rem;
+
+  margin: 0.5rem 0 0.5rem 1rem;
 `;
 
 export default FoodInfoPage;

@@ -32,7 +32,6 @@ const HeaderWrapper = styled.div`
     props.$currState === 'foodwiki'
       ? // 현재 state가 해당 버튼이 눌린 상태라면
         css`
-          background-color: #fafff2;
           height: 3rem;
         `
       : css`
@@ -42,8 +41,8 @@ const HeaderWrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   cursor: pointer;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   flex-shrink: 0;
 
   display: flex;
@@ -52,9 +51,9 @@ const ButtonWrapper = styled.div`
 `;
 
 const Img = styled.img`
-  width: 2rem;
-  height: 2rem;
+  width: 1.7rem;
+  height: 1.7rem;
   object-fit: cover;
-  margin: 2rem;
+  margin: 1rem;
 `;
 export default SubPageHeader;
