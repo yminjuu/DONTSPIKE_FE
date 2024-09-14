@@ -118,7 +118,7 @@ const RecordBloodSugar = ({ setBS }) => {
 
 const Wrapper = styled.div`
   width: 22%;
-  height: 19rem;
+  height: 17.5rem;
   flex-shrink: 0;
   margin: 0rem 1rem 0rem 1rem;
   padding: 1.5rem 1.5rem 0.88rem 2rem;

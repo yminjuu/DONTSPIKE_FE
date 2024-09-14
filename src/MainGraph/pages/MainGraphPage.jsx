@@ -252,6 +252,7 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 1rem;
 
   box-sizing: border-box;
 

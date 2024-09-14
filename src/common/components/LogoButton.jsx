@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { modeState } from '../../Recoil';
 import { useRecoilValue } from 'recoil';
 
-const LogoButton = ({ currState }) => {
+const LogoButton = ({ currState, subPage }) => {
   const navigate = useNavigate();
   const mode = useRecoilValue(modeState);
 
@@ -20,6 +20,7 @@ const LogoButton = ({ currState }) => {
         }
       }}
       $currState={currState}
+      subPage={subPage}
     />
   );
 };
@@ -29,7 +30,7 @@ const LogoImg = styled.img`
   margin-left: 2rem;
   object-fit: cover;
   ${props =>
-    props.$currState === 'graph' || props.$currState === 'foodwiki'
+    props.subPage !== true && (props.$currState === 'graph' || props.$currState === 'foodwiki')
       ? props.mode === 'senior'
         ? css`
             width: 23%;
@@ -39,7 +40,10 @@ const LogoImg = styled.img`
             width: 15%;
             height: 100%;
           `
-      : css``}
+      : css`
+          width: 6rem;
+          height: 3rem;
+        `}
 
   ${props =>
     props.$currState === 'graph' || props.$currState === 'foodwiki'

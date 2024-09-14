@@ -7,7 +7,6 @@ import FoodItem from '../../FoodItem';
 // props로 정보 받아서 띄우기
 // props: foodId, food_name, food_info, addedState, onClick(fetchMeal)
 const SearchItem = props => {
-  console.log(props);
   return (
     <>
       <SearchItemWrapper>

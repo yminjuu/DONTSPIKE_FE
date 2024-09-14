@@ -293,10 +293,10 @@ const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
     }
     return (
       <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
-        <div style={{ width: `${chartWidth}px`, height: '350px' }}>
+        <div style={{ width: `${chartWidth}px`, height: '320px' }}>
           <LineChart
             width={mainData.length <= 10 ? 700 : mainData.length * 100}
-            height={330}
+            height={300}
             data={getProcessedDataList(mainData)}
             margin={{
               top: 10,

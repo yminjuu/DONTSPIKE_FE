@@ -13,7 +13,7 @@ const SubPageHeader = ({ currState }) => {
 
   return (
     <HeaderWrapper $currState={currState}>
-      <LogoButton currState={currState}></LogoButton>
+      <LogoButton currState={currState} subPage={true}></LogoButton>
       {/* x 버튼 svg 태그 */}
       <ButtonWrapper onClick={onBtnClick}>
         <Img src={Icon} alt="음식 이미지"></Img>

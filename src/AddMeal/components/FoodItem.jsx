@@ -1,19 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import AddBtn from '../assets/AddButton.svg?react';
 import AddDoneBtn from '../assets/AfterAddButton.svg?react';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 // props: foodId, foodName, addedStatem fetchMeal
 
 const FoodItem = ({ foodId, foodName, addedState, fetchMeal }) => {
   const [added, setAdd] = useState(addedState);
+  const mode = useRecoilValue(modeState);
 
   // 음식 추가됨
   const onAddBtnClick = () => {
-    console.log(foodId);
     if (added === false) {
-      setAdd(true); // true로 변경하여 버튼 변경
-      console.log(fetchMeal(foodId).PromiseResult);
+      fetchMeal(foodId).then(result => {
+        if (result === true) setAdd(true);
+      });
       // 식단 추가 버튼이 눌린 경우임 => 식단 추가 POST
     }
   };
@@ -21,10 +24,24 @@ const FoodItem = ({ foodId, foodName, addedState, fetchMeal }) => {
   return (
     <>
       <InfoWrapper>
-        <FoodTitle>{foodName}</FoodTitle>
+        <FoodTitle mode={mode}>{foodName}</FoodTitle>
       </InfoWrapper>
-      <AddBtnWrapper onClick={onAddBtnClick}>
-        {added === true ? <AddDoneBtn></AddDoneBtn> : <AddBtn></AddBtn>}
+      <AddBtnWrapper mode={mode} onClick={onAddBtnClick}>
+        {mode !== 'senior' ? (
+          added === true ? (
+            <AddDoneBtn></AddDoneBtn>
+          ) : (
+            <AddBtn></AddBtn>
+          )
+        ) : added === true ? (
+          <SeniorBtn mode={mode} added={added}>
+            추가 완료
+          </SeniorBtn>
+        ) : (
+          <SeniorBtn mode={mode} added={added}>
+            추가하기
+          </SeniorBtn>
+        )}
       </AddBtnWrapper>
     </>
   );
@@ -46,11 +63,41 @@ const FoodTitle = styled.div`
 
   font-size: 1.125rem;
   font-weight: 600;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.6rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1.125rem;
+          font-weight: 600;
+        `}
 `;
 
 const AddBtnWrapper = styled.div`
   cursor: pointer;
   margin-right: 1.7rem;
+`;
+
+const SeniorBtn = styled.button`
+  border: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  width: 8rem;
+  height: 4rem;
+  border-radius: 1rem;
+
+  ${props =>
+    props.added === false
+      ? css`
+          background-color: #3053f9;
+          color: #fff;
+        `
+      : css`
+          background-color: #e8e8e8;
+        `}
 `;
 
 export default FoodItem;
