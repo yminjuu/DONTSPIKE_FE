@@ -9,6 +9,7 @@ import Whitegraph from '../assets/Whitegraph.svg?react';
 import LogoutSection from './LogoutSection';
 
 import DescriptionBtn from './DescriptionBtn';
+import ModeChange from './ModeChange';
 
 const MainHeader = ({ currState }) => {
   const navigate = useNavigate();
@@ -30,7 +31,9 @@ const MainHeader = ({ currState }) => {
 
   return (
     <StyledMainHeader>
-      <LogoButton currState={currState}></LogoButton>
+      <LogoWrapper>
+        <LogoButton currState={currState}></LogoButton>
+      </LogoWrapper>
       {/* 클릭시 그래프 페이지로 이동함 */}
       <PageStateSection>
         <ButtonsWrapper>
@@ -51,6 +54,7 @@ const MainHeader = ({ currState }) => {
         </ButtonsWrapper>
       </PageStateSection>
       <RightWrapper>
+        <ModeChange />
         {navState === 'foodwiki' || navState === 'graph' ? <DescriptionBtn></DescriptionBtn> : <></>}
         <LogoutSection></LogoutSection>
       </RightWrapper>
@@ -76,11 +80,22 @@ const StyledMainHeader = styled.header`
   background: rgba(255, 255, 255, 0.2);
 `;
 
-const PageStateSection = styled.div``;
+const PageStateSection = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+`;
+
+const LogoWrapper = styled.div`
+  width: 35%;
+`;
 
 const RightWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
+
+  width: 35%;
 `;
 
 const ButtonsWrapper = styled.div`
