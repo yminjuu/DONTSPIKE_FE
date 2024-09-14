@@ -247,7 +247,7 @@ const SectionWrapper = styled.div`
 // content wrapper
 const ContentWrapper = styled.div`
   width: 90%;
-  height: 80%;
+  height: 75%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -261,7 +261,7 @@ const ContentWrapper = styled.div`
 const TitleWrapper = styled.div`
   width: 100%;
   padding-left: 8rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
   flex-shrink: 0;
   flex-direction: row;
   justify-content: flex-start;
@@ -272,18 +272,17 @@ const TitleWrapper = styled.div`
 
 const ChartTitle = styled.div`
   ${commonChartTitle}
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  padding: 0.8rem;
-  padding-right: 0.5rem;
+  padding: 2rem;
 `;
 
 const ImgWrapper = styled.img`
-  width: 9rem;
-  height: 10.5rem;
+  width: 7rem;
+  height: 8.3rem;
 
   position: absolute;
-  left: -5rem;
+  left: -4rem;
 `;
 
 const TipWrapper = styled.div`
@@ -293,7 +292,7 @@ const TipWrapper = styled.div`
   align-items: center;
   position: relative;
 
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const TipBox = styled.div`
