@@ -1,16 +1,14 @@
 import { React, useState, useEffect } from 'react';
-import IconImg from '../assets/health.png';
 import LogoButton from '../../common/components/LogoButton';
 import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import '../styles/login.css';
-import ActiveBtn from '../assets/active.png';
-import DefaultBtn from '../assets/default.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../Recoil';
-import KakaoBtn from '../assets/kakao.svg?react';
+import NaverLogin from '../assets/NaverLogin.png';
+import GoogleLogin from '../assets/GoogleLogin.png';
 
 const LoginPage = () => {
   const [id, setId] = useState('블로킹');
@@ -60,8 +58,6 @@ const LoginPage = () => {
         <MdArrowBackIos
           style={{
             cursor: 'pointer',
-            stroke: '#D6DDFE',
-            fill: '#D6DDFE',
             strokeWidth: 0,
             height: '1.5rem',
             width: '1.5rem',
@@ -73,17 +69,15 @@ const LoginPage = () => {
       </BackWrapper>
       {/* 텍스트 Wrapper */}
       <TextWrapper>
-        <div style={{ color: '#FFFFFF', fontSize: '1.875rem', fontWeight: '600' }}>
-          이름과 비밀번호를 입력하면 로그인이 완료됩니다.{' '}
+        <div style={{ color: '#111111', fontSize: '1.875rem', fontWeight: '600' }}>
+          소셜 계정을 통해 간편하게 로그인하세요.
         </div>
-        <div style={{ color: '#D6DDFE', fontSize: '1.175rem', fontWeight: '400' }}>
+        <div style={{ color: '#707070', fontSize: '1.175rem', fontWeight: '400' }}>
           돈스파이크 에서 더욱 스마트한 혈당 관리를 시작해보세요.{' '}
         </div>
       </TextWrapper>
       {/* 로그인 창 */}
-      <Icon src={IconImg}></Icon>
       <LoginWrapper>
-        <LoginText>로그인</LoginText>
         <InputsWrapper>
           <InputWrapper>
             <InputTitle>이름</InputTitle>
@@ -126,9 +120,8 @@ const LoginPage = () => {
             )}
           </ButtonWrapper>
           <Hr />
-          <Button onClick={() => alert('준비 중인 서비스입니다.')}>
-            <KakaoBtn></KakaoBtn>
-          </Button>
+          <LoginBtn src={NaverLogin} />
+          <LoginBtn src={GoogleLogin} />
           {/* 카카오 로그인 버튼 */}
           <JoinWrapper>
             <div
@@ -164,7 +157,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(to bottom, #4c62ca 50%, #f0f1f5 50%);
 
   position: relative;
 `;
@@ -201,17 +193,9 @@ const TextWrapper = styled.div`
   gap: 1rem;
 `;
 
-const Icon = styled.img`
-  width: 7.6875rem;
-  height: 9.0625rem;
-
-  position: relative;
-  top: 5%;
-  right: 10%;
-  z-index: 3;
-`;
-
 const LoginWrapper = styled.div`
+  margin-top: 3rem;
+  padding-top: 2rem;
   min-width: 28rem;
   width: 30vw;
   height: 55vh;
@@ -219,6 +203,7 @@ const LoginWrapper = styled.div`
 
   background-color: #ffffff;
   border-radius: 0.8rem;
+  border: 1px solid #e8e8e8;
   box-shadow: -3px 3px 20px rgba(0, 0, 0, 0.1);
 
   position: relative;
@@ -242,19 +227,6 @@ const ButtonsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-`;
-
-const LoginText = styled.div`
-  width: 100%;
-  height: 10vh;
-
-  color: #111111;
-  font-size: 1.6rem;
-  font-weight: 600;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const InputsWrapper = styled.div`
@@ -326,13 +298,6 @@ const Hr = styled.hr`
   border: 0;
 `;
 
-const Button = styled.div`
-  flex-shrink: 0;
-
-  cursor: pointer;
-  border-radius: 4rem;
-`;
-
 const GeneralBtn = styled.button`
   min-width: 15rem;
   height: 3.1rem;
@@ -361,6 +326,12 @@ const TransparentBtn = styled.button`
 
   text-align: center;
   line-height: 1.2rem;
+`;
+
+const LoginBtn = styled.img`
+  width: 24rem;
+  height: 3rem;
+  object-fit: cover;
 `;
 
 export default LoginPage;
