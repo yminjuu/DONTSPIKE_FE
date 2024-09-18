@@ -20,12 +20,17 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
+  const onNaverLogin = async () => {
+    window.location.href = `${BASE_URL}/oauth2/authorization/naver`;
+  };
+
+  const onGoogleLogin = async () => {
+    window.location.href = `${BASE_URL}/oauth2/authorization/google`;
+  };
+
   const fetchLoginData = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/api/login`, {
-        username: id,
-        password: pw,
-      });
+      const res = await axios.get(`${BASE_URL}/api/login`);
       setUser(res.data.user_id);
       navigate(`/main`, { replace: true });
     } catch (error) {
@@ -119,9 +124,12 @@ const LoginPage = () => {
               <GeneralBtn onClick={checkValidJoin}>로그인</GeneralBtn>
             )}
           </ButtonWrapper>
-          <Hr />
-          <LoginBtn src={NaverLogin} />
-          <LoginBtn src={GoogleLogin} />
+          <LoginBtnsWrapper>
+            {' '}
+            <LoginBtn src={NaverLogin} onClick={onNaverLogin} />
+            <LoginBtn src={GoogleLogin} onClick={onGoogleLogin} />
+          </LoginBtnsWrapper>
+
           {/* 카카오 로그인 버튼 */}
           <JoinWrapper>
             <div
@@ -204,7 +212,6 @@ const LoginWrapper = styled.div`
   background-color: #ffffff;
   border-radius: 0.8rem;
   border: 1px solid #e8e8e8;
-  box-shadow: -3px 3px 20px rgba(0, 0, 0, 0.1);
 
   position: relative;
   top: 0%;
@@ -328,10 +335,17 @@ const TransparentBtn = styled.button`
   line-height: 1.2rem;
 `;
 
+const LoginBtnsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
 const LoginBtn = styled.img`
   width: 24rem;
   height: 3rem;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 export default LoginPage;
