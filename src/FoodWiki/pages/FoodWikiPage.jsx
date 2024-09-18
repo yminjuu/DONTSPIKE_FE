@@ -1,5 +1,5 @@
 import MainHeader from '../../common/components/MainHeader';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FoodWikiSearch from '../components/FoodWiki/FoodWikiSearch';
 import FoodCarousel from '../components/FoodWiki/FoodCarousel';
 import React from 'react';
@@ -7,12 +7,16 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../Recoil';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { modeState } from '../../Recoil';
 
 import Background from '../../FoodWiki/assets/background_foodwiki.png';
 
 const FoodWikiPage = () => {
   const user = useRecoilValue(userState);
   const navigate = useNavigate();
+
+  const mode = useRecoilValue(modeState);
+  // senior or normal
 
   // login 상태인지 확인
   useEffect(() => {
@@ -24,12 +28,12 @@ const FoodWikiPage = () => {
 
   return (
     <PageBackground>
-      <BackImg src={Background} />
+      <BackImg mode={mode} src={Background} />
       <MainHeader currState="foodwiki"></MainHeader>
       <FoodWikiSearch></FoodWikiSearch>
-      <CarouselBox>
+      <CarouselBox mode={mode}>
         <CarouselWrapper>
-          <CarouselTitle>최근 먹은 음식</CarouselTitle>
+          <CarouselTitle mode={mode}>최근 먹은 음식</CarouselTitle>
           <FoodCarousel></FoodCarousel>
         </CarouselWrapper>
       </CarouselBox>
@@ -48,12 +52,20 @@ const PageBackground = styled.div`
 
 const BackImg = styled.img`
   width: 100vw;
-  height: 100vh;
   object-fit: cover;
   position: absolute;
   top: -5rem;
 
   z-index: 1;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          height: 80vh;
+        `
+      : css`
+          height: 100vh;
+        `}
 `;
 
 const CarouselBox = styled.div`
@@ -62,6 +74,7 @@ const CarouselBox = styled.div`
 
   flex: 1 0 auto;
   border-top: 2px solid #e8e8e8;
+  z-index: 2;
 `;
 
 const CarouselWrapper = styled.div`
@@ -78,8 +91,17 @@ const CarouselWrapper = styled.div`
 
 const CarouselTitle = styled.div`
   color: #414141;
-  font-size: 1.5rem;
-  font-weight: 500;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 2rem;
+          font-weight: 800;
+        `
+      : css`
+          font-size: 1.5rem;
+          font-weight: 500;
+        `}
 `;
 
 export default FoodWikiPage;

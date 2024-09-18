@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../../Recoil';
 
 const FoodWikiItem = props => {
   const navigate = useNavigate();
+  const mode = useRecoilValue(modeState);
 
   const onItemClick = () => {
     navigate(`/foodWiki/search?query=${props.foodname}`);
@@ -12,7 +15,7 @@ const FoodWikiItem = props => {
     <>
       <InfoWrapper onClick={onItemClick}>
         <FoodImg src={props.url} alt="음식 이미지"></FoodImg>
-        <FoodTitle>{props.foodname}</FoodTitle>
+        <FoodTitle mode={mode}>{props.foodname}</FoodTitle>
       </InfoWrapper>
     </>
   );
@@ -50,8 +53,16 @@ const FoodImg = styled.img`
 const FoodTitle = styled.div`
   color: #111111;
 
-  font-size: 1rem;
-  font-weight: 500;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1rem;
+          font-weight: 500;
+        `}
 `;
 
 export default FoodWikiItem;

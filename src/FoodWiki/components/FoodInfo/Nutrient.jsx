@@ -1,11 +1,13 @@
-import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import styled, { css } from 'styled-components';
+import { modeState } from '../../../Recoil';
 
 const BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME;
 const BUCKET_REGION = import.meta.env.VITE_BUCKET_REGION;
 const BUCKET_DIRECTORY = import.meta.env.VITE_BUCKET_DIRECTORY;
 
 const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodium, cholesterol }) => {
-  // 음식 이름에 공백이 있으면 없애줌
+  const mode = useRecoilValue(modeState);
 
   const removeSpaces = str => {
     return str.replace(/\s+/g, '');
@@ -19,6 +21,7 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
             src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${BUCKET_DIRECTORY}/${removeSpaces(
               foodname,
             )}.jpg`}
+            alt="준비 중인 이미지입니다."
           ></ImgWrapper>
           <FoodWrapper>
             <FoodTitle>{foodname}</FoodTitle>
@@ -27,9 +30,9 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
         </BasicWrapper>
         <NutrientWrapper>
           <NutrientItem>
-            <Index>열량</Index>
+            <Index mode={mode}>열량</Index>
             <ValueWrapper>
-              <Number>{calorie}</Number>
+              <Number mode={mode}>{calorie}</Number>
               <Unit>kcal</Unit>
             </ValueWrapper>
           </NutrientItem>
@@ -37,9 +40,9 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
             <path d="M1 1L426 0.999967" stroke="#E8E8E8" strokeLinecap="round" />
           </svg>
           <NutrientItem>
-            <Index>탄수화물</Index>
+            <Index mode={mode}>탄수화물</Index>
             <ValueWrapper>
-              <Number>{carbohydrate}</Number>
+              <Number mode={mode}>{carbohydrate}</Number>
               <Unit>g</Unit>
             </ValueWrapper>
           </NutrientItem>
@@ -47,9 +50,9 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
             <path d="M1 1L426 0.999967" stroke="#E8E8E8" strokeLinecap="round" />
           </svg>
           <NutrientItem>
-            <Index>단백질</Index>
+            <Index mode={mode}>단백질</Index>
             <ValueWrapper>
-              <Number>{protein}</Number>
+              <Number mode={mode}>{protein}</Number>
               <Unit>g</Unit>
             </ValueWrapper>
           </NutrientItem>
@@ -57,16 +60,16 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
             <path d="M1 1L426 0.999967" stroke="#E8E8E8" strokeLinecap="round" />
           </svg>
           <NutrientItem>
-            <Index>지방</Index>
+            <Index mode={mode}>지방</Index>
             <ValueWrapper>
-              <Number>{fat}</Number>
+              <Number mode={mode}>{fat}</Number>
               <Unit>g</Unit>
             </ValueWrapper>
           </NutrientItem>
           <NutrientItem>
-            <Index>나트륨</Index>
+            <Index mode={mode}>나트륨</Index>
             <ValueWrapper>
-              <Number>{sodium}</Number>
+              <Number mode={mode}>{sodium}</Number>
               <Unit>mg</Unit>
             </ValueWrapper>
           </NutrientItem>
@@ -74,9 +77,9 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
             <path d="M1 1L426 0.999967" stroke="#E8E8E8" strokeLinecap="round" />
           </svg>
           <NutrientItem>
-            <Index>콜레스테롤</Index>
+            <Index mode={mode}>콜레스테롤</Index>
             <ValueWrapper>
-              <Number>{cholesterol}</Number>
+              <Number mode={mode}>{cholesterol}</Number>
               <Unit>mg</Unit>
             </ValueWrapper>
           </NutrientItem>
@@ -116,12 +119,12 @@ const NutrientWrapper = styled.div`
   width: 35vw;
   flex-shrink: 0;
 
-  border-radius: 1.25rem;
-  border: 1px solid #e8e8e8;
-
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  background-color: #fff;
+  border-radius: 1rem;
 `;
 
 const FoodWrapper = styled.div`
@@ -163,6 +166,17 @@ const Index = styled.div`
   color: #414141;
   font-size: 1.125rem;
   font-weight: 600;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 750;
+        `
+      : css`
+          font-size: 1.125rem;
+          font-weight: 600;
+        `}
 `;
 
 const ValueWrapper = styled.div`
@@ -184,6 +198,17 @@ const Number = styled.span`
 
   text-align: center;
   line-height: 1.875rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 750;
+        `
+      : css`
+          font-size: 1.125rem;
+          font-weight: 600;
+        `}
 `;
 
 const Unit = styled.span`

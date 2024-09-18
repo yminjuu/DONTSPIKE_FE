@@ -1,12 +1,18 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Logo from '../assets/Logo.svg?react';
+import Logo from '../assets/Logo.png';
 import { useNavigate } from 'react-router-dom';
+import { modeState } from '../../Recoil';
+import { useRecoilValue } from 'recoil';
 
-const LogoButton = ({ currState }) => {
+const LogoButton = ({ currState, subPage }) => {
   const navigate = useNavigate();
+  const mode = useRecoilValue(modeState);
+
   return (
-    <Button
+    <LogoImg
+      mode={mode}
+      src={Logo}
       onClick={() => {
         console.log('클릭');
         if (currState === 'graph' || currState === 'foodwiki') {
@@ -14,27 +20,37 @@ const LogoButton = ({ currState }) => {
         }
       }}
       $currState={currState}
-    >
-      <Logo></Logo>
-    </Button>
+      subPage={subPage}
+    />
   );
 };
+const LogoImg = styled.img`
+  width: 6rem;
+  height: 3rem;
+  margin-left: 2rem;
+  object-fit: cover;
+  ${props =>
+    props.subPage !== true && (props.$currState === 'graph' || props.$currState === 'foodwiki')
+      ? props.mode === 'senior'
+        ? css`
+            width: 23%;
+            height: 100%;
+          `
+        : css`
+            width: 15%;
+            height: 100%;
+          `
+      : css`
+          width: 6rem;
+          height: 3rem;
+        `}
 
-const Button = styled.button`
-  border: none;
-  padding: 0;
   ${props =>
     props.$currState === 'graph' || props.$currState === 'foodwiki'
       ? css`
           cursor: pointer;
         `
       : css``}
-  width: 7rem;
-  height: 7rem;
-  margin-left: 2.5rem;
-  flex-shrink: 0;
-
-  background: transparent;
 `;
 
 export default LogoButton;

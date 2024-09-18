@@ -1,8 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SearchBox from '../../../common/components/SearchBox';
 import Datepicker from '../SearchSec/components/DatePicker';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../../Recoil';
 
 const SearchSection = ({ setSelectedDate, fetchMeal }) => {
+  const mode = useRecoilValue(modeState);
+
   const onDateChange = startDate => {
     setSelectedDate(startDate);
   };
@@ -11,9 +15,9 @@ const SearchSection = ({ setSelectedDate, fetchMeal }) => {
     <>
       <PageBackground>
         <TextWrapper>
-          <DatePickSen>식단을 추가할 날짜를 선택해주세요!</DatePickSen>
-          <Info>
-            <TodayDate>
+          <DatePickSen mode={mode}>식단을 추가할 날짜를 선택해주세요!</DatePickSen>
+          <Info mode={mode}>
+            <TodayDate mode={mode}>
               <Datepicker onClick={onDateChange} className="datepicker" type="AddMeal" />
             </TodayDate>
             에 먹은 음식을 추가해주세요!
@@ -57,9 +61,6 @@ const Info = styled.div`
   color: #414141;
 
   /* Pretendard/B/24 */
-
-  font-size: 1.3rem;
-  font-weight: 600;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -69,6 +70,18 @@ const Info = styled.div`
   /* position: absolute; */
   /* top: -10%; */
   z-index: 3;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+        `
+      : css`
+          font-size: 1.3rem;
+          font-weight: 600;
+        `}
 `;
 
 const TodayDate = styled.div`
@@ -91,8 +104,16 @@ const TodayDate = styled.div`
 const DatePickSen = styled.div`
   color: #707070;
 
-  font-size: 1rem;
-  font-weight: 500;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 1rem;
+          font-weight: 500;
+        `}
 `;
 
 export default SearchSection;

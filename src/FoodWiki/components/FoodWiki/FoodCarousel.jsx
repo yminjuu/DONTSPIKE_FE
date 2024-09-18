@@ -2,17 +2,21 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import './styles/FoodCarousel.css';
 import PrevArrow from './PrevArrow';
 import NextArrow from './NextArrow';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../../Recoil';
 
 const removeSpaces = str => {
   return str.replace(/\s+/g, '');
 };
 
 const FoodSlide = ({ index, foodname }) => {
+  const mode = useRecoilValue(modeState);
+
   const navigate = useNavigate();
 
   const BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME;
@@ -30,7 +34,7 @@ const FoodSlide = ({ index, foodname }) => {
         }}
         alt="음식 이미지"
       ></StyledImg>
-      <StyledFoodName>{foodname}</StyledFoodName>
+      <StyledFoodName mode={mode}>{foodname}</StyledFoodName>
     </Wrapper>
   );
 };
@@ -114,8 +118,17 @@ const StyledImg = styled.img`
 
 const StyledFoodName = styled.div`
   color: #000;
-  font-size: 1rem;
-  font-weight: 500;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 500;
+        `
+      : css`
+          font-size: 1rem;
+          font-weight: 500;
+        `}
 `;
 
 export default FoodCarousel;

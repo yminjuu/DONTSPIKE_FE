@@ -4,7 +4,7 @@ import OftFoodItem from '../FoodNavSec/components/OftFoodItem';
 import AddFoodInfo from '../FoodNavSec/components/AddFoodInfo';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../../Recoil';
+import { modeState, userState } from '../../../Recoil';
 
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
@@ -13,6 +13,8 @@ const compare = (a, b) => {
 const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const user = useRecoilValue(userState);
+
+  const mode = useRecoilValue(modeState);
 
   // 자주 먹은 음식 데이터
   const [favFood, setFavFood] = useState([]);
@@ -76,7 +78,7 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
     <>
       <PageBackground>
         <ItemsWrapper>
-          <Title>자주 먹은 음식</Title>
+          <Title mode={mode}>자주 먹은 음식</Title>
           <FoodItemWrapper>
             {favFood.map(item => (
               <OftFoodItem key={item.foodDataId} {...item} fetchMeal={fetchMeal}></OftFoodItem>
@@ -84,7 +86,7 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
           </FoodItemWrapper>
         </ItemsWrapper>
         <ItemsWrapper>
-          <Title>새로운 음식 등록하기</Title>
+          <Title mode={mode}>새로운 음식 등록하기</Title>
           <AddFoodInfo onClick={onFoodReg}></AddFoodInfo>
         </ItemsWrapper>
       </PageBackground>
@@ -104,10 +106,19 @@ const PageBackground = styled.div`
 const Title = styled.div`
   width: 100%;
   color: #111111;
-  font-size: 1.3rem;
-  font-weight: 600;
 
   padding: 1rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.7rem;
+          font-weight: 800;
+        `
+      : css`
+          font-size: 1.3rem;
+          font-weight: 600;
+        `}
 `;
 
 const ItemsWrapper = styled.div`

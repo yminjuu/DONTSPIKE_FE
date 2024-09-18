@@ -7,6 +7,8 @@ import { css } from 'styled-components';
 import SearchItem from '../../AddMeal/components/SearchSec/components/SearchItem';
 import FoodWikiItem from '../../FoodWiki/components/FoodWiki/FoodWikiItem';
 import axios from 'axios';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 // 음식 이름에 공백이 있으면 없애줌
 const removeSpaces = str => {
@@ -18,6 +20,8 @@ const SearchBox = ({ type, fetchMeal }) => {
   const BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME;
   const BUCKET_REGION = import.meta.env.VITE_BUCKET_REGION;
   const BUCKET_DIRECTORY = import.meta.env.VITE_BUCKET_DIRECTORY;
+
+  const mode = useRecoilValue(modeState);
 
   // 검색 상태 관리 : 검색 가능(false) / 검색 이미 완료 상태(true)
   const [searchstate, toggleSearchState] = useState(false); //초기 상태: false
@@ -39,18 +43,24 @@ const SearchBox = ({ type, fetchMeal }) => {
   // searchResult가 들어오면 리렌더링, searchSuccess , searchstate 여부 바뀌면 리렌더링
   useEffect(() => {}, [searchResult, searchSuccess, searchstate]);
 
+  const [loading, setLoading] = useState(false);
+
   // 푸드위키: 검색 관리
   // food_id="1" food_name="사과"
   const fetchFoodWikiSearchResult = async () => {
     try {
       console.log('검색 : ', searchText);
+      setLoading(true);
+      setSuccess(false);
       const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${searchText}`);
 
+      setLoading(false); //res를 받아오고 나서 loading을 false로 바꿔줌
+      setSuccess(true); //res를 받아오고 나서 success를 true로 바꿔줌
       if (res.status === 200 && res.data.length > 0) {
-        setSuccess(true); // 검색 성공
         console.log('푸드위키 api 검색 결과');
         console.log(res.data[0]);
         setResult(res.data[0]); // state 변경 => 리렌더링
+        setSuccess(true); // 검색 성공
       } else {
         console.log('검색 실패', res);
         setSuccess(false);
@@ -137,6 +147,7 @@ const SearchBox = ({ type, fetchMeal }) => {
             value={searchText}
             placeholder="예) 포케, 사과"
             $searchstate={searchstate} /* props 전달 */
+            mode={mode}
           ></StyledInput>
           <BtnWrapper onClick={onSearchBtnClick}>
             {searchstate === true ? <SearchReset></SearchReset> : <SearchButton></SearchButton>}
@@ -146,7 +157,12 @@ const SearchBox = ({ type, fetchMeal }) => {
         {/* 검색 결과 처리 */}
         {searchstate === true ? (
           searchSuccess === false ? (
-            <StyledNoResult>일치하는 결과가 없습니다.</StyledNoResult>
+            // loading이 true인지 false인지에 따라 알맞게 처리
+            loading === true ? (
+              <StyledNoResult mode={mode}>로딩 중입니다.</StyledNoResult>
+            ) : (
+              <StyledNoResult mode={mode}>일치하는 결과가 없습니다.</StyledNoResult>
+            )
           ) : type === 'SearchSection' ? (
             <SearchItem
               foodId={searchResult.foodId}
@@ -168,7 +184,7 @@ const SearchBox = ({ type, fetchMeal }) => {
       </Wrapper>
 
       {/* 위치가 SearchSection 일 때에만 디자인 추가*/}
-      {type === 'SearchSection' ? (
+      {type === 'SearchSection' && mode === 'normal' ? (
         <TransparentWrapper>
           <StyledSalad src={Salad} />
         </TransparentWrapper>
@@ -254,16 +270,29 @@ const StyledInput = styled.input`
 
   /* Pretendard/Reg/20 */
 
-  font-size: 1rem;
-  font-weight: 500;
   border: none;
   outline: none;
 
-  &::placeholder {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #a0a0a0;
-  }
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          &::placeholder {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #a0a0a0;
+          }
+          font-size: 1.5rem;
+          font-weight: 700;
+        `
+      : css`
+          &::placeholder {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #a0a0a0;
+          }
+          font-size: 1rem;
+          font-weight: 500;
+        `}
 `;
 
 const BtnWrapper = styled.div`
@@ -300,9 +329,18 @@ const StyledNoResult = styled.div`
 
   /* Pretendard/Reg/16 */
 
-  font-size: 0.9rem;
-  font-weight: 500;
   line-height: 6.66rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 700;
+        `
+      : css`
+          font-size: 0.9rem;
+          font-weight: 500;
+        `}
 `;
 
 export default SearchBox;
