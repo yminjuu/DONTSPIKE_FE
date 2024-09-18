@@ -67,7 +67,7 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
 
       console.log('음식 등록 완료 ', res);
     } catch (error) {
-      console.log('에러 발생: ', error);
+      console.log('에러 발생: navigation', error);
       if (error.response && error.response.status === 404) {
         console.log('음식 등록 실패');
       }

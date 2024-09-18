@@ -12,9 +12,9 @@ const LandingPageCopy = () => {
   const user = useRecoilValue(userState);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user === null) navigate('/login');
-  });
+  // useEffect(() => {
+  //   if (user === null) navigate('/login');
+  // });
 
   if (user === null) return null;
   return (

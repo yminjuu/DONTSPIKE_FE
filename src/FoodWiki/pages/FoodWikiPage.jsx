@@ -19,12 +19,12 @@ const FoodWikiPage = () => {
   // senior or normal
 
   // login 상태인지 확인
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
-  if (user === null) return null;
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate('/login');
+  //   }
+  // }, [user, navigate]);
+  // if (user === null) return null;
 
   return (
     <PageBackground>

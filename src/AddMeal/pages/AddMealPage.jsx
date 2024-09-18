@@ -45,13 +45,13 @@ const AddMealPage = () => {
   };
 
   // login 상태인지 확인
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate('/login');
+  //   }
+  // }, [user, navigate]);
 
-  if (user === null) return null;
+  // if (user === null) return null;
 
   return (
     <PageBackground>

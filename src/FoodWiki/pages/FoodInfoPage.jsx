@@ -29,7 +29,7 @@ const FoodInfoPage = () => {
     } catch (error) {
       if (error.response && error.response.status === 404) {
         // 검색 결과 없을 때 처리
-        console.log('에러 발생', res);
+        console.log('에러 발생 : food info', res);
       }
     }
   };
@@ -40,13 +40,13 @@ const FoodInfoPage = () => {
   }, []);
 
   // login 상태인지 확인
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate('/login');
+  //   }
+  // }, [user, navigate]);
 
-  if (user === null) return null;
+  // if (user === null) return null;
 
   return (
     <Wrapper>

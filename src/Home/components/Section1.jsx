@@ -5,8 +5,7 @@ import mainperson1 from '../assets/Section1_1/MainPerson1.png';
 import mainperson2 from '../assets/Section1_1/MainPerson2.png';
 import gsap from 'gsap';
 import Vec1 from '../assets/background/backVector1.png';
-import Mac1 from '../assets/Section1_1/Mac1.png';
-import Mac2 from '../assets/Section1_1/Mac2.png';
+import Imac from '../assets/Section1_1/Imac.png';
 import Logo from '../assets/Section1_1/Logo.png';
 import BookIcon from '../assets/Section1_2/Book.svg?react';
 import GraphIcon from '../assets/Section1_2/Graph.svg?react';
@@ -40,8 +39,7 @@ const Section1 = () => {
           </MainHeader>
           <Content1_1Wrap>
             <MacWrap>
-              <MacImg1 src={Mac1}></MacImg1>
-              <MacImg2 src={Mac2}></MacImg2>
+              <MacImg1 src={Imac}></MacImg1>
             </MacWrap>
             <MainWrap>
               <MainText>혈당 스파이크를 방지할 작은 시작,</MainText>
@@ -80,7 +78,9 @@ const Section1 = () => {
             <Content2_2Wrap>
               <GraphWrap className="graph">
                 <GraphIcon></GraphIcon>
-                <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111111' }}>일별 / 월별 혈당 그래프</div>
+                <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111111' }}>
+                  혈당 그래프 시각화, 맞춤형 분석
+                </div>
                 <div
                   style={{
                     width: '18rem',
@@ -99,15 +99,17 @@ const Section1 = () => {
                 <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111111' }}>혈당 백과</div>
                 <div
                   style={{
-                    width: '12rem',
+                    width: '17rem',
                     fontSize: '0.875rem',
                     fontWeight: '400',
                     color: '#707070',
                     textAlign: 'center',
                     lineHeight: '1rem',
+                    wordBreak: 'keep-all',
                   }}
                 >
-                  궁금한 음식을 검색해보세요! <br></br>다양한 영양 정보와 함께 섭취 팁도 함께 제공됩니다.
+                  궁금한 음식을 검색해보세요! <br />
+                  Open AI가 제공하는 음식 데이터를 기반으로 다양한 영양 정보와 함께 섭취 팁도 알려드릴게요.
                 </div>
               </BookWrap>
             </Content2_2Wrap>
@@ -131,7 +133,7 @@ const Wrapper = styled.div`
 const BGVector = styled.img`
   width: 100%;
   position: absolute;
-  top: 5%;
+  top: 30%;
   z-index: 0;
 `;
 
@@ -205,35 +207,21 @@ const Footer = styled.footer`
 `;
 
 const MacWrap = styled.div`
-  position: relative;
   width: 80%;
-  max-width: 50rem;
-  height: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 5rem;
   @media (min-width: 768px) {
-    height: 30rem;
+    margin: 5rem;
   }
 `;
 
 const MacImg1 = styled.img`
-  width: 60%;
-  max-width: 23.8715rem;
-  position: absolute;
-  top: 30%;
-  left: 35%;
-  z-index: 3;
-`;
-
-const MacImg2 = styled.img`
-  width: 60%;
-  max-width: 23.8715rem;
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  z-index: 2;
+  width: 80%;
+  max-width: 30.8715rem;
+  object-fit: cover;
 `;
 
 const MainWrap = styled.div`
@@ -242,7 +230,6 @@ const MainWrap = styled.div`
   padding: 2rem;
   text-align: center;
   @media (min-width: 768px) {
-    padding: 5rem;
     text-align: left;
   }
 `;
@@ -329,9 +316,9 @@ const MainContent2 = styled.div`
 
 const Content2_Wrap = styled.div`
   width: 100%;
-  max-width: 53.75rem;
+  max-width: 56.75rem;
   height: 100%;
-  max-height: 36.25rem;
+  max-height: 39.25rem;
   border-radius: 0.625rem;
   background-color: rgba(255, 255, 255, 0.4);
   display: flex;

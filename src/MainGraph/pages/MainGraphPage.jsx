@@ -98,11 +98,11 @@ const MainGraphPage = () => {
   const [averageOffset, setOffset] = useState(null);
 
   // login 상태인지 확인
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate('/login');
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
@@ -129,7 +129,7 @@ const MainGraphPage = () => {
       const newData = [...res.data];
       setMainData(newData.sort(compare));
     } catch (error) {
-      console.log('에러 발생', error);
+      console.log('에러 발생: 메인그래프', error);
     }
   };
 

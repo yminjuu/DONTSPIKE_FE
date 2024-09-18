@@ -1,6 +1,6 @@
 import { React, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import pencil from '../assets/Section2/pencil.png';
+import pencil from '../assets/Section2/record.png';
 import { css } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -99,8 +99,8 @@ const TextWrapper = styled.div`
 `;
 
 const Icon = styled.img`
-  width: 2.0625rem;
-  height: 2.625rem;
+  width: 5.0625rem;
+  height: 5.625rem;
   flex-shrink: 0;
 
   @media (max-width: 768px) {
@@ -277,8 +277,8 @@ const Section2 = () => {
                 <br /> 한눈에 그래프로 보여드릴게요.
               </ContentSubText>
               <ContentSubSubText>
-                기록해주신 혈당 수치를 기반으로 <br />
-                다음 날의 예상 혈당을 확인 할 수 있어요.
+                기록해주신 혈당 수치를 기반으로 <span style={{ color: '#3053F9' }}>혈당 분석 레포트</span>와 다음 날의
+                <span style={{ color: '#3053F9' }}> 예상 혈당</span>을 확인할 수 있어요.
               </ContentSubSubText>
             </ContentSubWrapper1_2>
           </Content1Wrap>

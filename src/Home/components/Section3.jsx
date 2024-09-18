@@ -1,6 +1,6 @@
 import { React, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import buritto from '../assets/Section3/buritto.png';
+import buritto from '../assets/Section3/foodRecord.png';
 import { css } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -287,7 +287,10 @@ const Section3 = () => {
           <TitleTextDiv type="big">
             날짜별 <Text>먹은 음식을 기록</Text>하고 식단을 건강하게 관리 해보세요
           </TitleTextDiv>
-          <TextDiv type="small">‘혈당 백과’ 에서는 음식의 영양소와 섭취 팁을 확인할 수 있어요.</TextDiv>
+          <TextDiv type="small">
+            ‘혈당 백과’ 에서는 <span style={{ color: '#3053F9' }}>Open AI</span> 데이터 기반 음식의 영양소 정보와 섭취
+            팁을 확인할 수 있어요.
+          </TextDiv>
         </TitleTextWrapper>
       </PageHeader>
       <ContentWrapper>
@@ -320,8 +323,8 @@ const Section3 = () => {
                 <Icon3></Icon3>
                 <ContentSubText>특정 음식과 혈당의 상관관계가 궁금하신가요?</ContentSubText>
                 <ContentSubSubText>
-                  혈당 백과에 궁금한 음식을 검색해주시면 <br />
-                  혈당 관리에 도움이 되는 정보들을 알려드릴게요.
+                  혈당 백과에 궁금한 음식을 검색해주시면 Open AI 데이터 기반의 혈당 관리에 도움이 되는 정보들을
+                  알려드릴게요.
                 </ContentSubSubText>
               </ContentSubWrapper2_1>
               <ImgWrapper2_2>

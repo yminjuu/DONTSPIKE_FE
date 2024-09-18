@@ -99,7 +99,7 @@ const SearchBox = ({ type, fetchMeal }) => {
       }
       // 식단에 이미 추가되어있는지 여부: 내가 default로 false로 설정?
     } catch (error) {
-      console.log('에러 발생: ', error);
+      console.log('에러 발생: searchbox', error);
       setSuccess(false);
     }
   };
