@@ -73,17 +73,18 @@ const LoginPage = () => {
         />
       </BackWrapper>
       {/* 텍스트 Wrapper */}
-      <TextWrapper>
-        <div style={{ color: '#111111', fontSize: '1.875rem', fontWeight: '600' }}>
-          소셜 계정을 통해 간편하게 로그인하세요.
-        </div>
-        <div style={{ color: '#707070', fontSize: '1.175rem', fontWeight: '400' }}>
-          돈스파이크 에서 더욱 스마트한 혈당 관리를 시작해보세요.{' '}
-        </div>
-      </TextWrapper>
-      {/* 로그인 창 */}
-      <LoginWrapper>
-        <InputsWrapper>
+      <MainWrapper>
+        <TextWrapper>
+          <div style={{ color: '#111111', fontSize: '1.875rem', fontWeight: '600' }}>
+            소셜 계정을 통해 간편하게 로그인하세요.
+          </div>
+          <div style={{ color: '#707070', fontSize: '1.175rem', fontWeight: '400' }}>
+            돈스파이크 에서 더욱 스마트한 혈당 관리를 시작해보세요.{' '}
+          </div>
+        </TextWrapper>
+        {/* 로그인 창 */}
+        <LoginWrapper>
+          {/* <InputsWrapper>
           <InputWrapper>
             <InputTitle>이름</InputTitle>
             <StyledInput
@@ -115,22 +116,23 @@ const LoginPage = () => {
               type="password"
             ></StyledInput>
           </InputWrapper>
-        </InputsWrapper>
-        <ButtonsWrapper>
-          <ButtonWrapper>
+        </InputsWrapper> */}
+          <ButtonsWrapper>
+            {/* <ButtonWrapper>
             {id == '' || pw == '' ? (
               <GeneralBtn>로그인</GeneralBtn>
             ) : (
               <GeneralBtn onClick={checkValidJoin}>로그인</GeneralBtn>
             )}
-          </ButtonWrapper>
-          <LoginBtnsWrapper>
-            {' '}
-            <LoginBtn src={NaverLogin} onClick={onNaverLogin} />
-            <LoginBtn src={GoogleLogin} onClick={onGoogleLogin} />
-          </LoginBtnsWrapper>
+          </ButtonWrapper> */}
+            <LoginBtnsWrapper>
+              {' '}
+              <LoginBtn src={NaverLogin} onClick={onNaverLogin} />
+              <LoginBtn src={GoogleLogin} onClick={onGoogleLogin} />
+            </LoginBtnsWrapper>
 
-          {/* 카카오 로그인 버튼 */}
+            {/* 카카오 로그인 버튼 */}
+          </ButtonsWrapper>
           <JoinWrapper>
             <div
               style={{
@@ -152,8 +154,8 @@ const LoginPage = () => {
               가입하기
             </TransparentBtn>
           </JoinWrapper>
-        </ButtonsWrapper>
-      </LoginWrapper>
+        </LoginWrapper>
+      </MainWrapper>
     </Wrapper>
   );
 };
@@ -169,6 +171,13 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
+const MainWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const BackWrapper = styled.div`
   width: calc(100% - 2rem);
   margin-left: 2rem;
@@ -206,7 +215,6 @@ const LoginWrapper = styled.div`
   padding-top: 2rem;
   min-width: 28rem;
   width: 30vw;
-  height: 55vh;
   flex-shrink: 0;
 
   background-color: #ffffff;
@@ -221,6 +229,7 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 5rem;
 `;
 
 const JoinWrapper = styled.div`
