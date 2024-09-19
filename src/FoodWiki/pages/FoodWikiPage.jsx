@@ -18,14 +18,6 @@ const FoodWikiPage = () => {
   const mode = useRecoilValue(modeState);
   // senior or normal
 
-  // login 상태인지 확인
-  // useEffect(() => {
-  //   if (user === null) {
-  //     navigate('/login');
-  //   }
-  // }, [user, navigate]);
-  // if (user === null) return null;
-
   return (
     <PageBackground>
       <BackImg mode={mode} src={Background} />

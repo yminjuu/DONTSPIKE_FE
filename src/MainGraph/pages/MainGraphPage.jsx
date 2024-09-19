@@ -16,6 +16,8 @@ import doctor from '../assets/doctor.png';
 
 import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
 
+import { Cookies } from 'react-cookie';
+
 const monthMapping = {
   JANUARY: '1월',
   FEBRUARY: '2월',
@@ -97,14 +99,11 @@ const MainGraphPage = () => {
 
   const [averageOffset, setOffset] = useState(null);
 
-  // login 상태인지 확인
-  // useEffect(() => {
-  //   if (user === null) {
-  //     navigate('/login');
-  //   }
-  // }, [user, navigate]);
+  const cookies = new Cookies();
 
   useEffect(() => {
+    console.log(cookies.get('Authorization'));
+
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
     fetchMainChartData();
     fetchAverageData();
@@ -125,7 +124,7 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food/${user}`); // data를 배열 형식으로 새로 받아옴
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`); // data를 배열 형식으로 새로 받아옴
       const newData = [...res.data];
       setMainData(newData.sort(compare));
     } catch (error) {

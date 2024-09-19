@@ -39,15 +39,6 @@ const FoodInfoPage = () => {
     fetchFoodWikiSearchResult();
   }, []);
 
-  // login 상태인지 확인
-  // useEffect(() => {
-  //   if (user === null) {
-  //     navigate('/login');
-  //   }
-  // }, [user, navigate]);
-
-  // if (user === null) return null;
-
   return (
     <Wrapper>
       <HeaderWrapper>
