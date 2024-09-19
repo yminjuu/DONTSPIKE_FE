@@ -16,8 +16,6 @@ import doctor from '../assets/doctor.png';
 
 import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
 
-import { Cookies } from 'react-cookie';
-
 const monthMapping = {
   JANUARY: '1월',
   FEBRUARY: '2월',
@@ -99,11 +97,7 @@ const MainGraphPage = () => {
 
   const [averageOffset, setOffset] = useState(null);
 
-  const cookies = new Cookies();
-
   useEffect(() => {
-    console.log(cookies.get('Authorization'));
-
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
     fetchMainChartData();
     fetchAverageData();
@@ -124,7 +118,10 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`); // data를 배열 형식으로 새로 받아옴
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
+        withCredentials: true, // 쿠키를 포함하도록 설정
+      }); // data를 배열 형식으로 새로 받아옴
+      console.log('메인그래프 데이터: ', res);
       const newData = [...res.data];
       setMainData(newData.sort(compare));
     } catch (error) {
@@ -135,8 +132,10 @@ const MainGraphPage = () => {
   // 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?user_id=${user}&year=2024`);
-
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
+        withCredentials: true, //쿠키를 포함하도록 설정
+      });
+      console.log('평균값 데이터: ', res);
       if (res.status === 200) {
         const parsedData = parseData(res.data.monthly_averages);
         setAverageData(parsedData);

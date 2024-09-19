@@ -20,7 +20,10 @@ const FoodBarChart = () => {
 
   const fetchFavFoodData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/food/favorites/${user}`);
+      const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
+        withCredentials: true,
+      });
+      console.log('foodbar 그래프 데이터', res);
       setFavData(res.data.sort(compare));
     } catch (error) {
       console.log(error);
