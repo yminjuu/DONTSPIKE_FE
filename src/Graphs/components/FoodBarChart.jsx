@@ -6,8 +6,6 @@ import CustomLabel from '../FoodBar/CustomLabel';
 import axios from 'axios';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../Recoil';
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
 };
@@ -16,12 +14,13 @@ const FoodBarChart = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [favData, setFavData] = useState([]);
 
-  const user = useRecoilValue(userState);
-
   const fetchFavFoodData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
       });
       console.log('foodbar 그래프 데이터', res);
       setFavData(res.data.sort(compare));

@@ -4,7 +4,7 @@ import OftFoodItem from '../FoodNavSec/components/OftFoodItem';
 import AddFoodInfo from '../FoodNavSec/components/AddFoodInfo';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
-import { modeState, userState } from '../../../Recoil';
+import { modeState } from '../../../Recoil';
 
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
@@ -12,7 +12,6 @@ const compare = (a, b) => {
 
 const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const user = useRecoilValue(userState);
 
   const mode = useRecoilValue(modeState);
 
@@ -21,7 +20,12 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
 
   const fetchData = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/food/favorites/${user}`);
+      const { data } = await axios.get(`${BASE_URL}/api/food/favorites`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
+      });
       console.log('자주 먹은 음식 API 결과 : ', data);
 
       const updatedData = data.map(item => ({

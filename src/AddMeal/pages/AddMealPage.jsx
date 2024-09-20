@@ -5,8 +5,6 @@ import SubPageHeader from '../../common/components/SubPageHeader';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../Recoil';
 import { useNavigate } from 'react-router-dom';
 
 const formatDate = date => {
@@ -21,16 +19,18 @@ const AddMealPage = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   // SearchSection에서 선택된 날짜 관리
   const [selectedDate, setSelectedDate] = useState();
-  const user = useRecoilValue(userState);
 
   const navigate = useNavigate();
 
   const fetchMeal = async foodId => {
     const date = new Date(selectedDate);
     try {
-      const res = await axios.post(
-        `${BASE_URL}/api/diet/add-food?userId=${user}&foodId=${foodId}&recordDate=${formatDate(date)}`,
-      );
+      const res = await axios.post(`${BASE_URL}/api/diet/add-food?foodId=${foodId}&recordDate=${formatDate(date)}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
+      });
 
       if (res.status === 200) {
         alert(`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}에 식단이 추가되었어요`);

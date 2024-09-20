@@ -5,8 +5,6 @@ import Datepicker from './Datepicker';
 import { useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../Recoil';
 
 Modal.setAppElement('#root');
 
@@ -18,7 +16,6 @@ const RecordBloodSugar = ({ setBS }) => {
   };
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const user = useRecoilValue(userState);
   // 입력된 혈당값 관리
   const [text, setText] = useState('');
 
@@ -47,7 +44,13 @@ const RecordBloodSugar = ({ setBS }) => {
       console.log('fetch');
       console.log(selectedDate);
       const res = await axios.post(
-        `${BASE_URL}/api/${user}/blood-sugar?date=${formatDateToISOString(selectedDate)}&bloodsugar=${text}`,
+        `${BASE_URL}/api/blood-sugar?date=${formatDateToISOString(selectedDate)}&bloodsugar=${text}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          withCredentials: true, // 쿠키 포함?..
+        },
       );
 
       if (res.status === 200) {

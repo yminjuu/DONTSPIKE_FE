@@ -19,12 +19,16 @@ const FoodInfoPage = () => {
 
   const [data, setData] = useState([]);
 
-  const user = useRecoilValue(userState);
   const navigate = useNavigate();
 
   const fetchFoodWikiSearchResult = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${query}`);
+      const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${query}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
+      });
       setData(res.data[0]); // state 변경 => 리렌더링
     } catch (error) {
       if (error.response && error.response.status === 404) {

@@ -8,8 +8,6 @@ import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../Recoil';
 
 import { commonChartTitle } from '../../common/styles/commonStyles';
 import doctor from '../assets/doctor.png';
@@ -85,8 +83,6 @@ const MainGraphPage = () => {
 
   const [token, setToken] = useState(null);
 
-  const [user, setUser] = useRecoilState(userState);
-
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const pageContainerRef = useRef(null);
@@ -128,6 +124,7 @@ const MainGraphPage = () => {
       });
       console.log('토큰: ', res.data);
       setToken(res.data);
+      localStorage.setItem('token', token);
       if (token != null) {
         fetchMainChartData();
         fetchAverageData();

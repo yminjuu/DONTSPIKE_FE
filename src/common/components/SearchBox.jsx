@@ -52,7 +52,12 @@ const SearchBox = ({ type, fetchMeal }) => {
       console.log('검색 : ', searchText);
       setLoading(true);
       setSuccess(false);
-      const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${searchText}`);
+      const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${searchText}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
+      });
 
       setLoading(false); //res를 받아오고 나서 loading을 false로 바꿔줌
       setSuccess(true); //res를 받아오고 나서 success를 true로 바꿔줌
@@ -80,7 +85,12 @@ const SearchBox = ({ type, fetchMeal }) => {
   const fetchMealSearchResult = async () => {
     try {
       console.log(searchText);
-      const res = await axios.get(`${BASE_URL}/api/food?search_food=${searchText}`);
+      const res = await axios.get(`${BASE_URL}/api/food?search_food=${searchText}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
+      });
 
       if (res.status === 200 && res.data.length > 0) {
         setSuccess(true); // 검색 성공
