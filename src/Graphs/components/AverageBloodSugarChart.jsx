@@ -9,7 +9,7 @@ const AverageBloodSugarChart = ({ fetchAverageData, averageData }) => {
   const chartContainerRef = useRef(null);
 
   useEffect(() => {
-    fetchAverageData();
+    // fetchAverageData();
     if (chartContainerRef.current) {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }

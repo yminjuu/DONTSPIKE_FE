@@ -136,9 +136,7 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
-        withCredentials: true, // 쿠키를 포함하도록 설정
-      }); // data를 배열 형식으로 새로 받아옴
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`); // data를 배열 형식으로 새로 받아옴
       console.log('메인그래프 데이터: ', res);
       const newData = [...res.data];
       setMainData(newData.sort(compare));
@@ -150,9 +148,7 @@ const MainGraphPage = () => {
   // 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
-        withCredentials: true, //쿠키를 포함하도록 설정
-      });
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`);
       console.log('평균값 데이터: ', res);
       if (res.status === 200) {
         const parsedData = parseData(res.data.monthly_averages);
