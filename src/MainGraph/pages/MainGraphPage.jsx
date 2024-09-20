@@ -117,17 +117,7 @@ const MainGraphPage = () => {
 
   useEffect(() => {
     // api요청을 통해 토큰을 받는다
-    const fetchData = async () => {
-      try {
-        await fetchToken();
-        // 이 작업이 끝나고 실행되도록
-        // 해당 토큰을 localstorage에 저장?왜... recoil로 저장해두면 안되나?
-        await fetchMainChartData();
-        await fetchAverageData();
-      } catch (error) {}
-    };
-
-    fetchData();
+    fetchToken();
   }, []);
 
   const fetchToken = async () => {
@@ -137,7 +127,8 @@ const MainGraphPage = () => {
         // 쿠키를 포함하여 전송
       });
       setToken(res.data);
-      console.log(res.data);
+      fetchMainChartData();
+      fetchAverageData();
     } catch (error) {
       console.log('토큰 get 오류: ', error);
     }
