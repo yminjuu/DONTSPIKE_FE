@@ -99,8 +99,8 @@ const MainGraphPage = () => {
 
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
-    fetchMainChartData();
-    fetchAverageData();
+    // fetchMainChartData();
+    // fetchAverageData();
     // 스크롤 위치 top이도록 관리
     if (pageContainerRef.current) {
       pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
@@ -125,6 +125,7 @@ const MainGraphPage = () => {
     try {
       const res = await axios.get(`${BASE_URL}/getAccessToken`, {
         withCredentials: true,
+        // 쿠키를 포함하여 전송
       });
       console.log(res);
     } catch (error) {
