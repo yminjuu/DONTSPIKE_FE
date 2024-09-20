@@ -69,7 +69,8 @@ const parseData = data => {
 
 const calculateDifference = data => {
   if (data.length < 2) {
-    throw new Error('Not enough data to calculate the difference');
+    return 1; //임시
+    // throw new Error('Not enough data to calculate the difference');
   }
 
   const lastIndex = data.length - 1;
