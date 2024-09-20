@@ -120,6 +120,11 @@ const MainGraphPage = () => {
     fetchToken();
   }, []);
 
+  useEffect(() => {
+    fetchMainChartData();
+    fetchAverageData();
+  }, [token]);
+
   const fetchToken = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/getAccessToken`, {
