@@ -33,11 +33,11 @@ const SecPage = styled.div`
 `;
 
 const ThrdPage = styled.div`
-  height: 100vh;
+  height: 170vh;
 `;
 
 const FourthPage = styled.div`
-  height: 100vh;
+  height: 180vh;
 `;
 
 // 200 vh 하나

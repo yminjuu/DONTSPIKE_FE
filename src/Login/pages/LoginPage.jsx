@@ -28,30 +28,6 @@ const LoginPage = () => {
     window.location.href = `${BASE_URL}/oauth2/authorization/google`;
   };
 
-  const fetchLoginData = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/api/login`);
-      setUser(res.data.user_id);
-      navigate(`/main`, { replace: true });
-    } catch (error) {
-      alert('로그인에 실패했습니다. 다시 시도해주세요');
-      setId('');
-      setPw('');
-    }
-  };
-
-  const checkValidJoin = () => {
-    if (id && pw) {
-      fetchLoginData();
-    } else {
-      if (!id) {
-        alert('ID를 입력하세요');
-        return;
-      }
-      if (!pw) alert('비밀번호를 입력하세요');
-    }
-  };
-
   return (
     <Wrapper>
       <MainHeader>

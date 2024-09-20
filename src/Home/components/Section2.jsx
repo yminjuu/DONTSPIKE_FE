@@ -75,6 +75,7 @@ const Content1Wrap = styled.div`
 
   @media (max-width: 768px) {
     height: auto;
+    padding: 0.5rem;
   }
 `;
 
@@ -144,13 +145,15 @@ const ContentSubWrapper1_1 = styled.img`
 const ContentSubWrapper1_2 = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  align-items: left;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding: 2.5rem;
+    justify-content: left;
+    align-items: left;
   }
 `;
 
@@ -171,11 +174,12 @@ const ContentSubSubText = styled.div`
 const Content2Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
-  width: 100%;
+  width: auto;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    width: 100%;
   }
 `;
 
@@ -216,11 +220,12 @@ const ImgWrapper2_2 = styled.div`
 const Content3Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
-  width: 100%;
+  width: auto;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    width: 100%;
   }
 `;
 

@@ -10,14 +10,26 @@ import Content3 from '../assets/Section3/3_3.png';
 import Icon1 from '../assets/Section3/Icon1.svg?react';
 import Icon2 from '../assets/Section3/Icon2.svg?react';
 import Icon3 from '../assets/Section3/Icon3.svg?react';
+import Section3_background from '../assets/Section3/Section3_background.png';
 
 gsap.registerPlugin(ScrollTrigger); // ScrollTrigger Trigger 호출
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 170vh;
   display: flex;
   flex-direction: column;
+
+  position: relative;
+`;
+
+const Background = styled.img`
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  overflow-y: hidden;
+
+  top: 50%;
 `;
 
 const PageHeader = styled.div`
@@ -98,7 +110,7 @@ const Content1Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
   height: 35%;
-  padding: 1rem 1.5rem;
+  padding: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -191,11 +203,12 @@ const ContentSubSubText = styled.div`
 const Content2Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
-  width: 100%;
+  width: auto;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    width: 100%;
   }
 `;
 
@@ -240,16 +253,17 @@ const ImgWrapper2_2 = styled.div`
 const Content3Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
-  width: 100%;
+  width: auto;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    width: 100%;
   }
 `;
 
 const ContentSubWrapper3_2 = styled.img`
-  width: 26.79644rem;
+  width: 30.79644rem;
   height: 13.875rem;
   flex-shrink: 0;
 
@@ -281,6 +295,7 @@ const Section3 = () => {
 
   return (
     <Wrapper>
+      <Background src={Section3_background} />
       <PageHeader>
         <TitleIcon src={buritto}></TitleIcon>
         <TitleTextWrapper>

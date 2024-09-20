@@ -189,6 +189,7 @@ const Content1_2Wrap = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 2rem;
+  gap: 1rem;
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
