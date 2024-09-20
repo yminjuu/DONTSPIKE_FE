@@ -144,7 +144,7 @@ const MainGraphPage = () => {
         headers: {
           Authorization: token,
         },
-        withCredentials: true, // 쿠키 포함?.. 왜..
+        withCredentials: true, // 쿠키 포함?..
       }); // data를 배열 형식으로 새로 받아옴
       const newData = [...res.data];
       setMainData(newData.sort(compare));
