@@ -52,6 +52,7 @@ const RecordBloodSugar = ({ setBS }) => {
           withCredentials: true, // 쿠키 포함?..
         },
       );
+      console.log(res);
 
       if (res.status === 200) {
         setBS(text); // props로 전달받은 state 변경함수 실행 => 그래프 리렌더링되도록
