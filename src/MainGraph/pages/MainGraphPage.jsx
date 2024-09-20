@@ -117,10 +117,17 @@ const MainGraphPage = () => {
 
   useEffect(() => {
     // api요청을 통해 토큰을 받는다
-    fetchToken();
-    // 해당 토큰을 localstorage에 저장?왜... recoil로 저장해두면 안되나?
-    fetchMainChartData();
-    fetchAverageData();
+    const fetchData = async () => {
+      try {
+        await fetchToken();
+        // 이 작업이 끝나고 실행되도록
+        // 해당 토큰을 localstorage에 저장?왜... recoil로 저장해두면 안되나?
+        await fetchMainChartData();
+        await fetchAverageData();
+      } catch (error) {}
+    };
+
+    fetchData();
   }, []);
 
   const fetchToken = async () => {
@@ -139,7 +146,7 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      console.log(token);
+      console.log('토큰', token);
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -156,7 +163,7 @@ const MainGraphPage = () => {
   // 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
-      console.log(token);
+      console.log('토큰', token);
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
         headers: {
           Authorization: `Bearer ${token}`,
