@@ -128,8 +128,10 @@ const MainGraphPage = () => {
       });
       console.log('토큰: ', res.data);
       setToken(res.data);
-      fetchMainChartData();
-      fetchAverageData();
+      if (token != null) {
+        fetchMainChartData();
+        fetchAverageData();
+      }
     } catch (error) {
       console.log('토큰 get 오류: ', error);
     }
