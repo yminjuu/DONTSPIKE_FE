@@ -126,6 +126,7 @@ const MainGraphPage = () => {
         withCredentials: true,
         // 쿠키를 포함하여 전송
       });
+      console.log('토큰: ', res.data);
       setToken(res.data);
       fetchMainChartData();
       fetchAverageData();
