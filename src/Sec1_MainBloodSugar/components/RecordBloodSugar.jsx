@@ -43,6 +43,7 @@ const RecordBloodSugar = ({ setBS }) => {
     try {
       console.log('fetch');
       console.log(selectedDate);
+      console.log(localStorage.getItem('token'));
       const res = await axios.post(
         `${BASE_URL}/api/blood-sugar?date=${formatDateToISOString(selectedDate)}&bloodsugar=${text}`,
         {
