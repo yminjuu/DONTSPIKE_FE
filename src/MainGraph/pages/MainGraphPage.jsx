@@ -68,7 +68,6 @@ const parseData = data => {
 };
 
 const calculateDifference = data => {
-  console.log(data);
   if (data.length < 2) {
     throw new Error('Not enough data to calculate the difference');
   }
@@ -105,15 +104,7 @@ const MainGraphPage = () => {
     if (pageContainerRef.current) {
       pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
     }
-    console.log(mainData);
   }, [bloodSugar]);
-
-  useEffect(() => {
-    // 스크롤 위치 top이도록 관리
-    if (pageContainerRef.current) {
-      pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
-    }
-  }, []);
 
   useEffect(() => {
     // api요청을 통해 토큰을 받는다
@@ -121,8 +112,11 @@ const MainGraphPage = () => {
   }, []);
 
   useEffect(() => {
-    fetchMainChartData();
-    fetchAverageData();
+    // token 값이 알맞게 들어가면 함수 호출이 된다.
+    if (token != null) {
+      fetchMainChartData();
+      fetchAverageData();
+    }
   }, [token]);
 
   const fetchToken = async () => {
