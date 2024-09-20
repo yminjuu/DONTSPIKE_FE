@@ -83,6 +83,8 @@ const calculateDifference = data => {
 const MainGraphPage = () => {
   const navigate = useNavigate();
 
+  const [token, setToken] = useState(null);
+
   const [user, setUser] = useRecoilState(userState);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -99,8 +101,6 @@ const MainGraphPage = () => {
 
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
-    // fetchMainChartData();
-    // fetchAverageData();
     // 스크롤 위치 top이도록 관리
     if (pageContainerRef.current) {
       pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
@@ -119,6 +119,8 @@ const MainGraphPage = () => {
     // api요청을 통해 토큰을 받는다
     fetchToken();
     // 해당 토큰을 localstorage에 저장?왜... recoil로 저장해두면 안되나?
+    fetchMainChartData();
+    fetchAverageData();
   }, []);
 
   const fetchToken = async () => {
@@ -127,7 +129,8 @@ const MainGraphPage = () => {
         withCredentials: true,
         // 쿠키를 포함하여 전송
       });
-      console.log('토큰: ', res);
+      setToken(res.data);
+      console.log(res.data);
     } catch (error) {
       console.log('토큰 get 오류: ', error);
     }
@@ -136,8 +139,11 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`); // data를 배열 형식으로 새로 받아옴
-      console.log('메인그래프 데이터: ', res);
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
+        headers: {
+          Authorization: token,
+        },
+      }); // data를 배열 형식으로 새로 받아옴
       const newData = [...res.data];
       setMainData(newData.sort(compare));
     } catch (error) {
@@ -148,7 +154,11 @@ const MainGraphPage = () => {
   // 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`);
+      const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
+        headers: {
+          Authorization: token,
+        },
+      });
       console.log('평균값 데이터: ', res);
       if (res.status === 200) {
         const parsedData = parseData(res.data.monthly_averages);
