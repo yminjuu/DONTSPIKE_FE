@@ -179,8 +179,6 @@ const MainGraphPage = () => {
     }
   };
 
-  if (user === null) return null;
-
   return (
     <Fullpage>
       <FullpageNavigation />
