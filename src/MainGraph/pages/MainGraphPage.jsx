@@ -113,6 +113,7 @@ const MainGraphPage = () => {
     if (token != null) {
       fetchMainChartData();
       fetchAverageData();
+      localStorage.setItem('token', token);
     }
   }, [token]);
 
@@ -128,6 +129,7 @@ const MainGraphPage = () => {
       if (token != null) {
         fetchMainChartData();
         fetchAverageData();
+        localStorage.setItem('token', token);
       }
     } catch (error) {
       console.log('토큰 get 오류: ', error);
