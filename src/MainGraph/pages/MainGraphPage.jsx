@@ -142,7 +142,7 @@ const MainGraphPage = () => {
       console.log(token);
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 쿠키 포함?..
       }); // data를 배열 형식으로 새로 받아옴
@@ -159,7 +159,7 @@ const MainGraphPage = () => {
       console.log(token);
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 쿠키 포함?.. 왜..
       });
