@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../Recoil';
-import NaverLogin from '../assets/NaverLogin.png';
-import GoogleLogin from '../assets/GoogleLogin.png';
 
 const LoginPage = () => {
   const [id, setId] = useState('블로킹');
@@ -103,8 +101,8 @@ const LoginPage = () => {
           </ButtonWrapper> */}
             <LoginBtnsWrapper>
               {' '}
-              <LoginBtn src={NaverLogin} onClick={onNaverLogin} />
-              <LoginBtn src={GoogleLogin} onClick={onGoogleLogin} />
+              <LoginBtn src="/assets/NaverLogin.png" onClick={onNaverLogin} />
+              <LoginBtn src="assets/GoogleLogin.png" onClick={onGoogleLogin} />
             </LoginBtnsWrapper>
 
             {/* 카카오 로그인 버튼 */}
