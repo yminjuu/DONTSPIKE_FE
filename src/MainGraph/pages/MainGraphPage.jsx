@@ -115,6 +115,23 @@ const MainGraphPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // api요청을 통해 토큰을 받는다
+    fetchToken();
+    // 해당 토큰을 localstorage에 저장?왜... recoil로 저장해두면 안되나?
+  }, []);
+
+  const fetchToken = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/getAccessToken`, {
+        withCredentials: true,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log('토큰 get 오류: ', error);
+    }
+  };
+
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
