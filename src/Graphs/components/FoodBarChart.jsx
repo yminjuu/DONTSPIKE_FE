@@ -33,7 +33,7 @@ const FoodBarChart = ({ token }) => {
   // 최초 렌더링시 데이터 가져옴
   useEffect(() => {
     fetchFavFoodData();
-  }, []);
+  }, [token]);
 
   if (favData.length != 0) {
     return (
