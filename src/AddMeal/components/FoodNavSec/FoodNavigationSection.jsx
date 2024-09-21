@@ -20,6 +20,7 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
 
   const fetchData = async () => {
     try {
+      console.log(localStorage.getItem('token'));
       const { data } = await axios.get(`${BASE_URL}/api/food/favorites`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
