@@ -102,7 +102,6 @@ const MainGraphPage = () => {
   }, [bloodSugar]);
 
   useEffect(() => {
-    console.log('최초 토큰 요청');
     // api요청을 통해 토큰을 받는다
     fetchToken();
   }, []);
@@ -141,7 +140,6 @@ const MainGraphPage = () => {
   // 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
-      console.log('토큰', token);
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -158,14 +156,12 @@ const MainGraphPage = () => {
   // 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
-      console.log('토큰', token);
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 쿠키 포함?.. 왜..
       });
-      console.log('평균값 데이터: ', res);
       if (res.status === 200) {
         const parsedData = parseData(res.data.monthly_averages);
         setAverageData(parsedData);
