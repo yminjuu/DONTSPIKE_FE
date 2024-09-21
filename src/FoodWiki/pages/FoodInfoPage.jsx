@@ -31,9 +31,10 @@ const FoodInfoPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      console.log(res);
-      setData(res.data); // state 변경 => 리렌더링
       setLoading(false);
+      if (res.status === 200) {
+        setData(res.data); // state 변경 => 리렌더링
+      }
     } catch (error) {
       if (error.response && error.response.status === 404) {
         // 검색 결과 없을 때 처리
@@ -45,7 +46,7 @@ const FoodInfoPage = () => {
   // 초기 렌더링 => 정보 가져옴
   useEffect(() => {
     fetchFoodWikiSearchResult();
-  }, [data]);
+  }, []);
 
   if (loading) {
     return <Loader />;
