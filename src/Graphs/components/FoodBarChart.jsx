@@ -1,42 +1,15 @@
 // BarChartComponent.jsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BarChart, Bar, XAxis, LabelList } from 'recharts';
 import CustomBarShape from '../FoodBar/CustomBarShape';
 import CustomLabel from '../FoodBar/CustomLabel';
-import axios from 'axios';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
 import { useRecoilState } from 'recoil';
 import { favFoodState } from '../../Recoil';
-const compare = (a, b) => {
-  return parseInt(b.count) - parseInt(a.count);
-};
 
-const FoodBarChart = ({ token }) => {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
-
+const FoodBarChart = () => {
   const [favFood, setFavFood] = useRecoilState(favFoodState);
-
-  const fetchFavFoodData = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true, // 쿠키 포함?..
-      });
-      setFavFood(res.data.frequentFoods.sort(compare));
-      // 자주 먹은 음식 전역으로 관리
-      console.log('gpt 코멘트 출력: ', res.data.analysisDto);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 최초 렌더링시 데이터 가져옴
-  useEffect(() => {
-    fetchFavFoodData();
-  }, [token]);
 
   if (favFood.length != 0) {
     return (

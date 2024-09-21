@@ -13,6 +13,13 @@ import { commonChartTitle } from '../../common/styles/commonStyles';
 import doctor from '../assets/doctor.png';
 
 import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
+import { useRecoilState } from 'recoil';
+import { favFoodState } from '../../Recoil';
+import Loader from '../../common/components/Loader';
+
+const compareFavFood = (a, b) => {
+  return parseInt(b.count) - parseInt(a.count);
+};
 
 const monthMapping = {
   JANUARY: '1월',
@@ -85,16 +92,28 @@ const MainGraphPage = () => {
 
   const pageContainerRef = useRef(null);
 
+  // 혈당값 관리
   const [bloodSugar, setBS] = useState([]);
 
-  const [mainData, setMainData] = useState([]); // 메인 그래프 데이터
+  // 메인 데이터 관리
+  const [mainData, setMainData] = useState([]);
 
-  const [averageData, setAverageData] = useState([]); // 평균 그래프 데이터
+  // 평균 데이터 관리
+  const [averageData, setAverageData] = useState([]);
 
+  // 자주 먹은 음식 관리
+  const [favFood, setFavFood] = useRecoilState(favFoodState);
+
+  // 평균 혈당값 차이 관리
   const [averageOffset, setOffset] = useState(null);
+
+  // **  모든 데이터를 다 가져왔는지 관리  **
+  const [fetchStatus, setFetchStatus] = useState(false);
 
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
+    fetchMainChartData();
+    fetchAverageData();
     // 스크롤 위치 top이도록 관리
     if (pageContainerRef.current) {
       pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
@@ -111,7 +130,9 @@ const MainGraphPage = () => {
     if (token != null) {
       fetchMainChartData();
       fetchAverageData();
+      fetchFavFoodData();
       localStorage.setItem('token', token);
+      setFetchStatus(true);
     }
   }, [token]);
 
@@ -127,6 +148,7 @@ const MainGraphPage = () => {
           localStorage.setItem('token', token);
           fetchMainChartData();
           fetchAverageData();
+          fetchFavFoodData();
           localStorage.setItem('token', token);
         }
       } else {
@@ -176,85 +198,104 @@ const MainGraphPage = () => {
     }
   };
 
-  return (
-    <Fullpage>
-      <FullpageNavigation />
-      <MainHeader currState="graph"></MainHeader>{' '}
-      <FullPageSections>
-        <FullpageSection>
-          <SectionWrapper>
-            <TitleWrapper>
-              <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
-            </TitleWrapper>
-            <ContentWrapper>
+  // 자주 먹은 음식 데이터
+  const fetchFavFoodData = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true, // 쿠키 포함?..
+      });
+      setFavFood(res.data.frequentFoods.sort(compareFavFood));
+      // 자주 먹은 음식 전역으로 관리
+      console.log('gpt 코멘트 출력: ', res.data.analysisDto);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (fetchStatus === true)
+    return (
+      <Fullpage>
+        <FullpageNavigation />
+        <MainHeader currState="graph"></MainHeader>{' '}
+        <FullPageSections>
+          <FullpageSection>
+            <SectionWrapper>
+              <TitleWrapper>
+                <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
+              </TitleWrapper>
+              <ContentWrapper>
+                {' '}
+                <MainBloodSugar
+                  setBS={setBS}
+                  fetchMainChartData={fetchMainChartData}
+                  mainData={mainData}
+                ></MainBloodSugar>
+                <TipWrapper>
+                  <ImgWrapper src={doctor}></ImgWrapper>
+                  <TipBox>
+                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
+                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
+                    <br />
+                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
+                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
+                  </TipBox>
+                </TipWrapper>
+              </ContentWrapper>
+            </SectionWrapper>
+          </FullpageSection>
+          <FullpageSection>
+            <SectionWrapper>
               {' '}
-              <MainBloodSugar
-                setBS={setBS}
-                fetchMainChartData={fetchMainChartData}
-                mainData={mainData}
-              ></MainBloodSugar>
-              <TipWrapper>
-                <ImgWrapper src={doctor}></ImgWrapper>
-                <TipBox>
-                  00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                  어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                  <br />
-                  사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                  <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                </TipBox>
-              </TipWrapper>
-            </ContentWrapper>
-          </SectionWrapper>
-        </FullpageSection>
-        <FullpageSection>
-          <SectionWrapper>
-            {' '}
-            <TitleWrapper>
-              <ChartTitle>최근 30일간 가장 자주 먹은 음식</ChartTitle>
-            </TitleWrapper>
-            <ContentWrapper>
-              <FoodBar token={token} />
-              <TipWrapper>
-                <ImgWrapper src={doctor}></ImgWrapper>
-                <TipBox>
-                  00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                  어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                  <br />
-                  사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                  <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                </TipBox>
-              </TipWrapper>
-            </ContentWrapper>
-          </SectionWrapper>
-        </FullpageSection>
-        <FullpageSection>
-          <SectionWrapper>
-            {' '}
-            <TitleWrapper>
-              <ChartTitle>월별 공복 혈당 평균</ChartTitle>
-            </TitleWrapper>
-            <ContentWrapper>
-              <AverageBloodSugar
-                fetchAverageData={fetchAverageData}
-                averageData={averageData}
-                offset={averageOffset}
-              ></AverageBloodSugar>
-              <TipWrapper>
-                <ImgWrapper src={doctor}></ImgWrapper>
-                <TipBox>
-                  00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                  어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                  <br />
-                  사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                  <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                </TipBox>
-              </TipWrapper>
-            </ContentWrapper>
-          </SectionWrapper>
-        </FullpageSection>
-      </FullPageSections>
-    </Fullpage>
-  );
+              <TitleWrapper>
+                <ChartTitle>최근 30일간 가장 자주 먹은 음식</ChartTitle>
+              </TitleWrapper>
+              <ContentWrapper>
+                <FoodBar token={token} />
+                <TipWrapper>
+                  <ImgWrapper src={doctor}></ImgWrapper>
+                  <TipBox>
+                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
+                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
+                    <br />
+                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
+                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
+                  </TipBox>
+                </TipWrapper>
+              </ContentWrapper>
+            </SectionWrapper>
+          </FullpageSection>
+          <FullpageSection>
+            <SectionWrapper>
+              {' '}
+              <TitleWrapper>
+                <ChartTitle>월별 공복 혈당 평균</ChartTitle>
+              </TitleWrapper>
+              <ContentWrapper>
+                <AverageBloodSugar
+                  fetchAverageData={fetchAverageData}
+                  averageData={averageData}
+                  offset={averageOffset}
+                ></AverageBloodSugar>
+                <TipWrapper>
+                  <ImgWrapper src={doctor}></ImgWrapper>
+                  <TipBox>
+                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
+                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
+                    <br />
+                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
+                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
+                  </TipBox>
+                </TipWrapper>
+              </ContentWrapper>
+            </SectionWrapper>
+          </FullpageSection>
+        </FullPageSections>
+      </Fullpage>
+    );
+  else return <Loader />;
 };
 
 const SectionWrapper = styled.div`
