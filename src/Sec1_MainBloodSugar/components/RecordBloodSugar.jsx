@@ -47,11 +47,12 @@ const RecordBloodSugar = ({ setBS }) => {
       const token = localStorage.getItem('token');
       const res = await axios.post(
         `${BASE_URL}/api/blood-sugar/record?date=${formatDateToISOString(selectedDate)}&bloodsugar=${text}`,
+        {}, // 빈 객체를 데이터로 전달
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          withCredentials: true, // 쿠키 포함?..
+          withCredentials: true, // 쿠키 포함
         },
       );
       console.log(res);
