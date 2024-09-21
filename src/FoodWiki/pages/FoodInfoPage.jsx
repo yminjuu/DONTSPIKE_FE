@@ -31,7 +31,7 @@ const FoodInfoPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      console.log(res.data[0]);
+      console.log(res);
       setData(res.data[0]); // state 변경 => 리렌더링
       setLoading(false);
     } catch (error) {
