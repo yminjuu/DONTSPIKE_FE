@@ -4,7 +4,7 @@ import OftFoodItem from '../FoodNavSec/components/OftFoodItem';
 import AddFoodInfo from '../FoodNavSec/components/AddFoodInfo';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
-import { modeState } from '../../../Recoil';
+import { favFoodState, modeState } from '../../../Recoil';
 
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
@@ -14,50 +14,9 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const mode = useRecoilValue(modeState);
+  const favFood = useRecoilValue(favFoodState);
 
-  // 자주 먹은 음식 데이터
-  const [favFood, setFavFood] = useState([]);
-
-  const fetchData = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        withCredentials: true, // 쿠키 포함?..
-      });
-
-      const updatedData = res.data.frequentFoods.map(item => ({
-        ...item,
-        foodId: item.foodDataId,
-        addedState: false,
-      }));
-
-      const finalData = updatedData.sort(compare);
-
-      setFavFood(finalData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 최초 렌더링 데이터 가져오기
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const [navstate, setNavstate] = useState('freq');
-  // 어떤 nav를 선택했는지 관리 : freq, onHand
-
-  // nav 변경 관리
-  const onNavClick = navkey => {
-    if (navstate === 'freq' && navkey === 'onHand') {
-      // API GET : 자주 먹었어요! 데이터 받아서 알맞게 뿌리기
-      setNavstate('onHand');
-    } else if (navstate === 'onHand' && navkey === 'freq') {
-      setNavstate('freq');
-    }
-  };
+  useEffect(() => {}, []);
 
   // 직접 음식 등록
   const onFoodReg = async ({ foodname }) => {

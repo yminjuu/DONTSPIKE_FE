@@ -6,6 +6,8 @@ import CustomLabel from '../FoodBar/CustomLabel';
 import axios from 'axios';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
+import { useRecoilState } from 'recoil';
+import { favFoodState } from '../../Recoil';
 const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
 };
@@ -13,6 +15,8 @@ const compare = (a, b) => {
 const FoodBarChart = ({ token }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [favData, setFavData] = useState([]);
+
+  const [favFood, setFavFood] = useRecoilState(favFoodState);
 
   const fetchFavFoodData = async () => {
     try {
@@ -23,6 +27,8 @@ const FoodBarChart = ({ token }) => {
         withCredentials: true, // 쿠키 포함?..
       });
       setFavData(res.data.frequentFoods.sort(compare));
+      setFavFood(res.data.frequentFoods.sort(compare));
+      // 자주 먹은 음식 전역으로 관리
       console.log('gpt 코멘트 출력: ', res.data.analysisDto);
     } catch (error) {
       console.log(error);
