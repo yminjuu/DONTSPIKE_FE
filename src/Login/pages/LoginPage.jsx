@@ -4,15 +4,10 @@ import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import '../styles/login.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../Recoil';
 
 const LoginPage = () => {
   const [id, setId] = useState('블로킹');
   const [pw, setPw] = useState('1234');
-
-  const [user, setUser] = useRecoilState(userState);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 

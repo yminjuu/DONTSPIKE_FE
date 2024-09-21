@@ -8,8 +8,6 @@ import DefaultBtn from '../assets/default.png';
 import LoginBtn from '../assets/login.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../Recoil';
 
 const JoinPage = () => {
   const [id, setId] = useState('');

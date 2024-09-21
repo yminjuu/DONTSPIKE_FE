@@ -1,15 +1,14 @@
 import styled, { css } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { modeState, userState } from '../../Recoil';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 const LogoutSection = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userState);
   const mode = useRecoilValue(modeState);
 
   const onLogout = () => {
-    setUser(null);
+    // setUser(null);
     navigate('/login', { replace: 'true' }); //뒤로가기 방지
   };
 

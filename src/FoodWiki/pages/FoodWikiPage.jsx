@@ -4,17 +4,11 @@ import FoodWikiSearch from '../components/FoodWiki/FoodWikiSearch';
 import FoodCarousel from '../components/FoodWiki/FoodCarousel';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../Recoil';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { modeState } from '../../Recoil';
 
 import Background from '../../FoodWiki/assets/background_foodwiki.png';
 
 const FoodWikiPage = () => {
-  const user = useRecoilValue(userState);
-  const navigate = useNavigate();
-
   const mode = useRecoilValue(modeState);
   // senior or normal
 
