@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { modeState, userState } from '../../Recoil';
+import { modeState } from '../../Recoil';
 import SearchSec from '../assets/SearchSec.png';
 import Loader from '../../common/components/Loader';
 
@@ -31,6 +31,7 @@ const FoodInfoPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
+      console.log(res.data[0]);
       setData(res.data[0]); // state 변경 => 리렌더링
       setLoading(false);
     } catch (error) {
