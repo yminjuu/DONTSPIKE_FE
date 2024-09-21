@@ -14,7 +14,6 @@ const compare = (a, b) => {
 
 const FoodBarChart = ({ token }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const [favData, setFavData] = useState([]);
 
   const [favFood, setFavFood] = useRecoilState(favFoodState);
 
@@ -26,7 +25,6 @@ const FoodBarChart = ({ token }) => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      setFavData(res.data.frequentFoods.sort(compare));
       setFavFood(res.data.frequentFoods.sort(compare));
       // 자주 먹은 음식 전역으로 관리
       console.log('gpt 코멘트 출력: ', res.data.analysisDto);
@@ -40,14 +38,14 @@ const FoodBarChart = ({ token }) => {
     fetchFavFoodData();
   }, [token]);
 
-  if (favData.length != 0) {
+  if (favFood.length != 0) {
     return (
       <div style={{ width: '100%', overflowX: 'hidden', overflowY: 'hidden' }}>
         <div style={{ width: '100%', height: '270px', margin: '0 auto' }}>
           <BarChart
             width={600}
             height={270}
-            data={favData}
+            data={favFood}
             margin={{
               top: 30,
               right: 30,
@@ -71,7 +69,7 @@ const FoodBarChart = ({ token }) => {
             <Bar
               dataKey="count"
               fill="#3053F9"
-              shape={props => <CustomBarShape {...props} totalCount={favData.length} />}
+              shape={props => <CustomBarShape {...props} totalCount={favFood.length} />}
             >
               {' '}
               <LabelList dataKey="count" content={CustomLabel} />

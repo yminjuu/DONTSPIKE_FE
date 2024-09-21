@@ -6,10 +6,6 @@ import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import { favFoodState, modeState } from '../../../Recoil';
 
-const compare = (a, b) => {
-  return parseInt(b.count) - parseInt(a.count);
-};
-
 const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
