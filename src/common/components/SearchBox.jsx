@@ -61,10 +61,8 @@ const SearchBox = ({ type, fetchMeal }) => {
 
       setLoading(false); //res를 받아오고 나서 loading을 false로 바꿔줌
       setSuccess(true); //res를 받아오고 나서 success를 true로 바꿔줌
-      if (res.status === 200 && res.data.length > 0) {
-        console.log('푸드위키 api 검색 결과');
-        console.log(res.data[0]);
-        setResult(res.data[0]); // state 변경 => 리렌더링
+      if (res.status === 200) {
+        setResult(res.data); // state 변경 => 리렌더링
         setSuccess(true); // 검색 성공
       } else {
         console.log('검색 실패', res);
