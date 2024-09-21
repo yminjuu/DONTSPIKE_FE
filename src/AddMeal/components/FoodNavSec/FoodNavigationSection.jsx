@@ -20,15 +20,12 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
 
   const fetchData = async () => {
     try {
-      console.log('찐토큰 출력 1', localStorage.getItem('token'));
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         withCredentials: true, // 쿠키 포함?..
       });
-
-      console.log('내비게이션- 자주 먹은 음식 출력', res);
 
       const updatedData = res.data.frequentFoods.map(item => ({
         ...item,
