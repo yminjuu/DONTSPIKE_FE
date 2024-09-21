@@ -16,7 +16,7 @@ const FoodBarChart = () => {
 
   const fetchFavFoodData = async () => {
     try {
-      console.log(localStorage.getItem('토큰 출력: ', localStorage.getItem('token')));
+      console.log('토큰 출력: ', localStorage.getItem(localStorage.getItem('token')));
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
