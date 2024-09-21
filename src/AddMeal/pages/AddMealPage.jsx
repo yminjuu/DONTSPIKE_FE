@@ -20,8 +20,6 @@ const AddMealPage = () => {
   // SearchSection에서 선택된 날짜 관리
   const [selectedDate, setSelectedDate] = useState();
 
-  const navigate = useNavigate();
-
   const fetchMeal = async foodId => {
     const date = new Date(selectedDate);
     try {

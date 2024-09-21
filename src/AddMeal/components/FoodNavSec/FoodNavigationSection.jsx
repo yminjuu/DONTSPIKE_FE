@@ -26,7 +26,6 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      console.log('자주 먹은 음식 API 결과 : ', data);
 
       const updatedData = data.map(item => ({
         ...item,
@@ -83,11 +82,15 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
       <PageBackground>
         <ItemsWrapper>
           <Title mode={mode}>자주 먹은 음식</Title>
-          <FoodItemWrapper>
-            {favFood.map(item => (
-              <OftFoodItem key={item.foodDataId} {...item} fetchMeal={fetchMeal}></OftFoodItem>
-            ))}
-          </FoodItemWrapper>
+          {favFood.length !== 0 ? (
+            <FoodItemWrapper>
+              {favFood.map(item => (
+                <OftFoodItem key={item.foodDataId} {...item} fetchMeal={fetchMeal}></OftFoodItem>
+              ))}
+            </FoodItemWrapper>
+          ) : (
+            <FoodItemWrapper>더 많은 식단 기록이 필요해요!</FoodItemWrapper>
+          )}
         </ItemsWrapper>
         <ItemsWrapper>
           <Title mode={mode}>새로운 음식 등록하기</Title>
