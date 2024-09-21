@@ -30,7 +30,7 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
 
       console.log('내비게이션- 자주 먹은 음식 출력', res);
 
-      const updatedData = data.map(item => ({
+      const updatedData = res.data.frequentFoods.map(item => ({
         ...item,
         foodId: item.foodDataId,
         addedState: false,

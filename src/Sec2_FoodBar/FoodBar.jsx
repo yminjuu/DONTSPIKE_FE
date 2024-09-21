@@ -16,7 +16,7 @@ const FoodBar = ({ token }) => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: 100%;f
   height: 100%;
   margin-top: 5vh;
   background-color: #ffffff;

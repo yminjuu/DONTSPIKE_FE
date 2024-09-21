@@ -16,15 +16,14 @@ const FoodBarChart = ({ token }) => {
 
   const fetchFavFoodData = async () => {
     try {
-      console.log('찐토큰출력', token);
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      console.log('foodbar 그래프 데이터', res);
-      setFavData(res.data.sort(compare));
+      setFavData(res.data.frequentFoods.sort(compare));
+      console.log('gpt 코멘트 출력: ', res.data.analysisDto);
     } catch (error) {
       console.log(error);
     }
