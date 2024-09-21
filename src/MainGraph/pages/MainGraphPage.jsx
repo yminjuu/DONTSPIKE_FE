@@ -211,10 +211,9 @@ const MainGraphPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      setFavFood(res.data.frequentFoods.sort(compareFavFood));
       // 자주 먹은 음식 전역으로 관리
       console.log('gpt 코멘트 출력: ', res.data.analysisDto);
-      setComment(res.data.analysisDto);
+      setComment(res.data.analysisDto.analysis);
     } catch (error) {
       console.log(error);
     }
