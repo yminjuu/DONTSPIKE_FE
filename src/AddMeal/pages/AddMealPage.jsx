@@ -20,6 +20,8 @@ const AddMealPage = () => {
   // SearchSection에서 선택된 날짜 관리
   const [selectedDate, setSelectedDate] = useState();
 
+  const navigate = useNavigate();
+
   const fetchMeal = async foodId => {
     const date = new Date(selectedDate);
     try {
@@ -42,6 +44,13 @@ const AddMealPage = () => {
     }
   };
 
+  useEffect(() => {
+    // 토큰값이 옳지 않으면 로그인 페이지로 redirect
+    if (localStorage.getItem('token') === null) {
+      navigate('/login');
+    }
+  }, []);
+
   return (
     <PageBackground>
       <SubPageHeader currState="graph"></SubPageHeader>
@@ -59,6 +68,7 @@ const AddMealPage = () => {
 const PageBackground = styled.div`
   // 사용자가 보는 화면의 크기가 page의 크기가 됨
   width: 100%;
+  height: 100vh;
 
   background-color: #f0f1f5;
 `;

@@ -102,6 +102,7 @@ const MainGraphPage = () => {
   }, [bloodSugar]);
 
   useEffect(() => {
+    console.log('최초 토큰 요청');
     // api요청을 통해 토큰을 받는다
     fetchToken();
   }, []);
@@ -121,13 +122,16 @@ const MainGraphPage = () => {
         withCredentials: true,
         // 쿠키를 포함하여 전송
       });
-      console.log('토큰: ', res.data);
-      setToken(res.data);
-      localStorage.setItem('token', token);
-      if (token != null) {
-        fetchMainChartData();
-        fetchAverageData();
-        localStorage.setItem('token', token);
+      if (res.status === 200) {
+        setToken(res.data);
+        if (token != null) {
+          localStorage.setItem('token', token);
+          fetchMainChartData();
+          fetchAverageData();
+          localStorage.setItem('token', token);
+        }
+      } else {
+        alert('현재 서버 점검 중입니다.');
       }
     } catch (error) {
       console.log('토큰 get 오류: ', error);
