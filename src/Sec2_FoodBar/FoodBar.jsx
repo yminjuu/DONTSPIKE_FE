@@ -4,12 +4,12 @@ import { commonGraphWrapper } from '../common/styles/commonStyles';
 import { commonChartTitle } from '../common/styles/commonStyles';
 import { useEffect } from 'react';
 
-const FoodBar = () => {
+const FoodBar = ({ token }) => {
   return (
     <Container>
       <ChartWrapper>
         {/* 설명 */}
-        <FoodBarChart></FoodBarChart>
+        <FoodBarChart token={token}></FoodBarChart>
       </ChartWrapper>
     </Container>
   );

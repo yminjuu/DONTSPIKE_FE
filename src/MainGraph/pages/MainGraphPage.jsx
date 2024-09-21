@@ -217,7 +217,7 @@ const MainGraphPage = () => {
               <ChartTitle>최근 30일간 가장 자주 먹은 음식</ChartTitle>
             </TitleWrapper>
             <ContentWrapper>
-              <FoodBar />
+              <FoodBar token={token} />
               <TipWrapper>
                 <ImgWrapper src={doctor}></ImgWrapper>
                 <TipBox>

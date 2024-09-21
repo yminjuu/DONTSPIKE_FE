@@ -10,16 +10,16 @@ const compare = (a, b) => {
   return parseInt(b.count) - parseInt(a.count);
 };
 
-const FoodBarChart = () => {
+const FoodBarChart = ({ token }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [favData, setFavData] = useState([]);
 
   const fetchFavFoodData = async () => {
     try {
-      console.log('토큰 출력: ', localStorage.getItem(localStorage.getItem('token')));
+      console.log('찐토큰출력', token);
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 쿠키 포함?..
       });
