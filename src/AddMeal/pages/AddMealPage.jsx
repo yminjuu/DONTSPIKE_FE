@@ -25,12 +25,16 @@ const AddMealPage = () => {
   const fetchMeal = async foodId => {
     const date = new Date(selectedDate);
     try {
-      const res = await axios.post(`${BASE_URL}/api/diet/add-food?foodId=${foodId}&recordDate=${formatDate(date)}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+      const res = await axios.post(
+        `${BASE_URL}/api/diet/add-food?foodId=${foodId}&recordDate=${formatDate(date)}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          withCredentials: true, // 쿠키 포함?..
         },
-        withCredentials: true, // 쿠키 포함?..
-      });
+      );
 
       if (res.status === 200) {
         alert(`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}에 식단이 추가되었어요`);
