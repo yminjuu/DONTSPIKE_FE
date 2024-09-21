@@ -110,6 +110,9 @@ const MainGraphPage = () => {
   // **  모든 데이터를 다 가져왔는지 관리  **
   const [fetchStatus, setFetchStatus] = useState(false);
 
+  // gpt 코멘트 관리
+  const [comment, setComment] = useState('');
+
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
     fetchMainChartData();
@@ -150,6 +153,7 @@ const MainGraphPage = () => {
           fetchAverageData();
           fetchFavFoodData();
           localStorage.setItem('token', token);
+          setFetchStatus(true);
         }
       } else {
         alert('현재 서버 점검 중입니다.');
@@ -210,6 +214,7 @@ const MainGraphPage = () => {
       setFavFood(res.data.frequentFoods.sort(compareFavFood));
       // 자주 먹은 음식 전역으로 관리
       console.log('gpt 코멘트 출력: ', res.data.analysisDto);
+      setComment(res.data.analysisDto);
     } catch (error) {
       console.log(error);
     }
@@ -256,13 +261,7 @@ const MainGraphPage = () => {
                 <FoodBar token={token} />
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>
-                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                    <br />
-                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                  </TipBox>
+                  <TipBox>{comment}</TipBox>
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
