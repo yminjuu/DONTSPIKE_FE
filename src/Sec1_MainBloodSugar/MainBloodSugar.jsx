@@ -53,7 +53,7 @@ const Container = styled.div`
 
 const ChartWrapper = styled.div`
   ${commonGraphWrapper}
-  flex-shrink: 0;
+  flex: 1;
   flex-shrink: 0;
   display: flex;
   flex-direction: row;

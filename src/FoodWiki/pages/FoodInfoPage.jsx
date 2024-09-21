@@ -41,29 +41,26 @@ const FoodInfoPage = () => {
     fetchFoodWikiSearchResult();
   }, [data]);
 
-  if (data === null) {
-    <div>로딩 중입니다..</div>;
-  } else
-    return (
-      <Wrapper>
-        <HeaderWrapper>
-          <SubPageHeader currState="foodwiki"></SubPageHeader>
-          <LogoWrapper mode={mode}>혈당백과</LogoWrapper>
-        </HeaderWrapper>
-        <ContentWrapper>
-          <InfoWrapper>
-            <Nutrient {...data}></Nutrient>
-          </InfoWrapper>
-          <TipWrapper>
-            <WikiLogo src={SearchSec} />
-            <Tip tip_title="전문가의 소견" tip_content={data.expertOpinion} />
-            <Tip tip_title="적정 섭취량" tip_content={data.properIntake} />
-            <Tip tip_title="추천 섭취 방법" tip_content={data.ingestionMethod} />
-            <Tip tip_title="혈당 지수" tip_content={data.gi} />
-          </TipWrapper>
-        </ContentWrapper>
-      </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <HeaderWrapper>
+        <SubPageHeader currState="foodwiki"></SubPageHeader>
+        <LogoWrapper mode={mode}>혈당백과</LogoWrapper>
+      </HeaderWrapper>
+      <ContentWrapper>
+        <InfoWrapper>
+          <Nutrient {...data}></Nutrient>
+        </InfoWrapper>
+        <TipWrapper>
+          <WikiLogo src={SearchSec} />
+          <Tip tip_title="전문가의 소견" tip_content={data.expertOpinion} />
+          <Tip tip_title="적정 섭취량" tip_content={data.properIntake} />
+          <Tip tip_title="추천 섭취 방법" tip_content={data.ingestionMethod} />
+          <Tip tip_title="혈당 지수" tip_content={data.gi} />
+        </TipWrapper>
+      </ContentWrapper>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`

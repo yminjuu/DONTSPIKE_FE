@@ -79,8 +79,6 @@ const calculateDifference = data => {
 };
 
 const MainGraphPage = () => {
-  const navigate = useNavigate();
-
   const [token, setToken] = useState(null);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
