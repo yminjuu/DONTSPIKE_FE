@@ -33,10 +33,10 @@ const AverageBloodSugarChart = ({ averageData }) => {
         style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', display: 'flex', justifyContent: 'center' }}
         ref={chartContainerRef}
       >
-        <div style={{ width: `${chartWidth}px`, height: '270px' }}>
+        <div style={{ width: `${chartWidth}px`, height: '250px' }}>
           <LineChart
             width={averageData.length <= 5 ? 500 : averageData.length * 100}
-            height={270}
+            height={250}
             data={averageData}
             margin={{
               top: 40,

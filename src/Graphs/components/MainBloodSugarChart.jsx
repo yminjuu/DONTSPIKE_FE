@@ -288,7 +288,10 @@ const MainBloodSugarChart = ({ mainData }) => {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
     return (
-      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
+      <div
+        style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', display: 'flex', justifyContent: 'center' }}
+        ref={chartContainerRef}
+      >
         <div style={{ width: `${chartWidth}px`, height: '320px' }}>
           <LineChart
             width={mainData.length <= 10 ? 700 : mainData.length * 100}

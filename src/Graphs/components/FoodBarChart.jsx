@@ -13,11 +13,20 @@ const FoodBarChart = () => {
 
   if (favFood.length != 0) {
     return (
-      <div style={{ width: '100%', overflowX: 'hidden', overflowY: 'hidden' }}>
-        <div style={{ width: '100%', height: '270px', margin: '0 auto' }}>
+      <div
+        style={{
+          width: '100%',
+          overflowX: 'hidden',
+          overflowY: 'hidden',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+        }}
+      >
+        <div style={{ width: '100%', height: '250px', margin: '0 auto' }}>
           <BarChart
             width={600}
-            height={270}
+            height={250}
             data={favFood}
             margin={{
               top: 30,

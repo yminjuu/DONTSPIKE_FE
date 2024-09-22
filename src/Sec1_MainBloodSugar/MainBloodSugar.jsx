@@ -90,7 +90,6 @@ const AddInfo = styled.div`
 
   font-size: 1rem;
   font-weight: 350;
-  opacity: var(--sds-size-stroke-border);
 
   ${props =>
     props.mode === 'senior'
@@ -137,6 +136,12 @@ const RealBtn = styled.div`
           font-size: 1rem;
           font-weight: 350;
         `}
+
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
 `;
 
 const AddSpan = styled.span`

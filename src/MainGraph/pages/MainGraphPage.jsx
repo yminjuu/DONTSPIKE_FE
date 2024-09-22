@@ -204,7 +204,7 @@ const MainGraphPage = () => {
               <TitleWrapper>
                 <ChartTitle mode={seniorMode}>아침 공복 혈당 그래프</ChartTitle>
               </TitleWrapper>
-              <ContentWrapper>
+              <ContentWrapper mode={seniorMode}>
                 {' '}
                 <MainBloodSugar setBS={setBS} mainData={mainData}></MainBloodSugar>
                 <TipWrapper>
@@ -243,7 +243,7 @@ const MainGraphPage = () => {
               <TitleWrapper>
                 <ChartTitle mode={seniorMode}>최근 30일간 가장 자주 먹은 음식</ChartTitle>
               </TitleWrapper>
-              <ContentWrapper>
+              <ContentWrapper mode={seniorMode}>
                 <FoodBar token={token} />
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
@@ -267,7 +267,7 @@ const MainGraphPage = () => {
               <TitleWrapper>
                 <ChartTitle mode={seniorMode}>월별 공복 혈당 평균</ChartTitle>
               </TitleWrapper>
-              <ContentWrapper>
+              <ContentWrapper mode={seniorMode}>
                 <AverageBloodSugar averageData={averageData} offset={averageOffset}></AverageBloodSugar>
                 <TipWrapper>
                   {/* 평균값을 구할 수 없는 경우와 구해진 경우를 구분하여 렌더링 */}
@@ -320,6 +320,12 @@ const ContentWrapper = styled.div`
 
   background-color: #ffffff;
   /* padding으로 인해 이 요소의 크기 변경 x, 자식 요소의 크기 변경 */
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          height: 80%;
+        `
+      : css``}
 `;
 const TitleWrapper = styled.div`
   width: 100%;
@@ -342,9 +348,9 @@ const ChartTitle = styled.div`
   ${props =>
     props.mode === 'senior'
       ? css`
-          font-size: 2rem;
+          font-size: 1.8rem;
           font-weight: 800;
-          padding: 1rem;
+          padding: 1.5rem;
         `
       : css``}
 `;
@@ -368,7 +374,6 @@ const TipWrapper = styled.div`
 `;
 
 const TipBox = styled.div`
-  padding: 2rem;
   padding: 2rem 5rem 2rem 5rem;
   max-width: 65rem;
 
@@ -382,6 +387,13 @@ const TipBox = styled.div`
     props.null === true
       ? css`
           font-weight: 600;
+        `
+      : css``}
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          padding: 1rem 5rem;
         `
       : css``}
 
