@@ -43,7 +43,10 @@ const AverageBloodSugarChart = ({ fetchAverageData, averageData }) => {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
     return (
-      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
+      <div
+        style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', display: 'flex', justifyContent: 'center' }}
+        ref={chartContainerRef}
+      >
         <div style={{ width: `${chartWidth}px`, height: '270px' }}>
           <LineChart
             width={averageData.length <= 5 ? 500 : averageData.length * 100}

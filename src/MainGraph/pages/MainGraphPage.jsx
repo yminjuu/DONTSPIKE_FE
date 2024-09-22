@@ -6,7 +6,6 @@ import FoodBar from '../../Sec2_FoodBar/FoodBar';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
 import { commonChartTitle } from '../../common/styles/commonStyles';
@@ -17,9 +16,7 @@ import { useRecoilState } from 'recoil';
 import { favFoodState } from '../../Recoil';
 import Loader from '../../common/components/Loader';
 
-const compareFavFood = (a, b) => {
-  return parseInt(b.count) - parseInt(a.count);
-};
+import { compareMainData, calculateDifference, compareFavFood } from '../function/compare';
 
 const monthMapping = {
   JANUARY: '1월',
@@ -51,14 +48,6 @@ const monthOrder = [
   'DECEMBER',
 ];
 
-// 날짜순 정렬
-const compare = (a, b) => {
-  const dateA = new Date(a.recorddate);
-  const dateB = new Date(b.recorddate);
-
-  return dateA - dateB;
-};
-
 const parseData = data => {
   return monthOrder.reduce((result, month) => {
     const average = Math.round(data[month]);
@@ -70,19 +59,6 @@ const parseData = data => {
     }
     return result;
   }, []);
-};
-
-const calculateDifference = data => {
-  if (data.length < 2) {
-    return 1; //임시
-    // throw new Error('Not enough data to calculate the difference');
-  }
-
-  const lastIndex = data.length - 1;
-  const lastAverage = data[lastIndex].average;
-  const secondLastAverage = data[lastIndex - 1].average;
-
-  return lastAverage - secondLastAverage;
 };
 
 const MainGraphPage = () => {
@@ -173,7 +149,7 @@ const MainGraphPage = () => {
         withCredentials: true, // 쿠키 포함?..
       }); // data를 배열 형식으로 새로 받아옴
       const newData = [...res.data];
-      setMainData(newData.sort(compare));
+      setMainData(newData.sort(compareMainData));
     } catch (error) {
       console.log('에러 발생: 메인그래프', error);
     }
@@ -212,6 +188,9 @@ const MainGraphPage = () => {
         withCredentials: true, // 쿠키 포함?..
       });
       // 자주 먹은 음식 전역으로 관리
+      setFavFood(res.data.frequentFoods.sort(compareFavFood));
+      console.log('자주 먹은 음식 출력: ', res.data.frequentFoods.sort(compareFavFood));
+
       console.log('gpt 코멘트 출력: ', res.data.analysisDto);
       setComment(res.data.analysisDto.analysis);
     } catch (error) {
