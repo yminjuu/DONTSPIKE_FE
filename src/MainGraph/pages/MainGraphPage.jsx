@@ -54,8 +54,12 @@ const MainGraphPage = () => {
 
   useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
-    fetchMainChartData();
-    fetchAverageData();
+    if (fetchStatus === true) {
+      // 초기 렌더링이 여기서는 발생하지 않도록
+      fetchMainChartData();
+      fetchAverageData();
+    }
+
     // 스크롤 위치 top이도록 관리
     if (pageContainerRef.current) {
       pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
@@ -64,12 +68,32 @@ const MainGraphPage = () => {
 
   // 토큰 바뀔 때마다 실행
   useEffect(() => {
-    if (token != null) {
-      localStorage.setItem('token', token);
+    // 비동기 함수 정의
+    const fetchData = async () => {
+      if (token != null) {
+        localStorage.setItem('token', token);
 
-      if (fetchMainChartData() === true && fetchAverageData() === true && fetchFavFoodData() === true)
-        setFetchStatus(true);
-    }
+        try {
+          // 모든 비동기 작업이 완료될 때까지 기다림
+          const favFoodSuccess = await fetchFavFoodData();
+          const averageDataSuccess = await fetchAverageData();
+          const mainChartSuccess = await fetchMainChartData();
+
+          // 모든 요청이 성공했을 때만 setFetchStatus(true) 호출
+          if (favFoodSuccess && averageDataSuccess && mainChartSuccess) {
+            setFetchStatus(true);
+          } else {
+            alert('데이터가 제대로 불러와지지 않았어요. 새로고침해주세요');
+            setFetchStatus(true); // 하나라도 실패했을 경우 alert
+          }
+        } catch (error) {
+          console.log('에러 발생:', error);
+          setFetchStatus(false); // 에러가 발생하면 false로 설정
+        }
+      }
+    };
+
+    fetchData(); // 비동기 함수 호출
   }, [token]);
 
   // 최초 1회 토큰 받아오는 fetch 함수
