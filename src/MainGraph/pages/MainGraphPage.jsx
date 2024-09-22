@@ -18,6 +18,7 @@ import Loader from '../../common/components/Loader';
 
 import { compareMainData, calculateDifference, compareFavFood } from '../function/compare';
 import parseData from '../function/parseData';
+import analyzeBS from '../function/analyzeBS';
 
 const MainGraphPage = () => {
   const [token, setToken] = useState(null);
@@ -44,8 +45,18 @@ const MainGraphPage = () => {
   // **  모든 데이터를 다 가져왔는지 관리  **
   const [fetchStatus, setFetchStatus] = useState(false);
 
-  // gpt 코멘트 관리
-  const [comment, setComment] = useState('');
+  // MAIN - 코멘트 관리
+  const [mainComment, setMainComment] = useState(null);
+
+  // FOOD - gpt 코멘트 관리
+  const [foodGPTComment, setGPTComment] = useState('');
+
+  useEffect(() => {
+    if (mainData.length != 0) {
+      const result = analyzeBS(mainData);
+      setMainComment(result);
+    }
+  }, [mainData]);
 
   useEffect(() => {
     // api요청을 통해 토큰을 받는다
@@ -58,6 +69,10 @@ const MainGraphPage = () => {
       // 초기 렌더링이 여기서는 발생하지 않도록
       fetchMainChartData();
       fetchAverageData();
+      if (mainData.length != 0) {
+        const result = analyzeBS(mainData);
+        setMainComment(result);
+      }
     }
 
     // 스크롤 위치 top이도록 관리
@@ -83,8 +98,6 @@ const MainGraphPage = () => {
           if (favFoodSuccess && averageDataSuccess && mainChartSuccess) {
             setFetchStatus(true);
           } else {
-            alert('데이터가 제대로 불러와지지 않았어요. 새로고침해주세요');
-            setFetchStatus(true); // 하나라도 실패했을 경우 alert
           }
         } catch (error) {
           console.log('에러 발생:', error);
@@ -170,7 +183,7 @@ const MainGraphPage = () => {
         // 자주 먹은 음식 전역으로 관리
         setFavFood(res.data.frequentFoods.sort(compareFavFood));
         // gpt comment set
-        setComment(res.data.analysisDto.analysis);
+        if (res.data.frequentFoods.length != 0) setGPTComment(res.data.analysisDto.analysis);
         return true;
       }
     } catch (error) {
@@ -194,11 +207,36 @@ const MainGraphPage = () => {
                 <MainBloodSugar setBS={setBS} mainData={mainData}></MainBloodSugar>
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>
-                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                    <br />
-                  </TipBox>
+                  {mainComment !== null ? (
+                    mainComment.today === true ? (
+                      <TipBox>
+                        오늘의 공복 혈당은 <EmphSpan>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
+                        <br />
+                        지난 공복 혈당와 비교했을 때 평균 공복 혈당이{' '}
+                        {mainComment.alertComment === '동일' ? (
+                          '동일하군요.'
+                        ) : (
+                          <>
+                            {' '}
+                            <EmphSpan alertComment={mainComment.alertComment}>
+                              {mainComment.difference}mg/dl
+                            </EmphSpan>{' '}
+                            {mainComment.alertComment}했군요.
+                          </>
+                        )}
+                      </TipBox>
+                    ) : (
+                      <TipBox>
+                        최근 공복 혈당은 <EmphSpan>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
+                        <br />
+                      </TipBox>
+                    )
+                  ) : (
+                    <TipBox null={true}>
+                      {' '}
+                      <EmphSpan>충분한 혈당 기록</EmphSpan>이 필요해요!
+                    </TipBox>
+                  )}
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
@@ -213,12 +251,12 @@ const MainGraphPage = () => {
                 <FoodBar token={token} />
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
-                  {comment !== '' ? (
-                    <TipBox>{comment}</TipBox>
+                  {foodGPTComment !== '' ? (
+                    <TipBox>{foodGPTComment}</TipBox>
                   ) : (
                     <TipBox null={true}>
                       {' '}
-                      더 많은 기록을 해주시면 <span style={{ color: '#D33F3F' }}>AI가 식단을 분석</span>
+                      더 많은 기록을 해주시면 <EmphSpan>AI가 식단을 분석</EmphSpan>
                       해줄 거예요!
                       <br />
                     </TipBox>
@@ -240,8 +278,7 @@ const MainGraphPage = () => {
                   {averageOffset === null ? (
                     <TipBox null={true}>
                       {' '}
-                      더 많은 기록을 해주시면 <span style={{ color: '#D33F3F' }}>지난 달과의 혈당 평균 차이</span>를
-                      알려드릴게요!
+                      더 많은 기록을 해주시면 <EmphSpan>지난 달과의 혈당 평균 차이</EmphSpan>를 알려드릴게요!
                       <br />
                     </TipBox>
                   ) : (
@@ -341,6 +378,28 @@ const TipBox = styled.div`
           font-weight: 600;
         `
       : css``}
+
+  color: #414141;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3rem;
+  word-spacing: 0.01rem;
+`;
+
+const EmphSpan = styled.span`
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: '#D33F3F';
+
+  ${props =>
+    props.alertComment === '증가'
+      ? // 다중 속성을 사용
+        css`
+          color: #d33f3f;
+        `
+      : css`
+          color: #3053f9;
+        `};
 `;
 
 export default MainGraphPage;
