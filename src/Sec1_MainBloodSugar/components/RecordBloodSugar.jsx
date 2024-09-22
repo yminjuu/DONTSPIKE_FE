@@ -1,14 +1,18 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button_before from '../assets/RecordBSBtn_Before.svg?react';
 import Button_ok from '../assets/RecordBSBtn_OK.svg?react';
 import Datepicker from './Datepicker';
 import { useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 Modal.setAppElement('#root');
 
 const RecordBloodSugar = ({ setBS }) => {
+  const seniorMode = useRecoilValue(modeState);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -75,12 +79,12 @@ const RecordBloodSugar = ({ setBS }) => {
   return (
     <>
       <Wrapper>
-        <Title>혈당 기록하기</Title>
-        <LabelInput>
+        <Title mode={seniorMode}>혈당 기록하기</Title>
+        <LabelInput mode={seniorMode}>
           <div>날짜</div>
           <Datepicker selectedDate={selectedDate} setDate={setDate}></Datepicker>
         </LabelInput>
-        <LabelInput>
+        <LabelInput mode={seniorMode}>
           <div>혈당</div>
           <InputWrapper>
             <BSInput onChange={onBSInput} value={text} type="number"></BSInput>
@@ -89,7 +93,13 @@ const RecordBloodSugar = ({ setBS }) => {
         </LabelInput>
         <ButtonContainer>
           <ButtonWrapper>
-            {text == '' ? <StyledBtn_Before></StyledBtn_Before> : <StyledBtn_OK onClick={fetchNewBS}></StyledBtn_OK>}
+            {text == '' ? (
+              <StyledBtn_Before mode={seniorMode}>추가하기</StyledBtn_Before>
+            ) : (
+              <StyledBtn_OK mode={seniorMode} onClick={fetchNewBS}>
+                추가하기
+              </StyledBtn_OK>
+            )}
           </ButtonWrapper>
         </ButtonContainer>
       </Wrapper>
@@ -148,6 +158,14 @@ const Title = styled.div`
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 2.3rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 600;
+        `
+      : css``}
 `;
 
 const LabelInput = styled.div`
@@ -162,6 +180,15 @@ const LabelInput = styled.div`
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 1.5rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.3rem;
+          font-weight: 650;
+          margin-bottom: 0.7rem;
+        `
+      : css``}
 `;
 
 const InputWrapper = styled.div`
@@ -218,10 +245,58 @@ const ButtonWrapper = styled.div`
   cursor: pointer;
 `;
 
-const StyledBtn_OK = styled(Button_ok)``;
+const StyledBtn_OK = styled.div`
+  width: 6.5rem;
+  height: 2.8rem;
+  cursor: cursor;
+  background-color: #3053f9;
+  border-radius: 2rem;
 
-const StyledBtn_Before = styled(Button_before)`
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+
+  text-align: center;
+  line-height: 2.8rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 7rem;
+          height: 3rem;
+
+          font-size: 1.4rem;
+          font-weight: 700;
+          margin-bottom: 0.7rem;
+        `
+      : css``}
+`;
+
+const StyledBtn_Before = styled.div`
+  width: 6.5rem;
+  height: 2.8rem;
   cursor: default;
+  background-color: #e8e8e8;
+  border-radius: 2rem;
+
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #414141;
+
+  text-align: center;
+  line-height: 2.8rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 7rem;
+          height: 3rem;
+
+          font-size: 1.4rem;
+          font-weight: 700;
+          margin-bottom: 0.7rem;
+        `
+      : css``}
 `;
 
 const CloseBtnWrapper = styled.div`

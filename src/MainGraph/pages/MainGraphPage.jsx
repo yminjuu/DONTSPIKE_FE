@@ -12,8 +12,8 @@ import { commonChartTitle } from '../../common/styles/commonStyles';
 import doctor from '../assets/doctor.png';
 
 import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
-import { useRecoilState } from 'recoil';
-import { favFoodState } from '../../Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { favFoodState, modeState } from '../../Recoil';
 import Loader from '../../common/components/Loader';
 
 import { compareMainData, calculateDifference, compareFavFood } from '../function/compare';
@@ -21,6 +21,8 @@ import parseData from '../function/parseData';
 import analyzeBS from '../function/analyzeBS';
 
 const MainGraphPage = () => {
+  const seniorMode = useRecoilValue(modeState);
+
   const [token, setToken] = useState(null);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -200,7 +202,7 @@ const MainGraphPage = () => {
           <FullpageSection>
             <SectionWrapper>
               <TitleWrapper>
-                <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
+                <ChartTitle mode={seniorMode}>아침 공복 혈당 그래프</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
                 {' '}
@@ -209,8 +211,8 @@ const MainGraphPage = () => {
                   <ImgWrapper src={doctor}></ImgWrapper>
                   {mainComment !== null ? (
                     mainComment.today === true ? (
-                      <TipBox>
-                        오늘의 공복 혈당은 <EmphSpan>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
+                      <TipBox mode={seniorMode}>
+                        오늘의 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
                         <br />
                         지난 공복 혈당와 비교했을 때 평균 공복 혈당이{' '}
                         {mainComment.alertComment === '동일' ? (
@@ -218,7 +220,7 @@ const MainGraphPage = () => {
                         ) : (
                           <>
                             {' '}
-                            <EmphSpan alertComment={mainComment.alertComment}>
+                            <EmphSpan mode={seniorMode} alertComment={mainComment.alertComment}>
                               {mainComment.difference}mg/dl
                             </EmphSpan>{' '}
                             {mainComment.alertComment}했군요.
@@ -226,15 +228,15 @@ const MainGraphPage = () => {
                         )}
                       </TipBox>
                     ) : (
-                      <TipBox>
-                        최근 공복 혈당은 <EmphSpan>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
+                      <TipBox mode={seniorMode}>
+                        최근 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
                         <br />
                       </TipBox>
                     )
                   ) : (
-                    <TipBox null={true}>
+                    <TipBox mode={seniorMode} null={true}>
                       {' '}
-                      <EmphSpan>충분한 혈당 기록</EmphSpan>이 필요해요!
+                      <EmphSpan mode={seniorMode}>충분한 혈당 기록</EmphSpan>이 필요해요!
                     </TipBox>
                   )}
                 </TipWrapper>
@@ -245,18 +247,18 @@ const MainGraphPage = () => {
             <SectionWrapper>
               {' '}
               <TitleWrapper>
-                <ChartTitle>최근 30일간 가장 자주 먹은 음식</ChartTitle>
+                <ChartTitle mode={seniorMode}>최근 30일간 가장 자주 먹은 음식</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
                 <FoodBar token={token} />
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
                   {foodGPTComment !== '' ? (
-                    <TipBox>{foodGPTComment}</TipBox>
+                    <TipBox mode={seniorMode}>{foodGPTComment}</TipBox>
                   ) : (
-                    <TipBox null={true}>
+                    <TipBox mode={seniorMode} null={true}>
                       {' '}
-                      더 많은 기록을 해주시면 <EmphSpan>AI가 식단을 분석</EmphSpan>
+                      더 많은 기록을 해주시면 <EmphSpan mode={seniorMode}>AI가 식단을 분석</EmphSpan>
                       해줄 거예요!
                       <br />
                     </TipBox>
@@ -269,23 +271,24 @@ const MainGraphPage = () => {
             <SectionWrapper>
               {' '}
               <TitleWrapper>
-                <ChartTitle>월별 공복 혈당 평균</ChartTitle>
+                <ChartTitle mode={seniorMode}>월별 공복 혈당 평균</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
                 <AverageBloodSugar averageData={averageData} offset={averageOffset}></AverageBloodSugar>
                 <TipWrapper>
                   {/* 평균값을 구할 수 없는 경우와 구해진 경우를 구분하여 렌더링 */}
                   {averageOffset === null ? (
-                    <TipBox null={true}>
+                    <TipBox mode={seniorMode} null={true}>
                       {' '}
-                      더 많은 기록을 해주시면 <EmphSpan>지난 달과의 혈당 평균 차이</EmphSpan>를 알려드릴게요!
+                      더 많은 기록을 해주시면 <EmphSpan mode={seniorMode}>지난 달과의 혈당 평균 차이</EmphSpan>를
+                      알려드릴게요!
                       <br />
                     </TipBox>
                   ) : (
                     <>
                       {' '}
                       <ImgWrapper src={doctor}></ImgWrapper>
-                      <TipBox null={false}>
+                      <TipBox mode={seniorMode} null={false}>
                         <AverageGraphToolTip offset={averageOffset} />
                       </TipBox>
                     </>
@@ -341,6 +344,15 @@ const ChartTitle = styled.div`
   font-size: 1.6rem;
   font-weight: 700;
   padding: 2rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 2rem;
+          font-weight: 800;
+          padding: 1rem;
+        `
+      : css``}
 `;
 
 const ImgWrapper = styled.img`
@@ -384,6 +396,15 @@ const TipBox = styled.div`
   font-weight: 500;
   line-height: 1.3rem;
   word-spacing: 0.01rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 600;
+          line-height: 1.6rem;
+        `
+      : css``}
 `;
 
 const EmphSpan = styled.span`
@@ -400,6 +421,14 @@ const EmphSpan = styled.span`
       : css`
           color: #3053f9;
         `};
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.7rem;
+          font-weight: 700;
+        `
+      : css``}
 `;
 
 export default MainGraphPage;
