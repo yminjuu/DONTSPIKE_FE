@@ -210,29 +210,23 @@ const MainGraphPage = () => {
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
                   {mainComment !== null ? (
-                    mainComment.today === true ? (
-                      <TipBox mode={seniorMode}>
-                        오늘의 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
-                        <br />
-                        지난 공복 혈당와 비교했을 때 평균 공복 혈당이{' '}
-                        {mainComment.alertComment === '동일' ? (
-                          '동일하군요.'
-                        ) : (
-                          <>
-                            {' '}
-                            <EmphSpan mode={seniorMode} alertComment={mainComment.alertComment}>
-                              {mainComment.difference}mg/dl
-                            </EmphSpan>{' '}
-                            {mainComment.alertComment}했군요.
-                          </>
-                        )}
-                      </TipBox>
-                    ) : (
-                      <TipBox mode={seniorMode}>
-                        최근 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
-                        <br />
-                      </TipBox>
-                    )
+                    <TipBox mode={seniorMode}>
+                      {mainComment.today} 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>
+                      입니다!
+                      <br />
+                      지난 공복 혈당와 비교했을 때 평균 공복 혈당이{' '}
+                      {mainComment.alertComment === '동일' ? (
+                        '동일하군요.'
+                      ) : (
+                        <>
+                          약{' '}
+                          <EmphSpan mode={seniorMode} alertComment={mainComment.alertComment}>
+                            {mainComment.difference}mg/dl
+                          </EmphSpan>{' '}
+                          {mainComment.alertComment}했군요.
+                        </>
+                      )}
+                    </TipBox>
                   ) : (
                     <TipBox mode={seniorMode} null={true}>
                       {' '}

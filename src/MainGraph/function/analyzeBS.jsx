@@ -17,7 +17,7 @@ const analyzeBS = mainData => {
 
   // 지난 혈당과 최근 혈당값의 차이를 구하기
   var alertComment = '';
-  var difference = recentBS.bloodsugar - lastBS.bloodsugar;
+  var difference = Math.round(recentBS.bloodsugar - lastBS.bloodsugar);
   if (difference < 0) {
     alertComment = '감소';
     difference = -1 * difference;
@@ -25,7 +25,7 @@ const analyzeBS = mainData => {
   if (isSameDate(new Date(), new Date(recentBS.recorddate))) {
     // 오늘 혈당 있는 경우
     return {
-      today: true,
+      today: '오늘',
       todayBS: recentBS.bloodsugar,
       lastBS: lastBS.bloodsugar,
       difference: difference,
@@ -33,7 +33,7 @@ const analyzeBS = mainData => {
     };
   } else {
     return {
-      today: false, //오늘 혈당이 아님
+      today: '최근', //오늘 혈당이 아님
       todayBS: recentBS.bloodsugar,
       lastBS: lastBS.bloodsugar,
       difference: difference,

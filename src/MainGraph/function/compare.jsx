@@ -16,7 +16,7 @@ const calculateDifference = data => {
   const lastAverage = data[lastIndex].average;
   const secondLastAverage = data[lastIndex - 1].average;
 
-  return lastAverage - secondLastAverage;
+  return Math.round(lastAverage - secondLastAverage);
 };
 
 // 최애 음식 그래프 정렬 함수
