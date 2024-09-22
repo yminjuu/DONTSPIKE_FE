@@ -17,49 +17,7 @@ import { favFoodState } from '../../Recoil';
 import Loader from '../../common/components/Loader';
 
 import { compareMainData, calculateDifference, compareFavFood } from '../function/compare';
-
-const monthMapping = {
-  JANUARY: '1월',
-  FEBRUARY: '2월',
-  MARCH: '3월',
-  APRIL: '4월',
-  MAY: '5월',
-  JUNE: '6월',
-  JULY: '7월',
-  AUGUST: '8월',
-  SEPTEMBER: '9월',
-  OCTOBER: '10월',
-  NOVEMBER: '11월',
-  DECEMBER: '12월',
-};
-
-const monthOrder = [
-  'JANUARY',
-  'FEBRUARY',
-  'MARCH',
-  'APRIL',
-  'MAY',
-  'JUNE',
-  'JULY',
-  'AUGUST',
-  'SEPTEMBER',
-  'OCTOBER',
-  'NOVEMBER',
-  'DECEMBER',
-];
-
-const parseData = data => {
-  return monthOrder.reduce((result, month) => {
-    const average = Math.round(data[month]);
-    if (average !== 0) {
-      result.push({
-        name: monthMapping[month],
-        average: average,
-      });
-    }
-    return result;
-  }, []);
-};
+import parseData from '../function/parseData';
 
 const MainGraphPage = () => {
   const [token, setToken] = useState(null);
@@ -90,6 +48,11 @@ const MainGraphPage = () => {
   const [comment, setComment] = useState('');
 
   useEffect(() => {
+    // api요청을 통해 토큰을 받는다
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
     // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
     fetchMainChartData();
     fetchAverageData();
@@ -99,22 +62,17 @@ const MainGraphPage = () => {
     }
   }, [bloodSugar]);
 
+  // 토큰 바뀔 때마다 실행
   useEffect(() => {
-    // api요청을 통해 토큰을 받는다
-    fetchToken();
-  }, []);
-
-  useEffect(() => {
-    // token 값이 알맞게 들어가면 함수 호출이 된다.
     if (token != null) {
-      fetchMainChartData();
-      fetchAverageData();
-      fetchFavFoodData();
       localStorage.setItem('token', token);
-      setFetchStatus(true);
+
+      if (fetchMainChartData() === true && fetchAverageData() === true && fetchFavFoodData() === true)
+        setFetchStatus(true);
     }
   }, [token]);
 
+  // 최초 1회 토큰 받아오는 fetch 함수
   const fetchToken = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/getAccessToken`, {
@@ -123,14 +81,6 @@ const MainGraphPage = () => {
       });
       if (res.status === 200) {
         setToken(res.data);
-        if (token != null) {
-          localStorage.setItem('token', token);
-          fetchMainChartData();
-          fetchAverageData();
-          fetchFavFoodData();
-          localStorage.setItem('token', token);
-          setFetchStatus(true);
-        }
       } else {
         alert('현재 서버 점검 중입니다.');
       }
@@ -139,7 +89,7 @@ const MainGraphPage = () => {
     }
   };
 
-  // 메인 그래프 data fetch
+  // 1) 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
@@ -148,14 +98,18 @@ const MainGraphPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       }); // data를 배열 형식으로 새로 받아옴
-      const newData = [...res.data];
-      setMainData(newData.sort(compareMainData));
+
+      if (res.status === 200) {
+        const newData = [...res.data];
+        setMainData(newData.sort(compareMainData));
+        return true;
+      }
     } catch (error) {
       console.log('에러 발생: 메인그래프', error);
     }
   };
 
-  // 평균 혈당 그래프 data fetch
+  // 2) 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
@@ -171,14 +125,14 @@ const MainGraphPage = () => {
         // 차이 계산 후 offset 설정
         const difference = calculateDifference(parsedData);
         setOffset(difference);
-        console.log('계산: ', difference);
+        return true;
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // 자주 먹은 음식 데이터
+  // 3) 자주 먹은 음식 데이터
   const fetchFavFoodData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
@@ -187,12 +141,14 @@ const MainGraphPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      // 자주 먹은 음식 전역으로 관리
-      setFavFood(res.data.frequentFoods.sort(compareFavFood));
-      console.log('자주 먹은 음식 출력: ', res.data.frequentFoods.sort(compareFavFood));
 
-      console.log('gpt 코멘트 출력: ', res.data.analysisDto);
-      setComment(res.data.analysisDto.analysis);
+      if (res.status === 200) {
+        // 자주 먹은 음식 전역으로 관리
+        setFavFood(res.data.frequentFoods.sort(compareFavFood));
+        // gpt comment set
+        setComment(res.data.analysisDto.analysis);
+        return true;
+      }
     } catch (error) {
       console.log(error);
     }
