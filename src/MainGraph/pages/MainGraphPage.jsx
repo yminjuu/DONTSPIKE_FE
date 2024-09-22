@@ -1,9 +1,9 @@
 import MainHeader from '../../common/components/MainHeader';
 import MainBloodSugar from '../../Sec1_MainBloodSugar/MainBloodSugar';
 import AverageBloodSugar from '../../Sec3_AverageBloodSugar/AverageBloodSugar';
+import AverageGraphToolTip from '../../Sec3_AverageBloodSugar/components/AverageGraphToolTip';
 import FoodBar from '../../Sec2_FoodBar/FoodBar';
-
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import React from 'react';
@@ -67,8 +67,8 @@ const MainGraphPage = () => {
     if (token != null) {
       localStorage.setItem('token', token);
 
-      if (fetchMainChartData() === true && fetchAverageData() === true && fetchFavFoodData() === true)
-        setFetchStatus(true);
+      // if (fetchMainChartData() === true && fetchAverageData() === true && fetchFavFoodData() === true)
+      setFetchStatus(true);
     }
   }, [token]);
 
@@ -178,8 +178,6 @@ const MainGraphPage = () => {
                     00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
                     어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
                     <br />
-                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
                   </TipBox>
                 </TipWrapper>
               </ContentWrapper>
@@ -213,14 +211,23 @@ const MainGraphPage = () => {
                   offset={averageOffset}
                 ></AverageBloodSugar>
                 <TipWrapper>
-                  <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>
-                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                    <br />
-                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                  </TipBox>
+                  {/* 평균값을 구할 수 없는 경우와 구해진 경우를 구분하여 렌더링 */}
+                  {averageOffset === null ? (
+                    <TipBox null={true}>
+                      {' '}
+                      더 많은 기록을 해주시면 <span style={{ color: '#D33F3F' }}>지난 달과의 혈당 평균 차이</span>를
+                      알려드릴게요!
+                      <br />
+                    </TipBox>
+                  ) : (
+                    <>
+                      {' '}
+                      <ImgWrapper src={doctor}></ImgWrapper>
+                      <TipBox null={false}>
+                        <AverageGraphToolTip offset={averageOffset} />
+                      </TipBox>
+                    </>
+                  )}
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
@@ -302,5 +309,13 @@ const TipBox = styled.div`
   background-color: #f0f1f5;
 
   line-height: 120%;
+
+  ${props =>
+    props.null === true
+      ? css`
+          font-weight: 600;
+        `
+      : css``}
 `;
+
 export default MainGraphPage;
