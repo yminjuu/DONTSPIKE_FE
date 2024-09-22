@@ -365,5 +365,7 @@ const TipBox = styled.div`
   border-radius: 1.25rem;
 
   background-color: #f0f1f5;
+
+  line-height: 120%;
 `;
 export default MainGraphPage;
