@@ -370,11 +370,12 @@ const TipWrapper = styled.div`
   align-items: center;
   position: relative;
 
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 `;
 
 const TipBox = styled.div`
-  padding: 2rem 5rem 2rem 5rem;
+  margin-top: 1rem;
+  padding: 1rem 5rem 1rem 5rem;
   max-width: 65rem;
 
   border-radius: 1.25rem;
@@ -382,6 +383,12 @@ const TipBox = styled.div`
   background-color: #f0f1f5;
 
   line-height: 120%;
+
+  color: #414141;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3rem;
+  word-spacing: 0.01rem;
 
   ${props =>
     props.null === true
@@ -393,22 +400,10 @@ const TipBox = styled.div`
   ${props =>
     props.mode === 'senior'
       ? css`
-          padding: 1rem 5rem;
-        `
-      : css``}
-
-  color: #414141;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.3rem;
-  word-spacing: 0.01rem;
-
-  ${props =>
-    props.mode === 'senior'
-      ? css`
           font-size: 1.5rem;
           font-weight: 600;
           line-height: 1.6rem;
+          padding: 1rem 5rem;
         `
       : css``}
 `;
