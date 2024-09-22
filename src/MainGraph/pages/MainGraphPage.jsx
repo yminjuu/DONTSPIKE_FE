@@ -1,91 +1,28 @@
 import MainHeader from '../../common/components/MainHeader';
 import MainBloodSugar from '../../Sec1_MainBloodSugar/MainBloodSugar';
 import AverageBloodSugar from '../../Sec3_AverageBloodSugar/AverageBloodSugar';
+import AverageGraphToolTip from '../../Sec3_AverageBloodSugar/components/AverageGraphToolTip';
 import FoodBar from '../../Sec2_FoodBar/FoodBar';
-
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import React from 'react';
 
 import { commonChartTitle } from '../../common/styles/commonStyles';
 import doctor from '../assets/doctor.png';
 
 import Fullpage, { FullPageSections, FullpageSection, FullpageNavigation } from '@ap.cx/react-fullpage';
-import { useRecoilState } from 'recoil';
-import { favFoodState } from '../../Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { favFoodState, modeState } from '../../Recoil';
 import Loader from '../../common/components/Loader';
 
-const compareFavFood = (a, b) => {
-  return parseInt(b.count) - parseInt(a.count);
-};
-
-const monthMapping = {
-  JANUARY: '1월',
-  FEBRUARY: '2월',
-  MARCH: '3월',
-  APRIL: '4월',
-  MAY: '5월',
-  JUNE: '6월',
-  JULY: '7월',
-  AUGUST: '8월',
-  SEPTEMBER: '9월',
-  OCTOBER: '10월',
-  NOVEMBER: '11월',
-  DECEMBER: '12월',
-};
-
-const monthOrder = [
-  'JANUARY',
-  'FEBRUARY',
-  'MARCH',
-  'APRIL',
-  'MAY',
-  'JUNE',
-  'JULY',
-  'AUGUST',
-  'SEPTEMBER',
-  'OCTOBER',
-  'NOVEMBER',
-  'DECEMBER',
-];
-
-// 날짜순 정렬
-const compare = (a, b) => {
-  const dateA = new Date(a.recorddate);
-  const dateB = new Date(b.recorddate);
-
-  return dateA - dateB;
-};
-
-const parseData = data => {
-  return monthOrder.reduce((result, month) => {
-    const average = Math.round(data[month]);
-    if (average !== 0) {
-      result.push({
-        name: monthMapping[month],
-        average: average,
-      });
-    }
-    return result;
-  }, []);
-};
-
-const calculateDifference = data => {
-  if (data.length < 2) {
-    return 1; //임시
-    // throw new Error('Not enough data to calculate the difference');
-  }
-
-  const lastIndex = data.length - 1;
-  const lastAverage = data[lastIndex].average;
-  const secondLastAverage = data[lastIndex - 1].average;
-
-  return lastAverage - secondLastAverage;
-};
+import { compareMainData, calculateDifference, compareFavFood } from '../function/compare';
+import parseData from '../function/parseData';
+import analyzeBS from '../function/analyzeBS';
 
 const MainGraphPage = () => {
+  const seniorMode = useRecoilValue(modeState);
+
   const [token, setToken] = useState(null);
 
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -110,18 +47,18 @@ const MainGraphPage = () => {
   // **  모든 데이터를 다 가져왔는지 관리  **
   const [fetchStatus, setFetchStatus] = useState(false);
 
-  // gpt 코멘트 관리
-  const [comment, setComment] = useState('');
+  // MAIN - 코멘트 관리
+  const [mainComment, setMainComment] = useState(null);
+
+  // FOOD - gpt 코멘트 관리
+  const [foodGPTComment, setGPTComment] = useState('');
 
   useEffect(() => {
-    // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
-    fetchMainChartData();
-    fetchAverageData();
-    // 스크롤 위치 top이도록 관리
-    if (pageContainerRef.current) {
-      pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
+    if (mainData.length != 0) {
+      const result = analyzeBS(mainData);
+      setMainComment(result);
     }
-  }, [bloodSugar]);
+  }, [mainData]);
 
   useEffect(() => {
     // api요청을 통해 토큰을 받는다
@@ -129,16 +66,52 @@ const MainGraphPage = () => {
   }, []);
 
   useEffect(() => {
-    // token 값이 알맞게 들어가면 함수 호출이 된다.
-    if (token != null) {
+    // 혈당값이 바뀌면 밑의 2가지 그래프 리렌더링 발생
+    if (fetchStatus === true) {
+      // 초기 렌더링이 여기서는 발생하지 않도록
       fetchMainChartData();
       fetchAverageData();
-      fetchFavFoodData();
-      localStorage.setItem('token', token);
-      setFetchStatus(true);
+      if (mainData.length != 0) {
+        const result = analyzeBS(mainData);
+        setMainComment(result);
+      }
     }
+
+    // 스크롤 위치 top이도록 관리
+    if (pageContainerRef.current) {
+      pageContainerRef.current.scrollTop = pageContainerRef.current.scrollHeight;
+    }
+  }, [bloodSugar]);
+
+  // 토큰 바뀔 때마다 실행
+  useEffect(() => {
+    // 비동기 함수 정의
+    const fetchData = async () => {
+      if (token != null) {
+        localStorage.setItem('token', token);
+
+        try {
+          // 모든 비동기 작업이 완료될 때까지 기다림
+          const favFoodSuccess = await fetchFavFoodData();
+          const averageDataSuccess = await fetchAverageData();
+          const mainChartSuccess = await fetchMainChartData();
+
+          // 모든 요청이 성공했을 때만 setFetchStatus(true) 호출
+          if (favFoodSuccess && averageDataSuccess && mainChartSuccess) {
+            setFetchStatus(true);
+          } else {
+          }
+        } catch (error) {
+          console.log('에러 발생:', error);
+          setFetchStatus(false); // 에러가 발생하면 false로 설정
+        }
+      }
+    };
+
+    fetchData(); // 비동기 함수 호출
   }, [token]);
 
+  // 최초 1회 토큰 받아오는 fetch 함수
   const fetchToken = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/getAccessToken`, {
@@ -147,14 +120,6 @@ const MainGraphPage = () => {
       });
       if (res.status === 200) {
         setToken(res.data);
-        if (token != null) {
-          localStorage.setItem('token', token);
-          fetchMainChartData();
-          fetchAverageData();
-          fetchFavFoodData();
-          localStorage.setItem('token', token);
-          setFetchStatus(true);
-        }
       } else {
         alert('현재 서버 점검 중입니다.');
       }
@@ -163,7 +128,7 @@ const MainGraphPage = () => {
     }
   };
 
-  // 메인 그래프 data fetch
+  // 1) 메인 그래프 data fetch
   const fetchMainChartData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/food`, {
@@ -172,14 +137,18 @@ const MainGraphPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       }); // data를 배열 형식으로 새로 받아옴
-      const newData = [...res.data];
-      setMainData(newData.sort(compare));
+
+      if (res.status === 200) {
+        const newData = [...res.data];
+        setMainData(newData.sort(compareMainData));
+        return true;
+      }
     } catch (error) {
       console.log('에러 발생: 메인그래프', error);
     }
   };
 
-  // 평균 혈당 그래프 data fetch
+  // 2) 평균 혈당 그래프 data fetch
   const fetchAverageData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/blood-sugar/average?year=2024`, {
@@ -195,14 +164,14 @@ const MainGraphPage = () => {
         // 차이 계산 후 offset 설정
         const difference = calculateDifference(parsedData);
         setOffset(difference);
-        console.log('계산: ', difference);
+        return true;
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  // 자주 먹은 음식 데이터
+  // 3) 자주 먹은 음식 데이터
   const fetchFavFoodData = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/food/favorites`, {
@@ -211,9 +180,14 @@ const MainGraphPage = () => {
         },
         withCredentials: true, // 쿠키 포함?..
       });
-      // 자주 먹은 음식 전역으로 관리
-      console.log('gpt 코멘트 출력: ', res.data.analysisDto);
-      setComment(res.data.analysisDto.analysis);
+
+      if (res.status === 200) {
+        // 자주 먹은 음식 전역으로 관리
+        setFavFood(res.data.frequentFoods.sort(compareFavFood));
+        // gpt comment set
+        if (res.data.frequentFoods.length != 0) setGPTComment(res.data.analysisDto.analysis);
+        return true;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -228,24 +202,43 @@ const MainGraphPage = () => {
           <FullpageSection>
             <SectionWrapper>
               <TitleWrapper>
-                <ChartTitle>아침 공복 혈당 그래프</ChartTitle>
+                <ChartTitle mode={seniorMode}>아침 공복 혈당 그래프</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
                 {' '}
-                <MainBloodSugar
-                  setBS={setBS}
-                  fetchMainChartData={fetchMainChartData}
-                  mainData={mainData}
-                ></MainBloodSugar>
+                <MainBloodSugar setBS={setBS} mainData={mainData}></MainBloodSugar>
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>
-                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                    <br />
-                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                  </TipBox>
+                  {mainComment !== null ? (
+                    mainComment.today === true ? (
+                      <TipBox mode={seniorMode}>
+                        오늘의 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
+                        <br />
+                        지난 공복 혈당와 비교했을 때 평균 공복 혈당이{' '}
+                        {mainComment.alertComment === '동일' ? (
+                          '동일하군요.'
+                        ) : (
+                          <>
+                            {' '}
+                            <EmphSpan mode={seniorMode} alertComment={mainComment.alertComment}>
+                              {mainComment.difference}mg/dl
+                            </EmphSpan>{' '}
+                            {mainComment.alertComment}했군요.
+                          </>
+                        )}
+                      </TipBox>
+                    ) : (
+                      <TipBox mode={seniorMode}>
+                        최근 공복 혈당은 <EmphSpan mode={seniorMode}>{mainComment.todayBS}mg/dl</EmphSpan>입니다!
+                        <br />
+                      </TipBox>
+                    )
+                  ) : (
+                    <TipBox mode={seniorMode} null={true}>
+                      {' '}
+                      <EmphSpan mode={seniorMode}>충분한 혈당 기록</EmphSpan>이 필요해요!
+                    </TipBox>
+                  )}
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
@@ -254,13 +247,22 @@ const MainGraphPage = () => {
             <SectionWrapper>
               {' '}
               <TitleWrapper>
-                <ChartTitle>최근 30일간 가장 자주 먹은 음식</ChartTitle>
+                <ChartTitle mode={seniorMode}>최근 30일간 가장 자주 먹은 음식</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
                 <FoodBar token={token} />
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>{comment}</TipBox>
+                  {foodGPTComment !== '' ? (
+                    <TipBox mode={seniorMode}>{foodGPTComment}</TipBox>
+                  ) : (
+                    <TipBox mode={seniorMode} null={true}>
+                      {' '}
+                      더 많은 기록을 해주시면 <EmphSpan mode={seniorMode}>AI가 식단을 분석</EmphSpan>
+                      해줄 거예요!
+                      <br />
+                    </TipBox>
+                  )}
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
@@ -269,23 +271,28 @@ const MainGraphPage = () => {
             <SectionWrapper>
               {' '}
               <TitleWrapper>
-                <ChartTitle>월별 공복 혈당 평균</ChartTitle>
+                <ChartTitle mode={seniorMode}>월별 공복 혈당 평균</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
-                <AverageBloodSugar
-                  fetchAverageData={fetchAverageData}
-                  averageData={averageData}
-                  offset={averageOffset}
-                ></AverageBloodSugar>
+                <AverageBloodSugar averageData={averageData} offset={averageOffset}></AverageBloodSugar>
                 <TipWrapper>
-                  <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>
-                    00 님의 최근 오늘 공복 평균 혈당은 0mg/dl입니다! <br />
-                    어제에 비해 평균 공복 혈당이 00mg/dl 상승했군요.
-                    <br />
-                    사과, 바나나를 먹었을 때 다른 분들에 비해 혈당이 많이 올라가는 편이에요!
-                    <br /> 반대로 상추, 깻잎을 먹었을 때 혈당이 내려가는 편이니까 참고해서 섭취하면 좋아요!
-                  </TipBox>
+                  {/* 평균값을 구할 수 없는 경우와 구해진 경우를 구분하여 렌더링 */}
+                  {averageOffset === null ? (
+                    <TipBox mode={seniorMode} null={true}>
+                      {' '}
+                      더 많은 기록을 해주시면 <EmphSpan mode={seniorMode}>지난 달과의 혈당 평균 차이</EmphSpan>를
+                      알려드릴게요!
+                      <br />
+                    </TipBox>
+                  ) : (
+                    <>
+                      {' '}
+                      <ImgWrapper src={doctor}></ImgWrapper>
+                      <TipBox mode={seniorMode} null={false}>
+                        <AverageGraphToolTip offset={averageOffset} />
+                      </TipBox>
+                    </>
+                  )}
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
@@ -337,6 +344,15 @@ const ChartTitle = styled.div`
   font-size: 1.6rem;
   font-weight: 700;
   padding: 2rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 2rem;
+          font-weight: 800;
+          padding: 1rem;
+        `
+      : css``}
 `;
 
 const ImgWrapper = styled.img`
@@ -365,5 +381,54 @@ const TipBox = styled.div`
   border-radius: 1.25rem;
 
   background-color: #f0f1f5;
+
+  line-height: 120%;
+
+  ${props =>
+    props.null === true
+      ? css`
+          font-weight: 600;
+        `
+      : css``}
+
+  color: #414141;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3rem;
+  word-spacing: 0.01rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.5rem;
+          font-weight: 600;
+          line-height: 1.6rem;
+        `
+      : css``}
 `;
+
+const EmphSpan = styled.span`
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: '#D33F3F';
+
+  ${props =>
+    props.alertComment === '증가'
+      ? // 다중 속성을 사용
+        css`
+          color: #d33f3f;
+        `
+      : css`
+          color: #3053f9;
+        `};
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          font-size: 1.7rem;
+          font-weight: 700;
+        `
+      : css``}
+`;
+
 export default MainGraphPage;

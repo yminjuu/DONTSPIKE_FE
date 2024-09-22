@@ -5,13 +5,12 @@ import mainperson1 from '../assets/Section1_1/MainPerson1.png';
 import mainperson2 from '../assets/Section1_1/MainPerson2.png';
 import gsap from 'gsap';
 import Vec1 from '../assets/background/backVector1.png';
-import Mac1 from '../assets/Section1_1/Mac1.png';
-import Mac2 from '../assets/Section1_1/Mac2.png';
+import Imac from '../assets/Section1_1/Imac.png';
 import Logo from '../assets/Section1_1/Logo.png';
 import BookIcon from '../assets/Section1_2/Book.svg?react';
 import GraphIcon from '../assets/Section1_2/Graph.svg?react';
 import { SlLogin } from 'react-icons/sl';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IoIosReturnRight } from 'react-icons/io';
 
 const Section1 = () => {
@@ -42,8 +41,7 @@ const Section1 = () => {
           </MainHeader>
           <Content1_1Wrap>
             <MacWrap>
-              <MacImg1 src={Mac1}></MacImg1>
-              <MacImg2 src={Mac2}></MacImg2>
+              <MacImg1 src={Imac}></MacImg1>
             </MacWrap>
             <MainWrap>
               <MainText>혈당 스파이크를 방지할 작은 시작,</MainText>
@@ -82,7 +80,9 @@ const Section1 = () => {
             <Content2_2Wrap>
               <GraphWrap className="graph">
                 <GraphIcon></GraphIcon>
-                <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111111' }}>일별 / 월별 혈당 그래프</div>
+                <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111111' }}>
+                  혈당 그래프 시각화, 맞춤형 분석
+                </div>
                 <div
                   style={{
                     width: '18rem',
@@ -101,15 +101,17 @@ const Section1 = () => {
                 <div style={{ fontSize: '1.125rem', fontWeight: '600', color: '#111111' }}>혈당 백과</div>
                 <div
                   style={{
-                    width: '12rem',
+                    width: '17rem',
                     fontSize: '0.875rem',
                     fontWeight: '400',
                     color: '#707070',
                     textAlign: 'center',
                     lineHeight: '1rem',
+                    wordBreak: 'keep-all',
                   }}
                 >
-                  궁금한 음식을 검색해보세요! <br></br>다양한 영양 정보와 함께 섭취 팁도 함께 제공됩니다.
+                  궁금한 음식을 검색해보세요! <br />
+                  Open AI가 제공하는 음식 데이터를 기반으로 다양한 영양 정보와 함께 섭취 팁도 알려드릴게요.
                 </div>
               </BookWrap>
             </Content2_2Wrap>

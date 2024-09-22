@@ -5,28 +5,14 @@ import CustomLabel from '../AverageBS/CustomLabel';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
 
-const AverageBloodSugarChart = ({ fetchAverageData, averageData }) => {
+const AverageBloodSugarChart = ({ averageData }) => {
   const chartContainerRef = useRef(null);
 
   useEffect(() => {
-    // fetchAverageData();
     if (chartContainerRef.current) {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
   }, []);
-
-  // interval을 동적으로 계산하기 위해서 존재
-  const calculateInterval = dataLength => {
-    if (dataLength < 10) {
-      return 0;
-    } else if (dataLength < 20) {
-      return 1;
-    } else if (dataLength < 50) {
-      return 2;
-    } else {
-      return Math.floor(dataLength / 25);
-    }
-  };
 
   const calculateChartWidth = dataLength => {
     if (dataLength <= 5) {
@@ -43,7 +29,10 @@ const AverageBloodSugarChart = ({ fetchAverageData, averageData }) => {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
     return (
-      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden' }} ref={chartContainerRef}>
+      <div
+        style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', display: 'flex', justifyContent: 'center' }}
+        ref={chartContainerRef}
+      >
         <div style={{ width: `${chartWidth}px`, height: '270px' }}>
           <LineChart
             width={averageData.length <= 5 ? 500 : averageData.length * 100}

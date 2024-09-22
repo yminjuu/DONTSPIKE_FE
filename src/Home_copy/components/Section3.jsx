@@ -1,6 +1,6 @@
 import { React, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import buritto from '../assets/Section3/buritto.png';
+import buritto from '../assets/Section3/foodRecord.png';
 import { css } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,14 +10,26 @@ import Content3 from '../assets/Section3/3_3.png';
 import Icon1 from '../assets/Section3/Icon1.svg?react';
 import Icon2 from '../assets/Section3/Icon2.svg?react';
 import Icon3 from '../assets/Section3/Icon3.svg?react';
+import Section3_background from '../assets/Section3/Section3_background.png';
 
 gsap.registerPlugin(ScrollTrigger); // ScrollTrigger Trigger 호출
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 170vh;
   display: flex;
   flex-direction: column;
+
+  position: relative;
+`;
+
+const Background = styled.img`
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  overflow-y: hidden;
+
+  top: 50%;
 `;
 
 const PageHeader = styled.div`
@@ -98,7 +110,7 @@ const Content1Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
   height: 35%;
-  padding: 1rem 1.5rem;
+  padding: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -191,11 +203,12 @@ const ContentSubSubText = styled.div`
 const Content2Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
-  width: 100%;
+  width: auto;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    width: 100%;
   }
 `;
 
@@ -240,16 +253,17 @@ const ImgWrapper2_2 = styled.div`
 const Content3Wrap = styled.div`
   border-radius: 1.875rem;
   background-color: #f0f1f5;
-  width: 100%;
+  width: auto;
   padding: 1rem;
 
   @media (min-width: 768px) {
     padding-top: 1rem;
+    width: 100%;
   }
 `;
 
 const ContentSubWrapper3_2 = styled.img`
-  width: 26.79644rem;
+  width: 30.79644rem;
   height: 13.875rem;
   flex-shrink: 0;
 
@@ -281,13 +295,17 @@ const Section3 = () => {
 
   return (
     <Wrapper>
+      <Background src={Section3_background} />
       <PageHeader>
         <TitleIcon src={buritto}></TitleIcon>
         <TitleTextWrapper>
           <TitleTextDiv type="big">
             날짜별 <Text>먹은 음식을 기록</Text>하고 식단을 건강하게 관리 해보세요
           </TitleTextDiv>
-          <TextDiv type="small">‘혈당 백과’ 에서는 음식의 영양소와 섭취 팁을 확인할 수 있어요.</TextDiv>
+          <TextDiv type="small">
+            ‘혈당 백과’ 에서는 <span style={{ color: '#3053F9' }}>Open AI</span> 데이터 기반 음식의 영양소 정보와 섭취
+            팁을 확인할 수 있어요.
+          </TextDiv>
         </TitleTextWrapper>
       </PageHeader>
       <ContentWrapper>
@@ -320,8 +338,8 @@ const Section3 = () => {
                 <Icon3></Icon3>
                 <ContentSubText>특정 음식과 혈당의 상관관계가 궁금하신가요?</ContentSubText>
                 <ContentSubSubText>
-                  혈당 백과에 궁금한 음식을 검색해주시면 <br />
-                  혈당 관리에 도움이 되는 정보들을 알려드릴게요.
+                  혈당 백과에 궁금한 음식을 검색해주시면 Open AI 데이터 기반의 혈당 관리에 도움이 되는 정보들을
+                  알려드릴게요.
                 </ContentSubSubText>
               </ContentSubWrapper2_1>
               <ImgWrapper2_2>

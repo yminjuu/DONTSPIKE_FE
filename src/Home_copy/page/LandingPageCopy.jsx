@@ -4,11 +4,7 @@ import Section1 from '../components/Section1';
 import Section2 from '../components/Section2';
 import Section3 from '../components/Section3';
 import Section4 from '../components/Section4';
-import { useNavigate, useParams } from 'react-router-dom';
-
 const LandingPageCopy = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <FirstPage>
@@ -36,11 +32,11 @@ const SecPage = styled.div`
 `;
 
 const ThrdPage = styled.div`
-  height: 100vh;
+  height: 170vh;
 `;
 
 const FourthPage = styled.div`
-  height: 100vh;
+  height: 180vh;
 `;
 
 // 200 vh 하나
