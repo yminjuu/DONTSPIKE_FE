@@ -9,6 +9,7 @@ const LogoutSection = () => {
 
   const onLogout = () => {
     // setUser(null);
+    localStorage.removeItem('token'); // 로그아웃시 localStorage의 token 삭제
     navigate('/login', { replace: 'true' }); //뒤로가기 방지
   };
 
