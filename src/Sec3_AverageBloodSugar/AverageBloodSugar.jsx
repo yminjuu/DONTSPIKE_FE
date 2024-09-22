@@ -3,17 +3,13 @@ import styled from 'styled-components';
 import { commonGraphWrapper } from '../common/styles/commonStyles';
 import { useEffect } from 'react';
 
-const AverageBloodSugar = ({ fetchAverageData, averageData, offset }) => {
+const AverageBloodSugar = ({ averageData, offset }) => {
   useEffect(() => {}, [offset]);
-  console.log('averageData', averageData);
   return (
     <Container>
       <ChartWrapper>
         <GraphWrapper>
-          <AverageBloodSugarChart
-            fetchAverageData={fetchAverageData}
-            averageData={averageData}
-          ></AverageBloodSugarChart>
+          <AverageBloodSugarChart averageData={averageData}></AverageBloodSugarChart>
         </GraphWrapper>
       </ChartWrapper>
     </Container>

@@ -218,7 +218,7 @@ const CustomizedActiveDot = props => {
   return <circle cx={cx} cy={cy} r={6} fill="#3053f9" />;
 };
 
-const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
+const MainBloodSugarChart = ({ mainData }) => {
   const chartContainerRef = useRef(null);
 
   const getProcessedDataList = () => {
@@ -273,12 +273,9 @@ const MainBloodSugarChart = ({ fetchMainChartData, mainData }) => {
 
   // 최초 렌더링시 데이터 가져옴
   useEffect(() => {
-    fetchMainChartData();
-    console.log(chartContainerRef.current);
     if (chartContainerRef.current) {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
-    console.log(mainData);
   }, []);
 
   // 데이터 중 최대 혈당량을 구함 => reference line 위함

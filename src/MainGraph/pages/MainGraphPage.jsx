@@ -67,8 +67,8 @@ const MainGraphPage = () => {
     if (token != null) {
       localStorage.setItem('token', token);
 
-      // if (fetchMainChartData() === true && fetchAverageData() === true && fetchFavFoodData() === true)
-      setFetchStatus(true);
+      if (fetchMainChartData() === true && fetchAverageData() === true && fetchFavFoodData() === true)
+        setFetchStatus(true);
     }
   }, [token]);
 
@@ -167,11 +167,7 @@ const MainGraphPage = () => {
               </TitleWrapper>
               <ContentWrapper>
                 {' '}
-                <MainBloodSugar
-                  setBS={setBS}
-                  fetchMainChartData={fetchMainChartData}
-                  mainData={mainData}
-                ></MainBloodSugar>
+                <MainBloodSugar setBS={setBS} mainData={mainData}></MainBloodSugar>
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
                   <TipBox>
@@ -193,7 +189,16 @@ const MainGraphPage = () => {
                 <FoodBar token={token} />
                 <TipWrapper>
                   <ImgWrapper src={doctor}></ImgWrapper>
-                  <TipBox>{comment}</TipBox>
+                  {comment !== '' ? (
+                    <TipBox>{comment}</TipBox>
+                  ) : (
+                    <TipBox null={true}>
+                      {' '}
+                      더 많은 기록을 해주시면 <span style={{ color: '#D33F3F' }}>AI가 식단을 분석</span>
+                      해줄 거예요!
+                      <br />
+                    </TipBox>
+                  )}
                 </TipWrapper>
               </ContentWrapper>
             </SectionWrapper>
@@ -205,11 +210,7 @@ const MainGraphPage = () => {
                 <ChartTitle>월별 공복 혈당 평균</ChartTitle>
               </TitleWrapper>
               <ContentWrapper>
-                <AverageBloodSugar
-                  fetchAverageData={fetchAverageData}
-                  averageData={averageData}
-                  offset={averageOffset}
-                ></AverageBloodSugar>
+                <AverageBloodSugar averageData={averageData} offset={averageOffset}></AverageBloodSugar>
                 <TipWrapper>
                   {/* 평균값을 구할 수 없는 경우와 구해진 경우를 구분하여 렌더링 */}
                   {averageOffset === null ? (

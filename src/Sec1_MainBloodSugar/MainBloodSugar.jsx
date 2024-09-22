@@ -7,7 +7,7 @@ import RecordBloodSugar from './components/RecordBloodSugar';
 import ReactDOM from 'react-dom';
 import AddMealIc from '../Sec1_MainBloodSugar/assets/AddMealIcon.png';
 
-const MainBloodSugar = ({ setBS, fetchMainChartData, mainData }) => {
+const MainBloodSugar = ({ setBS, mainData }) => {
   // 특정 action이 발생했을 때 어떤 주소로 이동할 수 있게 해준다.
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const MainBloodSugar = ({ setBS, fetchMainChartData, mainData }) => {
       </Graph_DiscriptSec>
       {/* 동일 레벨에 그래프 & 혈당 기록하기 */}
       <ChartWrapper>
-        <MainBloodSugarChart fetchMainChartData={fetchMainChartData} mainData={mainData} />
+        <MainBloodSugarChart mainData={mainData} />
         <RecordBloodSugar setBS={setBS}></RecordBloodSugar>
       </ChartWrapper>
     </Container>
