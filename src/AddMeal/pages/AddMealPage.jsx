@@ -37,7 +37,7 @@ const AddMealPage = () => {
       );
 
       if (res.status === 200) {
-        alert(`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}에 식단이 추가되었어요`);
+        alert(`${selectedDate.getMonth() + 1}/${selectedDate.getDate()}에 식단이 추가되었어요!`);
         return true;
       }
       return false;

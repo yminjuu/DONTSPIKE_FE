@@ -12,6 +12,7 @@ import GraphIcon from '../assets/Section1_2/Graph.svg?react';
 import { SlLogin } from 'react-icons/sl';
 import { useNavigate } from 'react-router-dom';
 import { IoIosReturnRight } from 'react-icons/io';
+import Q from '../assets/Section1_1/QuestionMark.svg?react';
 
 const Section1 = () => {
   const navigate = useNavigate();
@@ -49,6 +50,30 @@ const Section1 = () => {
             </MainWrap>
           </Content1_1Wrap>
           <Content1_2Wrap>
+            <Title>
+              {' '}
+              <MarkWrapper>
+                <Q />
+              </MarkWrapper>
+              맞춤형 혈당 관리 서비스, 왜 필요할까요?
+            </Title>
+            <Content1_2Text>
+              어떤 음식을 먹었을 때 혈당이 가장 많이 올라가는지 아시나요? 같은 음식이라도 사람마다 혈당을 올리는 정도가
+              다르다고 합니다.
+              <br />
+              DON’T 스파이크는 기록된 혈당 변화를 한눈에 볼 수 있도록 하고 다양한 음식에 대한 혈당관련 정보를 제공해
+              줌으로서 스스로 혈당 / 식단 관리를 하도록 돕습니다.
+            </Content1_2Text>
+          </Content1_2Wrap>
+          <Footer>
+            DON’T 스파이크는 당뇨병 환자들을 위한 맞춤형 정보제공 및 데이터 시각화를 통해 올바른 당뇨 관리를 돕는
+            서비스입니다.
+          </Footer>
+        </MainContent1>
+
+        {/* 두번째 100vh */}
+        <MainContent2>
+          <Content2_specialWrap>
             <Person1 className="person1">
               <PersonImg src={mainperson1}></PersonImg>
               <PersonContent direction="left">
@@ -63,13 +88,7 @@ const Section1 = () => {
               </PersonContent>
               <PersonImg src={mainperson2}></PersonImg>
             </Person2>
-          </Content1_2Wrap>
-          <Footer>
-            DON’T 스파이크는 당뇨병 환자들을 위한 맞춤형 정보제공 및 데이터 시각화를 통해 올바른 당뇨 관리를 돕는
-            서비스입니다.
-          </Footer>
-        </MainContent1>
-        <MainContent2>
+          </Content2_specialWrap>
           <Content2_Wrap>
             <Content2_1Wrap>
               <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>주기적인 혈당 체크가 필요한 당신에게,</div>
@@ -135,7 +154,7 @@ const Wrapper = styled.div`
 const BGVector = styled.img`
   width: 100%;
   position: absolute;
-  top: 5%;
+  top: 30%;
   z-index: 0;
 `;
 
@@ -173,7 +192,6 @@ const MainContent1 = styled.div`
 `;
 
 const Content1_1Wrap = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -185,12 +203,54 @@ const Content1_1Wrap = styled.div`
 `;
 
 const Content1_2Wrap = styled.div`
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  width: 100%;
+  padding: 2rem;
+
+  box-sizing: border-box;
+
+  @media (min-width: 768px) {
+    margin-bottom: 1rem;
+    padding-left: 10rem;
+  }
+`;
+
+const Title = styled.div`
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  color: #111111;
+
+  text-align: left;
+  position: relative;
+`;
+
+const MarkWrapper = styled.div`
+  position: absolute;
+  top: -320%;
+  left: -5%;
+`;
+
+const Content1_2Text = styled.div`
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 350;
+  color: #111111;
+  line-height: 1.2rem;
+`;
+
+const Content2_specialWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 2rem;
+  gap: 1rem;
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
@@ -201,7 +261,7 @@ const Content1_2Wrap = styled.div`
 const Footer = styled.footer`
   width: 100%;
   height: 5vh;
-  color: #707070;
+  color: #a0a0a0;
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 5vh;
@@ -209,35 +269,22 @@ const Footer = styled.footer`
 `;
 
 const MacWrap = styled.div`
-  position: relative;
   width: 80%;
-  max-width: 50rem;
-  height: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 5rem;
   @media (min-width: 768px) {
-    height: 30rem;
+    padding: 1rem;
+    padding-bottom: 2rem;
   }
 `;
 
 const MacImg1 = styled.img`
-  width: 60%;
-  max-width: 23.8715rem;
-  position: absolute;
-  top: 30%;
-  left: 35%;
-  z-index: 3;
-`;
-
-const MacImg2 = styled.img`
-  width: 60%;
-  max-width: 23.8715rem;
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  z-index: 2;
+  width: 80%;
+  max-width: 30.8715rem;
+  object-fit: cover;
 `;
 
 const MainWrap = styled.div`
@@ -246,7 +293,6 @@ const MainWrap = styled.div`
   padding: 2rem;
   text-align: center;
   @media (min-width: 768px) {
-    padding: 5rem;
     text-align: left;
   }
 `;
@@ -279,7 +325,7 @@ const Person2 = styled.div`
   gap: 1rem;
   align-items: center;
   @media (min-width: 768px) {
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: flex-start;
   }
 `;
@@ -326,25 +372,27 @@ const MainContent2 = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   padding: 2rem;
 `;
 
 const Content2_Wrap = styled.div`
   width: 100%;
-  max-width: 53.75rem;
-  height: 100%;
-  max-height: 36.25rem;
+  min-height: 30rem;
+  max-width: 56.75rem;
   border-radius: 0.625rem;
   background-color: rgba(255, 255, 255, 0.4);
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+
+  padding: 2rem;
+  box-sizing: border-box;
 `;
 
 const Content2_1Wrap = styled.div`
   width: 100%;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -354,11 +402,11 @@ const Content2_1Wrap = styled.div`
 
 const Content2_2Wrap = styled.div`
   width: 100%;
-  flex: 2;
   display: flex;
   flex-direction: column;
   @media (min-width: 768px) {
     flex-direction: row;
+    height: auto;
   }
 `;
 
@@ -371,7 +419,7 @@ const GraphWrap = styled.div`
   align-items: center;
   gap: 1rem;
   @media (min-width: 768px) {
-    height: 100%;
+    height: 80%;
   }
 `;
 
@@ -384,7 +432,7 @@ const BookWrap = styled.div`
   align-items: center;
   gap: 1rem;
   @media (min-width: 768px) {
-    height: 100%;
+    height: 80%;
   }
 `;
 

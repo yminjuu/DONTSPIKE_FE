@@ -102,7 +102,7 @@ const LoginPage = () => {
 
             {/* 카카오 로그인 버튼 */}
           </ButtonsWrapper>
-          <JoinWrapper>
+          {/* <JoinWrapper>
             <div
               style={{
                 color: '#A0A0A0',
@@ -122,7 +122,7 @@ const LoginPage = () => {
             >
               가입하기
             </TransparentBtn>
-          </JoinWrapper>
+          </JoinWrapper> */}
         </LoginWrapper>
       </MainWrapper>
     </Wrapper>
