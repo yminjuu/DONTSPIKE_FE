@@ -53,76 +53,14 @@ const LoginPage = () => {
         </TextWrapper>
         {/* 로그인 창 */}
         <LoginWrapper>
-          {/* <InputsWrapper>
-          <InputWrapper>
-            <InputTitle>이름</InputTitle>
-            <StyledInput
-              name="id"
-              value={id}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  checkValidJoin();
-                }
-              }}
-              onChange={e => {
-                setId(e.target.value);
-              }}
-              type="text"
-            ></StyledInput>
-          </InputWrapper>
-          <InputWrapper>
-            <InputTitle>비밀번호</InputTitle>
-            <StyledInput
-              value={pw}
-              onChange={e => {
-                setPw(e.target.value);
-              }}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  checkValidJoin();
-                }
-              }}
-              type="password"
-            ></StyledInput>
-          </InputWrapper>
-        </InputsWrapper> */}
           <ButtonsWrapper>
-            {/* <ButtonWrapper>
-            {id == '' || pw == '' ? (
-              <GeneralBtn>로그인</GeneralBtn>
-            ) : (
-              <GeneralBtn onClick={checkValidJoin}>로그인</GeneralBtn>
-            )}
-          </ButtonWrapper> */}
             <LoginBtnsWrapper>
               {' '}
               <LoginBtn src="/assets/NaverLogin.png" onClick={onNaverLogin} />
               <LoginBtn src="assets/GoogleLogin.png" onClick={onGoogleLogin} />
             </LoginBtnsWrapper>
-
             {/* 카카오 로그인 버튼 */}
           </ButtonsWrapper>
-          {/* <JoinWrapper>
-            <div
-              style={{
-                color: '#A0A0A0',
-                fontSize: '0.75rem',
-                fontWeight: '400',
-                textAlign: 'center',
-                height: '1.2rem',
-                lineHeight: '1.2rem',
-              }}
-            >
-              계정이 없으신가요?{' '}
-            </div>
-            <TransparentBtn
-              onClick={() => {
-                navigate('/join');
-              }}
-            >
-              가입하기
-            </TransparentBtn>
-          </JoinWrapper> */}
         </LoginWrapper>
       </MainWrapper>
     </Wrapper>
@@ -180,8 +118,8 @@ const TextWrapper = styled.div`
 `;
 
 const LoginWrapper = styled.div`
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: 2rem;
+  padding: 2rem;
   min-width: 28rem;
   width: 30vw;
   flex-shrink: 0;
