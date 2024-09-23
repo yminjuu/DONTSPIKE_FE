@@ -3,10 +3,11 @@ import { styled, css } from 'styled-components';
 import { commonGraphWrapper } from '../common/styles/commonStyles';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { modeState } from '../Recoil';
+import { favFoodState, modeState } from '../Recoil';
 
 const AverageBloodSugar = ({ averageData, offset }) => {
   useEffect(() => {}, [offset]);
+  console.log(averageData);
 
   const seniorMode = useRecoilValue(modeState);
   return (
@@ -18,10 +19,8 @@ const AverageBloodSugar = ({ averageData, offset }) => {
           그래프를 바탕으로 혈당 관리가 잘 되어가는지 한번 검토해보시는건 어때요?
         </Description>
       </DescriptWrapper>
-      <ChartWrapper>
-        <GraphWrapper>
-          <AverageBloodSugarChart averageData={averageData}></AverageBloodSugarChart>
-        </GraphWrapper>
+      <ChartWrapper averageDataLength={averageData.length}>
+        <AverageBloodSugarChart averageData={averageData} />
       </ChartWrapper>
     </Container>
   );
@@ -33,7 +32,7 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 
   background-color: #ffffff;
@@ -69,11 +68,13 @@ const Description = styled.div`
 const ChartWrapper = styled.div`
   ${commonGraphWrapper}
   flex-shrink: 0;
-`;
 
-const GraphWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+  ${props =>
+    props.averageDataLength === 0
+      ? css`
+          width: 80%;
+        `
+      : css``}
 `;
 
 export default AverageBloodSugar;

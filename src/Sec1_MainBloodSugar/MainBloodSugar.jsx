@@ -49,7 +49,6 @@ const MainBloodSugar = ({ setBS, mainData }) => {
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 3vh;
   background-color: #ffffff;
 
   display: flex;

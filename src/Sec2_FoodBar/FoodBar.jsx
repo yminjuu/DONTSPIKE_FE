@@ -4,10 +4,12 @@ import { commonGraphWrapper } from '../common/styles/commonStyles';
 import { commonChartTitle } from '../common/styles/commonStyles';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { modeState } from '../Recoil';
+import { favFoodState, modeState } from '../Recoil';
 
 const FoodBar = ({ token }) => {
   const seniorMode = useRecoilValue(modeState);
+  const favFood = useRecoilValue(favFoodState);
+
   return (
     <Container>
       <DescriptWrapper>
@@ -17,7 +19,7 @@ const FoodBar = ({ token }) => {
           음식을 섭취할 때 도움이 될만한 팁도 함께 참고해보세요!
         </Description>
       </DescriptWrapper>
-      <ChartWrapper>
+      <ChartWrapper favFood={favFood}>
         {/* 설명 */}
         <FoodBarChart token={token}></FoodBarChart>
       </ChartWrapper>
@@ -32,7 +34,7 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -65,6 +67,13 @@ const Description = styled.div`
 const ChartWrapper = styled.div`
   ${commonGraphWrapper}
   flex-shrink: 0;
+
+  ${props =>
+    props.favFood.length === 0
+      ? css`
+          width: 80%;
+        `
+      : css``}
 `;
 
 export default FoodBar;

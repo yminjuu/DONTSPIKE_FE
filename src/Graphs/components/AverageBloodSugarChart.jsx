@@ -71,7 +71,6 @@ const AverageBloodSugarChart = ({ averageData }) => {
 };
 
 const NoContentMainWrapper = styled.div`
-  width: 100%;
   height: 270px;
   display: flex;
   justify-content: center;
