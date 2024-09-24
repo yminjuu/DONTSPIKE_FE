@@ -18,10 +18,11 @@ const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 `;
 
 const PageHeader = styled.div`
-  width: 100%;
+  z-index: 1;
   height: 15vh;
   flex-shrink: 0;
   background: #fff;
@@ -30,7 +31,6 @@ const PageHeader = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: 0 1rem;
 
   @media (max-width: 768px) {
     flex-direction: column;

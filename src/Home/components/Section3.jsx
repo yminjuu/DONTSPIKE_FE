@@ -33,7 +33,6 @@ const Background = styled.img`
 `;
 
 const PageHeader = styled.div`
-  width: 100%;
   height: 15vh;
   flex-shrink: 0;
   background: #fff;
