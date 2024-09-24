@@ -140,7 +140,7 @@ const CustomizedRegularDot = props => {
 };
 
 const CustomizedActiveDot = props => {
-  const { cx, cy, payload } = props;
+  const { cx, cy, payload, coreColor } = props;
 
   if (payload.significantIncrease) {
     return <></>;
@@ -215,6 +215,8 @@ const MainBloodSugarChart = ({ mainData }) => {
   const dataMax = Math.max(...mainData.map(d => d.bloodsugar));
   const dataMin = Math.min(...mainData.map(d => d.bloodsugar));
   const chartWidth = calculateChartWidth(mainData.length); // 동적으로 차트의 너비 계산
+  var coreColor;
+  mode === 'senior' ? (coreColor = '#6D986D') : (coreColor = '#3053f9');
 
   if (mainData.length > 1) {
     if (chartContainerRef.current) {
@@ -257,8 +259,8 @@ const MainBloodSugarChart = ({ mainData }) => {
                 stroke="#D6DDFE"
                 strokeWidth={2}
                 strokeDasharray="5 5" // 점선 설정
-                dot={<CustomizedDot />}
-                activeDot={{ r: 6, fill: '#3053f9', strokeWidth: 0 }}
+                dot={<CustomizedDot coreColor={coreColor} />}
+                activeDot={{ r: 6, fill: coreColor, strokeWidth: 0 }}
               />
             ) : (
               <></>
