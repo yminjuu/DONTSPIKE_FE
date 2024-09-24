@@ -97,10 +97,10 @@ const MainGraphPage = () => {
           const mainChartSuccess = await fetchMainChartData();
 
           // 모든 요청이 성공했을 때만 setFetchStatus(true) 호출
-          if (favFoodSuccess && averageDataSuccess && mainChartSuccess) {
-            setFetchStatus(true);
-          } else {
-          }
+          // if (favFoodSuccess && averageDataSuccess && mainChartSuccess) {
+          setFetchStatus(true);
+          // } else {
+          // }
         } catch (error) {
           console.log('에러 발생:', error);
           setFetchStatus(false); // 에러가 발생하면 false로 설정

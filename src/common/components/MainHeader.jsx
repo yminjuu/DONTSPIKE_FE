@@ -111,9 +111,8 @@ const ButtonsWrapper = styled.div`
 
 const GraphNavigateButtonWrapper = styled.button`
   flex-shrink: 0;
+  border: none;
   border-radius: 1.875rem;
-  opacity: var(--sds-size-stroke-border);
-  background: #000;
   cursor: pointer;
 
   display: flex;
@@ -123,14 +122,6 @@ const GraphNavigateButtonWrapper = styled.button`
 
   color: var(--Grayscale-White, #fff);
   /* Pretendard/Sb/16 */
-
-  ${props =>
-    props.$navState !== 'graph'
-      ? css`
-          background: transparent;
-          color: black;
-        `
-      : css``}
 
   ${props =>
     props.mode === 'senior'
@@ -139,20 +130,32 @@ const GraphNavigateButtonWrapper = styled.button`
           height: 3.5rem;
           font-size: 1.4rem;
           font-weight: 800;
+          background: #518051;
+          border-color: #518051;
         `
       : css`
           width: 7rem;
           height: 2.5rem;
           font-size: 0.83rem;
           font-weight: 600;
+          background: #000;
         `}
+
+  ${props =>
+    props.$navState !== 'graph'
+      ? css`
+          background: transparent;
+          color: black;
+          border: 2px solid #518051;
+        `
+      : css``}
 `;
 
 const FoodWikiButtonWrapper = styled.button`
   flex-shrink: 0;
+  border: none;
   border-radius: 1.875rem;
-  opacity: var(--sds-size-stroke-border);
-  background: #000;
+
   cursor: pointer;
 
   display: flex;
@@ -162,6 +165,24 @@ const FoodWikiButtonWrapper = styled.button`
 
   color: var(--Grayscale-White, #fff);
   /* Pretendard/Sb/16 */
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          width: 12rem;
+          height: 3.5rem;
+          font-size: 1.4rem;
+          font-weight: 800;
+          background: #518051;
+          border: 2px solid #518051;
+        `
+      : css`
+          width: 7rem;
+          height: 2.5rem;
+          font-size: 0.83rem;
+          font-weight: 600;
+          background: #000;
+        `}
 
   ${props =>
     props.$navState !== 'foodwiki'
@@ -170,21 +191,6 @@ const FoodWikiButtonWrapper = styled.button`
           color: black;
         `
       : css``}
-
-  ${props =>
-    props.mode === 'senior'
-      ? css`
-          width: 12rem;
-          height: 3.5rem;
-          font-size: 1.4rem;
-          font-weight: 800;
-        `
-      : css`
-          width: 7rem;
-          height: 2.5rem;
-          font-size: 0.83rem;
-          font-weight: 600;
-        `}
 `;
 
 export default MainHeader;
