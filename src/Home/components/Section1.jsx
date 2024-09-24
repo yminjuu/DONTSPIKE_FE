@@ -1,11 +1,10 @@
 import { React, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import LogoButton from '../../common/components/LogoButton';
 import mainperson1 from '../assets/Section1_1/MainPerson1.png';
 import mainperson2 from '../assets/Section1_1/MainPerson2.png';
 import gsap from 'gsap';
-import Vec1 from '../assets/background/backVector1.png';
 import Logo from '../assets/Section1_1/Logo.png';
+import SmallLogo from '../assets/Section1_1/SmallLogo.png';
 import BookIcon from '../assets/Section1_2/Book.svg?react';
 import GraphIcon from '../assets/Section1_2/Graph.svg?react';
 import { SlLogin } from 'react-icons/sl';
@@ -28,14 +27,14 @@ const Section1 = () => {
         {/* 첫번째 100vh */}
         <MainContent1>
           <MainHeader>
-            <LogoButton></LogoButton>
+            <SmallLogoWrap src={SmallLogo}></SmallLogoWrap>
             <LoginWrapper
               onClick={() => {
                 navigate('/login', { replace: true });
               }}
             >
-              <SlLogin></SlLogin>
-              <div style={{ color: '#111111', fontWeight: '500', fontSize: '1rem' }}>로그인</div>
+              <SlLogin color="#fff"></SlLogin>
+              <div style={{ color: '#ffffff', fontWeight: '500', fontSize: '1rem' }}>로그인</div>
             </LoginWrapper>
           </MainHeader>
           <Content1_1Wrap>
@@ -150,8 +149,14 @@ const MainHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid #cfcfcf;
+`;
+
+const SmallLogoWrap = styled.img`
+  object-fit: cover;
+  width: 5rem;
+
+  padding: 1rem;
 `;
 
 const LoginWrapper = styled.div`
