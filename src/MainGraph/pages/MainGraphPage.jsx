@@ -200,8 +200,8 @@ const MainGraphPage = () => {
         <MainHeader currState="graph"></MainHeader>{' '}
         <FullPageSections>
           <FullpageSection>
-            <SectionWrapper>
-              <TitleWrapper>
+            <SectionWrapper mode={seniorMode}>
+              <TitleWrapper mode={seniorMode}>
                 <ChartTitle mode={seniorMode}>아침 공복 혈당 그래프</ChartTitle>
               </TitleWrapper>
               <ContentWrapper mode={seniorMode}>
@@ -238,14 +238,14 @@ const MainGraphPage = () => {
             </SectionWrapper>
           </FullpageSection>
           <FullpageSection>
-            <SectionWrapper>
+            <SectionWrapper mode={seniorMode}>
               {' '}
-              <TitleWrapper>
+              <TitleWrapper mode={seniorMode}>
                 <ChartTitle mode={seniorMode}>최근 30일간 가장 자주 먹은 음식</ChartTitle>
               </TitleWrapper>
               <ContentWrapper mode={seniorMode}>
                 <FoodBar token={token} />
-                <TipWrapper>
+                <TipWrapper mode={seniorMode}>
                   <ImgWrapper src={doctor}></ImgWrapper>
                   {foodGPTComment !== '' ? (
                     <TipBox mode={seniorMode}>{foodGPTComment}</TipBox>
@@ -262,9 +262,9 @@ const MainGraphPage = () => {
             </SectionWrapper>
           </FullpageSection>
           <FullpageSection>
-            <SectionWrapper>
+            <SectionWrapper mode={seniorMode}>
               {' '}
-              <TitleWrapper>
+              <TitleWrapper mode={seniorMode}>
                 <ChartTitle mode={seniorMode}>월별 공복 혈당 평균</ChartTitle>
               </TitleWrapper>
               <ContentWrapper mode={seniorMode}>
@@ -304,7 +304,14 @@ const SectionWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #e9eaf1;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          background-color: #ebf7de;
+        `
+      : css`
+          background-color: #e9eaf1;
+        `}
 `;
 // content wrapper
 const ContentWrapper = styled.div`
@@ -336,7 +343,14 @@ const TitleWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
 
-  background-color: #e9eaf1;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          background-color: #ebf7de;
+        `
+      : css`
+          background-color: #e9eaf1;
+        `}
 `;
 
 const ChartTitle = styled.div`
@@ -351,6 +365,7 @@ const ChartTitle = styled.div`
           font-size: 1.8rem;
           font-weight: 800;
           padding: 1.5rem;
+          background-color: #ebf7de;
         `
       : css``}
 `;
@@ -404,6 +419,7 @@ const TipBox = styled.div`
           font-weight: 600;
           line-height: 1.6rem;
           padding: 1rem 5rem;
+          background-color: #ecf1e7;
         `
       : css``}
 `;
@@ -428,6 +444,7 @@ const EmphSpan = styled.span`
       ? css`
           font-size: 1.7rem;
           font-weight: 700;
+          color: #008116;
         `
       : css``}
 `;

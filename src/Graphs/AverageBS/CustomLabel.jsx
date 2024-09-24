@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 const CustomLabel = ({ x, y, value }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const mode = useRecoilValue(modeState);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
 
+  var coreColor = mode !== 'senior' ? '#3053f9' : '#6D986D';
   const isThisMonth = value > 200;
-  const bgColor = isHovered ? '#3053F9' : isThisMonth ? '#3053F9' : '#EBEEFF';
+  const bgColor = isHovered ? coreColor : isThisMonth ? coreColor : '#EBEEFF';
   const textColor = isHovered ? '#FFFFFF' : isThisMonth ? '#FFFFFF' : '#707070';
 
   return (

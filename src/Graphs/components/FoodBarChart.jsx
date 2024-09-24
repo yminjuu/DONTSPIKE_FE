@@ -5,11 +5,17 @@ import CustomBarShape from '../FoodBar/CustomBarShape';
 import CustomLabel from '../FoodBar/CustomLabel';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
-import { useRecoilState } from 'recoil';
-import { favFoodState } from '../../Recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { favFoodState, modeState } from '../../Recoil';
 
 const FoodBarChart = () => {
   const [favFood, setFavFood] = useRecoilState(favFoodState);
+  const mode = useRecoilValue(modeState);
+
+  var fillColor = '#3053f9';
+  {
+    mode === 'senior' ? (fillColor = '#3053F9') : (fillColor = '#6D986D');
+  }
 
   if (favFood.length != 0) {
     return (
@@ -50,7 +56,7 @@ const FoodBarChart = () => {
             />
             <Bar
               dataKey="count"
-              fill="#3053F9"
+              fill={fillColor}
               shape={props => <CustomBarShape {...props} totalCount={favFood.length} />}
             >
               {' '}

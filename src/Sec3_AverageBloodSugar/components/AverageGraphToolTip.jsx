@@ -47,6 +47,7 @@ const BSSpan = styled.span`
       ? css`
           font-weight: 700;
           font-size: 1.6rem;
+          color: #008116;
         `
       : css``}
 `;

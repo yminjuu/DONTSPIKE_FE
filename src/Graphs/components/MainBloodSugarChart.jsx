@@ -3,6 +3,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, L
 import MainBSToolTip from '../MainBS/MainBSToolTip';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 const isTomorrow = date => {
   const today = new Date();
@@ -32,77 +34,6 @@ const tooltipDate = dateString => {
   const day = date.getDate().toString();
   return `${year}.${month}.${day}`;
 };
-
-const CustomActiveDot = ({ cx, cy, fill }) => (
-  <svg
-    x={cx - 16.5}
-    y={cy - 16.5}
-    width="33"
-    height="33"
-    viewBox="0 0 33 33"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <g filter="url(#filter0_d_817_1885)">
-      <circle cx="15" cy="15" r="13" fill="#FFD7D7" />
-    </g>
-    <g filter="url(#filter1_if_817_1885)">
-      <path
-        d="M8.53558 15.7964L17.2806 5.28032C17.5457 4.96153 18.0598 5.21754 17.9651 5.6212L16.2234 13.0492C16.1685 13.2833 16.3348 13.5113 16.5745 13.5305L20.2654 13.8258C20.5846 13.8513 20.7408 14.2274 20.5336 14.4716L11.8334 24.7234C11.5648 25.0399 11.0527 24.7777 11.1525 24.3748L12.9968 16.9278C13.0582 16.68 12.8707 16.4405 12.6155 16.4405H8.83764C8.50475 16.4405 8.32273 16.0524 8.53558 15.7964Z"
-        fill="#D33F3F"
-      />
-    </g>
-    <defs>
-      <filter
-        id="filter0_d_817_1885"
-        x="0.625"
-        y="0.625"
-        width="31.5"
-        height="31.5"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
-      >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feOffset dx="1.375" dy="1.375" />
-        <feGaussianBlur stdDeviation="1.375" />
-        <feComposite in2="hardAlpha" operator="out" />
-        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_817_1885" />
-        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_817_1885" result="shape" />
-      </filter>
-      <filter
-        id="filter1_if_817_1885"
-        x="8.18337"
-        y="4.87612"
-        width="12.7047"
-        height="21.03"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
-      >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feOffset dy="1.04238" />
-        <feGaussianBlur stdDeviation="0.521191" />
-        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-        <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0" />
-        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_817_1885" />
-        <feGaussianBlur stdDeviation="0.130298" result="effect2_foregroundBlur_817_1885" />
-      </filter>
-    </defs>
-  </svg>
-);
 
 const SpikeDot = ({ cx, cy, fill }) => (
   <svg
@@ -219,6 +150,8 @@ const CustomizedActiveDot = props => {
 };
 
 const MainBloodSugarChart = ({ mainData }) => {
+  const mode = useRecoilValue(modeState);
+
   const chartContainerRef = useRef(null);
 
   const getProcessedDataList = () => {
@@ -356,23 +289,6 @@ const MainBloodSugarChart = ({ mainData }) => {
     );
   }
 };
-
-const AddBS = styled.div`
-  width: 100%;
-  height: 100%;
-
-  font-weight: 700;
-  font-size: 2rem;
-  text-align: center;
-  vertical-align: middle;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  color: #111111;
-`;
 
 const NoContentMainWrapper = styled.div`
   width: 100%;

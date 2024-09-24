@@ -112,7 +112,6 @@ const ButtonWrapper = styled.div`
 
 const RealBtn = styled.div`
   cursor: pointer;
-  background-color: #3053f9;
   height: 100%;
   width: 8rem;
 
@@ -130,10 +129,12 @@ const RealBtn = styled.div`
           font-weight: 430;
           width: 10rem;
           height: 3rem;
+          background-color: #6d986d;
         `
       : css`
           font-size: 1rem;
           font-weight: 350;
+          background-color: #3053f9;
         `}
 
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
@@ -145,7 +146,6 @@ const RealBtn = styled.div`
 
 const AddSpan = styled.span`
   opacity: var(--sds-size-stroke-border);
-  color: var(--Primary-100, #3053f9);
 
   /* Pretendard/Md/16 */
 
@@ -157,8 +157,11 @@ const AddSpan = styled.span`
       ? css`
           font-size: 1.5rem;
           font-weight: 430;
+          color: var(--Primary-100, #008116);
         `
-      : css``}
+      : css`
+          color: var(--Primary-100, #3053f9);
+        `}
 `;
 
 const AddMealIcon = styled.img`

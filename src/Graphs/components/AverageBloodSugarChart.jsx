@@ -4,9 +4,15 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, L
 import CustomLabel from '../AverageBS/CustomLabel';
 import styled from 'styled-components';
 import Icon from '../../common/assets/PencilIcon.svg?react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 const AverageBloodSugarChart = ({ averageData }) => {
   const chartContainerRef = useRef(null);
+  const mode = useRecoilValue(modeState);
+
+  var fillColor;
+  mode === 'senior' ? (fillColor = '#6D986D') : (fillColor = '#4C62CA');
 
   useEffect(() => {
     if (chartContainerRef.current) {
@@ -49,10 +55,10 @@ const AverageBloodSugarChart = ({ averageData }) => {
             <Line
               type="linear"
               dataKey="average"
-              stroke="#4C62CA"
+              stroke={fillColor}
               strokeWidth={3.5}
-              dot={{ r: 4, fill: '#4C62CA' }}
-              activeDot={{ r: 6, fill: '#4C62CA', strokeWidth: 0 }}
+              dot={{ r: 4, fill: fillColor }}
+              activeDot={{ r: 6, fill: { fillColor }, strokeWidth: 0 }}
               label={<CustomLabel />}
             />
           </LineChart>
