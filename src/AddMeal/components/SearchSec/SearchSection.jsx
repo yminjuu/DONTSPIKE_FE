@@ -95,10 +95,17 @@ const TodayDate = styled.div`
   font-size: 1.3rem;
   font-weight: 600;
 
-  background: #ebeeff;
-
   text-align: center;
   line-height: 2rem;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          background: #ecf1e7;
+        `
+      : css`
+          background: #ebeeff;
+        `}
 `;
 
 const DatePickSen = styled.div`

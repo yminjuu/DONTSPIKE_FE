@@ -92,11 +92,11 @@ const SeniorBtn = styled.button`
   ${props =>
     props.added === false
       ? css`
-          background-color: #3053f9;
+          background-color: #548a54;
           color: #fff;
         `
       : css`
-          background-color: #e8e8e8;
+          background-color: #ecf1e7;
         `}
 `;
 

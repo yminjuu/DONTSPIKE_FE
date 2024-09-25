@@ -140,7 +140,7 @@ const SearchBox = ({ type, fetchMeal }) => {
 
   return (
     <Container>
-      <Wrapper $searchstate={searchstate} $type={type}>
+      <Wrapper $searchstate={searchstate} $type={type} mode={mode}>
         <InputBoxWrapper $searchstate={searchstate}>
           <StyledInput
             // 키보드 Enter 클릭시 검색 가능
@@ -241,13 +241,22 @@ const Wrapper = styled.div`
 
   ${props =>
     props.$type === 'SearchSection'
-      ? css`
-          &:focus-within {
-            box-shadow: none;
-            box-shadow: 2px 2px 4px 2px #c1ccfe;
-          }
-        `
-      : css``}// input 창이 focus 받으면
+      ? props.mode === 'senior'
+        ? css`
+            &:focus-within {
+              box-shadow: none;
+              box-shadow: 2px 2px 4px 2px #ecf1e7;
+            }
+          `
+        : css`
+            &:focus-within {
+              box-shadow: none;
+              box-shadow: 2px 2px 4px 2px #c1ccfe;
+            }
+          `
+      : css``} // input 창이 focus 받으면
+
+    ${props => (props.mode === 'senior' ? css`` : css``)}
 `;
 
 const InputBoxWrapper = styled.div`

@@ -1,11 +1,13 @@
 import SearchSection from '../components/SearchSec/SearchSection';
 import FoodNavigationSection from '../components/FoodNavSec/FoodNavigationSection';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SubPageHeader from '../../common/components/SubPageHeader';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 const formatDate = date => {
   const year = date.getFullYear();
@@ -16,6 +18,7 @@ const formatDate = date => {
 };
 
 const AddMealPage = () => {
+  const mode = useRecoilValue(modeState);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   // SearchSection에서 선택된 날짜 관리
   const [selectedDate, setSelectedDate] = useState();
@@ -56,7 +59,7 @@ const AddMealPage = () => {
   }, []);
 
   return (
-    <PageBackground>
+    <PageBackground mode={mode}>
       <SubPageHeader currState="graph"></SubPageHeader>
       <ContentWrapper>
         <SearchSection setSelectedDate={setSelectedDate} fetchMeal={fetchMeal}></SearchSection>
@@ -72,9 +75,15 @@ const AddMealPage = () => {
 const PageBackground = styled.div`
   // 사용자가 보는 화면의 크기가 page의 크기가 됨
   width: 100%;
-  height: 100vh;
 
-  background-color: #f0f1f5;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          background-color: #eef0ec;
+        `
+      : css`
+          background-color: #f0f1f5;
+        `}
 `;
 
 const ContentWrapper = styled.div`

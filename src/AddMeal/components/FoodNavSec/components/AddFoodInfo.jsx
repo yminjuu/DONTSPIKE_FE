@@ -1,7 +1,9 @@
 import { css, styled } from 'styled-components';
 import AddFoodDoneBtn from '../assets/AddFoodDoneBtn.svg?react';
 import AddFoodBtn from '../assets/AddFoodBtn.svg?react';
+import AddFoodSeniorBtn from '../assets/AddFoodSeniorBtn.svg?react';
 import DisableBtn from '../assets/AddFoodBtnDisable.svg?react';
+import DisableSeniorBtn from '../assets/AddFoodBtnDisableSenior.svg?react';
 import ResetBtn from '../assets/ResetBtn.svg?react';
 import Horizon from '../assets/Horizon.svg?react';
 import Essential from '../assets/Essential.svg?react';
@@ -126,9 +128,15 @@ const AddFoodInfo = ({ onClick }) => {
       </InfoWrapper>
       <ButtonWrapper onClick={onRegBtn}>
         {regstate === true ? (
-          <AddFoodDoneBtn></AddFoodDoneBtn>
+          <AddFoodDoneBtn />
         ) : foodname !== '' ? (
-          <AddFoodBtn></AddFoodBtn>
+          mode === 'senior' ? (
+            <AddFoodSeniorBtn />
+          ) : (
+            <AddFoodBtn></AddFoodBtn>
+          )
+        ) : mode === 'senior' ? (
+          <DisableSeniorBtn />
         ) : (
           <DisableBtn></DisableBtn>
         )}

@@ -7,14 +7,15 @@ import { useRecoilValue } from 'recoil';
 import { modeState } from '../../Recoil';
 
 import Background from '../../FoodWiki/assets/background_foodwiki.png';
+import BackgroundSenior from '../../FoodWiki/assets/background_foodwikiSenior.png';
 
 const FoodWikiPage = () => {
   const mode = useRecoilValue(modeState);
-  // senior or normal
+  // senior or
 
   return (
     <PageBackground mode={mode}>
-      <BackImg mode={mode} src={Background} />
+      {mode === 'senior' ? <BackImg mode={mode} src={BackgroundSenior} /> : <BackImg mode={mode} src={Background} />}
       <MainHeader currState="foodwiki"></MainHeader>
       <FoodWikiSearch></FoodWikiSearch>
       <CarouselBox mode={mode}>
