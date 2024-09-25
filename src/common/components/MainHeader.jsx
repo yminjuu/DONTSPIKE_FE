@@ -139,6 +139,7 @@ const GraphNavigateButtonWrapper = styled.button`
           font-size: 0.83rem;
           font-weight: 600;
           background: #000;
+          border-color: #000;
         `}
 
   ${props =>
@@ -146,7 +147,8 @@ const GraphNavigateButtonWrapper = styled.button`
       ? css`
           background: transparent;
           color: black;
-          border: 2px solid #518051;
+          border-width: 2px;
+          border-style: solid;
         `
       : css``}
 `;
@@ -189,6 +191,8 @@ const FoodWikiButtonWrapper = styled.button`
       ? css`
           background: transparent;
           color: black;
+          border-width: 2px;
+          border-style: solid;
         `
       : css``}
 `;
