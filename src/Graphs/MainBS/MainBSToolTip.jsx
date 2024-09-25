@@ -2,11 +2,16 @@ import React from 'react';
 import { styled, css } from 'styled-components';
 import ExpectTooltip from '../assets/ExpectTooltip.svg?react';
 import MainTooltip from '../assets/MainToolTip.svg?react';
+import SeniorMainToolTip from '../assets/MainToolTipSenior.svg?react';
+import { useRecoilValue } from 'recoil';
+import { modeState } from '../../Recoil';
 
 // active: hover 이벤트로 툴팁이 활성화된 상황
 // payload: tooltip에 띄울 정보를 props로 받음
 
 const MainBSTooltip = ({ active, payload, label, isTomorrow }) => {
+  const mode = useRecoilValue(modeState);
+
   if (active && payload.length > 0) {
     const data = payload[0].payload;
 
@@ -18,7 +23,9 @@ const MainBSTooltip = ({ active, payload, label, isTomorrow }) => {
           <Container>
             {' '}
             <ExpectTooltip></ExpectTooltip>
-            <BSText type="expect">{Math.floor(parseInt(payload[0].payload.expect))}</BSText>
+            <BSText mode={mode} type="expect">
+              {Math.floor(parseInt(payload[0].payload.expect))}
+            </BSText>
           </Container>
         </ExpectToolTipWrapper>
       );
@@ -27,7 +34,7 @@ const MainBSTooltip = ({ active, payload, label, isTomorrow }) => {
     else {
       return (
         <ToolTipWrapper>
-          <MainTooltip></MainTooltip>
+          {mode === 'senior' ? <SeniorMainToolTip /> : <MainTooltip></MainTooltip>}
           <DateText>{data.tooltipDate}</DateText>
           <MealWrapper>
             {/* 식단 데이터가 있을 때에만 map하도록 */}
@@ -37,7 +44,9 @@ const MainBSTooltip = ({ active, payload, label, isTomorrow }) => {
               <></>
             )}
           </MealWrapper>
-          <BSText bloodsugar={data.bloodsugar}>{data.bloodsugar}</BSText>
+          <BSText mode={mode} bloodsugar={data.bloodsugar}>
+            {data.bloodsugar}
+          </BSText>
         </ToolTipWrapper>
       );
     }
@@ -80,7 +89,6 @@ const Container = styled.div`
 
 const BSText = styled.div`
   position: absolute;
-  color: #3053f9;
 
   font-size: 0.875rem;
   font-weight: 600;
@@ -94,6 +102,15 @@ const BSText = styled.div`
       : css`
           top: 25%;
           left: 60%;
+        `}
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          color: #008116;
+        `
+      : css`
+          color: #3053f9;
         `}
 `;
 

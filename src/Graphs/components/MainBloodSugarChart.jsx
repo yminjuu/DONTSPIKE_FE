@@ -6,6 +6,9 @@ import Icon from '../../common/assets/PencilIcon.svg?react';
 import { useRecoilValue } from 'recoil';
 import { modeState } from '../../Recoil';
 
+var coreSubColor;
+var coreColor;
+
 const isTomorrow = date => {
   const today = new Date();
   const tomorrow = new Date();
@@ -124,7 +127,7 @@ const CustomizedDot = props => {
   const indexDate = new Date(payload.recorddate);
 
   if (payload.isLast === true) {
-    return <circle cx={cx} cy={cy} r={4} stroke={stroke} strokeWidth={1} fill="#D6DDFE" />;
+    return <circle cx={cx} cy={cy} r={4} stroke={stroke} strokeWidth={1} fill={coreSubColor} />;
     // 내일 날짜와 동일하면 띄우도록 설정을 해두었음.
   } else return <></>;
 };
@@ -140,13 +143,14 @@ const CustomizedRegularDot = props => {
 };
 
 const CustomizedActiveDot = props => {
-  const { cx, cy, payload, coreColor } = props;
+  const { cx, cy, payload } = props;
+  console.log(coreColor);
 
   if (payload.significantIncrease) {
     return <></>;
   }
 
-  return <circle cx={cx} cy={cy} r={6} fill="#3053f9" />;
+  return <circle cx={cx} cy={cy} r={6} fill={coreColor} />;
 };
 
 const MainBloodSugarChart = ({ mainData }) => {
@@ -206,6 +210,8 @@ const MainBloodSugarChart = ({ mainData }) => {
 
   // 최초 렌더링시 데이터 가져옴
   useEffect(() => {
+    mode === 'senior' ? (coreColor = '#6D986D') : (coreColor = '#3053f9'),
+      mode === 'senior' ? (coreSubColor = '#ECF1E7') : (coreSubColor = '#D6DDFE');
     if (chartContainerRef.current) {
       chartContainerRef.current.scrollLeft = chartContainerRef.current.scrollWidth;
     }
@@ -215,8 +221,6 @@ const MainBloodSugarChart = ({ mainData }) => {
   const dataMax = Math.max(...mainData.map(d => d.bloodsugar));
   const dataMin = Math.min(...mainData.map(d => d.bloodsugar));
   const chartWidth = calculateChartWidth(mainData.length); // 동적으로 차트의 너비 계산
-  var coreColor;
-  mode === 'senior' ? (coreColor = '#6D986D') : (coreColor = '#3053f9');
 
   if (mainData.length > 1) {
     if (chartContainerRef.current) {
@@ -256,7 +260,7 @@ const MainBloodSugarChart = ({ mainData }) => {
               <Line
                 type="linear"
                 dataKey="expect"
-                stroke="#D6DDFE"
+                stroke={coreSubColor}
                 strokeWidth={2}
                 strokeDasharray="5 5" // 점선 설정
                 dot={<CustomizedDot coreColor={coreColor} />}
@@ -271,7 +275,7 @@ const MainBloodSugarChart = ({ mainData }) => {
               stroke="#414141"
               strokeWidth={2}
               dot={<CustomizedRegularDot />}
-              activeDot={<CustomizedActiveDot />}
+              activeDot={<CustomizedActiveDot coreColor={coreColor} />}
             ></Line>
           </LineChart>
         </div>
