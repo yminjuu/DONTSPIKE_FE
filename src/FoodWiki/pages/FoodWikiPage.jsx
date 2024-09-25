@@ -13,7 +13,7 @@ const FoodWikiPage = () => {
   // senior or normal
 
   return (
-    <PageBackground>
+    <PageBackground mode={mode}>
       <BackImg mode={mode} src={Background} />
       <MainHeader currState="foodwiki"></MainHeader>
       <FoodWikiSearch></FoodWikiSearch>
@@ -29,11 +29,19 @@ const FoodWikiPage = () => {
 
 const PageBackground = styled.div`
   background-size: cover;
-  background-color: #f0f1f5;
 
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          background-color: #eef0ec;
+        `
+      : css`
+          background-color: #f0f1f5;
+        `}
 `;
 
 const BackImg = styled.img`

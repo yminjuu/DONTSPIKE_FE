@@ -52,7 +52,7 @@ const FoodInfoPage = () => {
     return <Loader />;
   } else
     return (
-      <Wrapper>
+      <Wrapper mode={mode}>
         <HeaderWrapper>
           <SubPageHeader currState="foodwiki"></SubPageHeader>
           <LogoWrapper mode={mode}>혈당백과</LogoWrapper>
@@ -77,7 +77,14 @@ const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
 
-  background-color: #f0f1f5;
+  ${props =>
+    props.mode === 'senior'
+      ? css`
+          background-color: #eef0ec;
+        `
+      : css`
+          background-color: #f0f1f5;
+        `}
 `;
 
 const HeaderWrapper = styled.div`
