@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { MdArrowBackIos } from 'react-icons/md';
 import '../styles/login.css';
 import { useNavigate } from 'react-router-dom';
+import LoginBackVec from '../assets/LoginPageVec.png';
+import SmallLogo from '../assets/SmallLogo.svg?react';
 
 const LoginPage = () => {
   const [id, setId] = useState('블로킹');
@@ -23,6 +25,7 @@ const LoginPage = () => {
 
   return (
     <Wrapper>
+      <LoginPageVecWrap src={LoginBackVec} />
       <MainHeader>
         <LogoButton type="loginPage"></LogoButton>
         {/* type을 주어 로그인하지 않고 main으로 이동하지 않도록 방지 */}
@@ -44,15 +47,25 @@ const LoginPage = () => {
       {/* 텍스트 Wrapper */}
       <MainWrapper>
         <TextWrapper>
-          <div style={{ color: '#111111', fontSize: '1.875rem', fontWeight: '600' }}>
-            소셜 계정을 통해 간편하게 로그인하세요.
-          </div>
+          <div style={{ color: '#111111', fontSize: '1.875rem', fontWeight: '600' }}>로그인</div>
           <div style={{ color: '#707070', fontSize: '1.175rem', fontWeight: '400' }}>
-            돈스파이크 에서 더욱 스마트한 혈당 관리를 시작해보세요.{' '}
+            소셜 계정을 통해 간편하게 로그인하세요.
           </div>
         </TextWrapper>
         {/* 로그인 창 */}
         <LoginWrapper>
+          <LoginTextWrapper>
+            {' '}
+            <div style={{ fontWeight: '400', fontSize: '1rem', color: '#414141' }}>
+              혈당 스파이크를 방지할 작은 시작,
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '0.5rem', alignItems: 'center' }}>
+              {' '}
+              <SmallLogo />
+              <div style={{ fontWeight: '600', fontSize: '1.5rem' }}>돈스파이크와 함께하세요.</div>
+            </div>
+          </LoginTextWrapper>
+
           <ButtonsWrapper>
             <LoginBtnsWrapper>
               {' '}
@@ -78,12 +91,23 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
+const LoginPageVecWrap = styled.img`
+  object-fit: cover;
+  position: absolute;
+  z-index: 0;
+
+  height: 100vh;
+  width: 100vw;
+`;
+
 const MainWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  z-index: 1;
 `;
 const BackWrapper = styled.div`
   width: calc(100% - 2rem);
@@ -92,6 +116,8 @@ const BackWrapper = styled.div`
   height: 3.5vh;
   display: flex;
   justify-content: left;
+
+  z-index: 1;
 `;
 
 const MainHeader = styled.div`
@@ -105,6 +131,7 @@ const MainHeader = styled.div`
 
   /* // 헤더의 border */
   border-bottom: 1px solid #cfcfcf;
+  z-index: 1;
 `;
 
 const TextWrapper = styled.div`
@@ -136,13 +163,7 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 5rem;
-`;
-
-const JoinWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding: 0.5rem;
+  gap: 4rem;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -152,103 +173,11 @@ const ButtonsWrapper = styled.div`
   gap: 0.3rem;
 `;
 
-const InputsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-`;
-
-const InputTitle = styled.div`
-  width: 5rem;
-  height: 3.125rem;
-  color: #111111;
-
-  font-size: 1rem;
-  font-weight: 600;
-
-  text-align: center;
-  line-height: 3.125rem;
-`;
-
-const StyledInput = styled.input`
-  border: none;
-  outline: none;
-
-  width: 16.875rem;
-  height: 3.125rem;
-
-  color: #111111;
-  font-size: 0.9rem;
-  font-weight: 500;
-
-  text-align: center;
-  vertical-align: middle;
-
-  background-color: transparent;
-  border: 1px solid #cfcfcf;
-  border-radius: 1.8rem;
-
-  &::placeholder {
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #a0a0a0;
-  }
-`;
-
-const ButtonWrapper = styled.div`
+const LoginTextWrapper = styled.div`
   width: 100%;
-  gap: 1rem;
-
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  cursor: pointer;
-`;
-
-const Hr = styled.hr`
-  width: 90%;
-  height: 1px;
-
-  background-color: #dddddd;
-  border: 0;
-`;
-
-const GeneralBtn = styled.button`
-  min-width: 15rem;
-  height: 3.1rem;
-
-  background-color: hsl(229.55223880597015, 94.36619718309859%, 58.23529411764705%);
-  border: 1px solid rgb(48, 83, 249);
-  border-radius: 20rem;
-
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 1rem;
-
-  cursor: pointer;
-`;
-
-const TransparentBtn = styled.button`
-  border: none;
-  outline: none;
-  background-color: transparent;
-  height: 1.2rem;
-
-  cursor: pointer;
-  color: #3053f9;
-  font-size: 0.875rem;
-  font-weight: 600;
-
-  text-align: center;
-  line-height: 1.2rem;
+  gap: 1rem;
 `;
 
 const LoginBtnsWrapper = styled.div`
