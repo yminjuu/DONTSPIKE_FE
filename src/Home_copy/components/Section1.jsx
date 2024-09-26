@@ -1,15 +1,17 @@
 import { React, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import mainperson1 from '../assets/Section1_1/MainPerson1.png';
-import mainperson2 from '../assets/Section1_1/MainPerson2.png';
+import styled, { css, keyframes } from 'styled-components';
 import gsap from 'gsap';
-import Logo from '../assets/Section1_1/Logo.png';
 import SmallLogo from '../assets/Section1_1/SmallLogo.png';
+import BigLogo from '../assets/Section1_1/BigLogo.png';
 import BookIcon from '../assets/Section1_2/Book.svg?react';
 import GraphIcon from '../assets/Section1_2/Graph.svg?react';
 import { useNavigate } from 'react-router-dom';
 import MainBack from '../assets/Section1_1/MainBack.png';
 import { IoIosReturnRight } from 'react-icons/io';
+import MainBack2 from '../assets/Section1_1/MainBack.png';
+import BackVec2 from '../assets/Section1_1/BackVec2.png';
+import MainIcon from '../assets/Section1_1/MainIcon.png';
+import ScrollDown from '../assets/Section1_1/ScrollDown.png';
 
 const Section1 = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const Section1 = () => {
 
   return (
     <Wrapper>
-      <BGVector src={MainBack}></BGVector>
+      <BGVector src={MainBack2}></BGVector>
       <ContentWrapper>
         <MainContent1>
           <MainHeader>
@@ -33,46 +35,54 @@ const Section1 = () => {
                 navigate(`/main`, { replace: true });
               }}
             >
-              <IoIosReturnRight color="#fff" />
-              <div style={{ color: '#fff', fontWeight: '500', fontSize: '1rem' }}>돌아가기</div>
+              <IoIosReturnRight color="#111" />
+              <div style={{ color: '#111', fontWeight: '500', fontSize: '1rem' }}>돌아가기</div>
             </LoginWrapper>
           </MainHeader>
           <Content1_1Wrap>
-            <MainWrap>
-              <MainText>혈당 스파이크를 방지할 작은 시작,</MainText>
-              <LogoWrap src={Logo} />
-            </MainWrap>
-          </Content1_1Wrap>
-          <Footer>
-            DON’T 스파이크는 당뇨병 환자들을 위한 맞춤형 정보제공 및 데이터 시각화를 통해 올바른 당뇨 관리를 돕는
-            서비스입니다.
-          </Footer>
-        </MainContent1>
-
-        {/* 두번째 100vh */}
-        <MainContent2>
-          <Content2_specialWrap>
-            <Person1 className="person1">
-              <PersonImg src={mainperson1}></PersonImg>
-              <PersonContent direction="left">
-                제 <PersonSpan>혈당 변화를 한눈에</PersonSpan> 볼 수 있고, 상황이 여의치 않을 경우 식단 정보를 바탕으로
-                한 <PersonSpan>예상 혈당</PersonSpan>을 제공받을 수 있는 플랫폼이 있으면 좋겠어요.
-              </PersonContent>
-            </Person1>
-            <Person2 className="person2">
-              <PersonContent direction="right">
-                잊어버리지 않게 지난번에 <PersonSpan>먹은 음식이 기록</PersonSpan>되고, 음식과 혈당의 관계를 분석해서{' '}
-                <PersonSpan>효율적이고 건강하게 혈당을 관리</PersonSpan>하고 싶어요.
-              </PersonContent>
-              <PersonImg src={mainperson2}></PersonImg>
-            </Person2>
-          </Content2_specialWrap>
-          <Content2_Wrap>
-            <Content2_1Wrap>
-              <div style={{ fontSize: '1.5rem', fontWeight: '700' }}>주기적인 혈당 체크가 필요한 당신에게,</div>
-              <div style={{ fontSize: '1rem', fontWeight: '500', color: '#5975FA' }}>
+            <HeaderWrap>
+              <HeaderText>혈당 / 식단 기록</HeaderText>
+              <HeaderText>데이터 시각화 / 맞춤형 분석</HeaderText>
+              <HeaderText>혈당백과</HeaderText>
+            </HeaderWrap>
+            <Content1_1MainWrap>
+              <IconWrap src={MainIcon}></IconWrap>
+              <div style={{ fontSize: '1.5rem', fontWeight: '700', color: '#111', marginTop: '1rem' }}>
+                주기적인 혈당 체크가 필요한 당신에게,{' '}
+              </div>
+              <div style={{ fontSize: '1rem', fontWeight: '400', color: '#5975FA', marginTop: '1rem' }}>
                 혈당 기록을 간편하게, 데이터는 한눈에
               </div>
+            </Content1_1MainWrap>
+            <FooterWrap>
+              <LogoWrap>
+                <BigLogoWrap src={BigLogo} />
+                <ScrollDownWrap src={ScrollDown}></ScrollDownWrap>
+              </LogoWrap>
+            </FooterWrap>
+          </Content1_1Wrap>
+        </MainContent1>
+        {/* 두번째 100vh */}
+        <MainContent2>
+          {' '}
+          <BackVec2Wrap src={BackVec2}></BackVec2Wrap>
+          <Content2_Wrap>
+            <Content2_1Wrap>
+              <Content2_1TextWrap>
+                <div style={{ color: '#111', fontSize: '1.5rem', fontWeight: '600' }}>
+                  맞춤형 혈당 관리 서비스, 왜 필요할까요?
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <Content2_1SmallText>
+                    어떤 음식을 먹었을 때 혈당이 가장 많이 올라가는지 아시나요? 같은 음식이라도 사람마다 혈당을 올리는
+                    정도가 다르다고 합니다.
+                  </Content2_1SmallText>
+                  <Content2_1SmallText>
+                    DON’T 스파이크는 기록된 혈당 변화를 한눈에 볼 수 있도록 하고 다양한 음식에 대한 혈당 관련 정보를
+                    제공해 줌으로서 스스로 혈당 / 식단 관리를 하도록 돕습니다.{' '}
+                  </Content2_1SmallText>
+                </div>
+              </Content2_1TextWrap>
             </Content2_1Wrap>
             <Content2_2Wrap>
               <GraphWrap className="graph">
@@ -172,7 +182,7 @@ const MainContent1 = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 `;
 
 const Content1_1Wrap = styled.div`
@@ -181,113 +191,85 @@ const Content1_1Wrap = styled.div`
   justify-content: center;
   align-items: center;
   @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-around;
   }
 `;
 
-const Content2_specialWrap = styled.div`
+const HeaderWrap = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 1rem 10%;
+`;
+
+const HeaderText = styled.div`
+  border: 0.5px solid #cfcfcf;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  padding: 0.8rem;
+`;
+
+const Content1_1MainWrap = styled.div`
+  width: 100%;
+  height: 65vh;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 2rem;
-  gap: 1rem;
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 5rem;
-  }
 `;
 
-const Footer = styled.footer`
+const IconWrap = styled.img`
+  object-fit: cover;
+  width: 15%;
+`;
+
+const FooterWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LogoWrap = styled.div`
   width: 100%;
-  height: 5vh;
-  color: #a0a0a0;
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 5vh;
-  text-align: center;
-`;
-
-const MainWrap = styled.div`
-  width: 80%;
-  max-width: 40rem;
-  padding: 2rem;
-  text-align: center;
-  @media (min-width: 768px) {
-    text-align: left;
-  }
-`;
-
-const MainText = styled.div`
-  color: #414141;
-  font-size: 1.5rem;
-  font-weight: 600;
-`;
-
-const LogoWrap = styled.img`
-  width: 80%;
-  max-width: 24.5rem;
-`;
-
-const Person1 = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
   align-items: center;
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-`;
 
-const Person2 = styled.div`
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
-  align-items: center;
-  @media (min-width: 768px) {
-    flex-direction: row;
-    align-items: flex-start;
+`;
+
+const BigLogoWrap = styled.img`
+  object-fit: cover;
+  height: 2.2rem;
+`;
+
+const flash = keyframes`
+  0%{
+    margin: 0;
+     opacity: 1;
+  }
+  50% {
+    margin-top: 1rem;
+    opacity: 0.5;
+  }
+  100%{
+    margin: 0;
+    opacity: 1;
   }
 `;
 
-const PersonImg = styled.img`
-  width: 4.8rem;
-  height: 7.6rem;
+const ScrollDownWrap = styled.img`
+  object-fit: cover;
+  height: 2rem;
 
-  @media (max-width: 768px) {
-    width: 0;
-    height: 0;
-  }
-`;
-
-const PersonContent = styled.div`
-  width: 80%;
-  max-width: 28rem;
-  padding: 1.75rem;
-  text-align: center;
-  background-color: #ffffff;
-  ${props =>
-    props.direction === 'left'
-      ? css`
-          border-radius: 3.75rem 3.75rem 3.75rem 0rem;
-        `
-      : css`
-          border-radius: 3.75rem 3.75rem 0rem 3.75rem;
-        `}
-  box-shadow: 2px 4px 10px 2px #e8e8e8;
-  color: #111111;
-  font-size: 0.9rem;
-  font-weight: 450;
-  word-spacing: 0.05rem;
-  word-break: keep-all;
-  line-height: 1.2rem;
-`;
-
-const PersonSpan = styled.span`
-  color: #3053f9;
+  animation: ${flash} 4s linear infinite;
 `;
 
 const MainContent2 = styled.div`
@@ -295,15 +277,15 @@ const MainContent2 = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
-  padding: 2rem;
+
+  position: relative;
 `;
 
 const Content2_Wrap = styled.div`
   width: 100%;
+  height: 100%;
   min-height: 30rem;
-  max-width: 56.75rem;
   border-radius: 0.625rem;
   background-color: rgba(255, 255, 255, 0.4);
   display: flex;
@@ -314,48 +296,79 @@ const Content2_Wrap = styled.div`
   box-sizing: border-box;
 `;
 
+const BackVec2Wrap = styled.img`
+  position: absolute;
+  object-fit: cover;
+  width: 100vw;
+  top: 0;
+`;
+
 const Content2_1Wrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 `;
 
-const Content2_2Wrap = styled.div`
+const Content2_1TextWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1.5rem;
+`;
+
+const Content2_1SmallText = styled.div`
+  color: #292929;
+  font-size: 1rem;
+  font-weight: 0;
+  width: 100%;
+  text-align: center;
+`;
+
+const Content2_2Wrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  gap: 5rem;
+  flex: 1;
+  box-sizing: border-box;
+  padding: 2rem 10rem;
   @media (min-width: 768px) {
-    flex-direction: row;
-    height: auto;
   }
 `;
 
 const GraphWrap = styled.div`
-  width: 100%;
-  height: 50%;
+  background-color: rgb(255, 255, 255);
+  width: 50%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  box-shadow: 2px 3px 3px 2px rgba(126, 126, 126, 0.1);
   @media (min-width: 768px) {
-    height: 80%;
   }
 `;
 
 const BookWrap = styled.div`
-  width: 100%;
-  height: 50%;
+  background-color: #fff;
+  width: 50%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  box-shadow: 2px 3px 3px 2px rgba(126, 126, 126, 0.1);
   @media (min-width: 768px) {
-    height: 80%;
   }
 `;
 
