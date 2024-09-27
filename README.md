@@ -1,5 +1,5 @@
 # 혈당스파이크를 막을 작은 시작, ⚡️ **DON`T SPIKE** 
-![#1-표지](https://github.com/user-attachments/assets/e1287cb0-fc36-4755-a7cc-9b1b967e7b59)
+![표지](https://github.com/user-attachments/assets/f7da0d9d-3887-4460-a353-751e9dd40bcb)
 
 ## 서비스 소개
 ![#04-소개2](https://github.com/user-attachments/assets/9c43fb16-c669-4136-9055-85b321302bc0)
@@ -11,7 +11,7 @@
  - 그래프 (2) 최근 30일 간 자주 먹은 음식 그래프
  - 그래프 (3) 월별 평균 공복 혈당
  - 혈당 기록 기능
-<img width="1466" alt="스크린샷 2024-08-09 오후 3 54 58" src="https://github.com/user-attachments/assets/7b5149d6-5492-4839-95e2-1b3cd141983a">
+<img width="1440" alt="default" src="https://github.com/user-attachments/assets/5b604ac5-794b-48f0-98a6-dc973eabdf91">
 
 2. **식단 추가 페이지**- 자주 먹은 음식 or 음식 검색을 통해 식단 추가 / 음식을 직접 등록하는 기능
 <img width="1470" alt="스크린샷 2024-08-09 오후 3 52 54" src="https://github.com/user-attachments/assets/cc395fcf-4eb4-4339-8025-2ef60646833f">
@@ -21,6 +21,10 @@
 
 4. **혈당백과 상세 페이지**- 영양 정보와 혈당 관련 팁 제공
 <img width="1468" alt="스크린샷 2024-08-09 오후 3 51 45" src="https://github.com/user-attachments/assets/f801f223-90c2-4efe-924a-3d4598be3005">
+
+5. **시니어 모드**- 다양한 연령층을 고려한 시니어 모드 제공
+<img width="768" alt="스크린샷 2024-09-28 오전 1 08 04" src="https://github.com/user-attachments/assets/88ee9f83-383d-4c5d-83ec-75c24452cc17">
+
 
 ## Coworkers
 ![#8-팀소개](https://github.com/user-attachments/assets/180834aa-fa9f-4074-836d-634ece82ffa6)
