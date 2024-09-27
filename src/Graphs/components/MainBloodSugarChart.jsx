@@ -217,6 +217,11 @@ const MainBloodSugarChart = ({ mainData }) => {
     }
   }, []);
 
+  useEffect(() => {
+    mode === 'senior' ? (coreColor = '#6D986D') : (coreColor = '#3053f9'),
+      mode === 'senior' ? (coreSubColor = '#ECF1E7') : (coreSubColor = '#D6DDFE');
+  }, [mode]);
+
   // 데이터 중 최대 혈당량을 구함 => reference line 위함
   const dataMax = Math.max(...mainData.map(d => d.bloodsugar));
   const dataMin = Math.min(...mainData.map(d => d.bloodsugar));
