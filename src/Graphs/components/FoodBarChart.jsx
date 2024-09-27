@@ -14,7 +14,7 @@ const FoodBarChart = () => {
 
   var fillColor = '#3053f9';
   {
-    mode !== 'senior' ? (fillColor = '#3053F9') : (fillColor = '#6D986D');
+    mode === 'senior' ? (fillColor = '#3053F9') : (fillColor = '#6D986D');
   }
 
   if (favFood.length != 0) {
