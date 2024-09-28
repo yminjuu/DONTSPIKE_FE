@@ -18,9 +18,7 @@ const Nutrient = ({ foodname, amount, calorie, carbohydrate, protein, fat, sodiu
       <Wrapper>
         <BasicWrapper>
           <ImgWrapper
-            src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${BUCKET_DIRECTORY}/${removeSpaces(
-              foodname,
-            )}.jpg`}
+            src={`https://${BUCKET_NAME}.s3.${BUCKET_REGION}.amazonaws.com/${BUCKET_DIRECTORY}/${foodname}.jpg`}
             alt="준비 중인 이미지입니다."
           ></ImgWrapper>
           <FoodWrapper>

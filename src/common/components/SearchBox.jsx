@@ -49,7 +49,6 @@ const SearchBox = ({ type, fetchMeal }) => {
   // food_id="1" food_name="사과"
   const fetchFoodWikiSearchResult = async () => {
     try {
-      console.log('검색 : ', searchText);
       setLoading(true);
       setSuccess(false);
       const res = await axios.get(`${BASE_URL}/api/foodwiki?search_food=${searchText}`, {

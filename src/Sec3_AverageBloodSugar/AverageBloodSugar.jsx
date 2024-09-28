@@ -7,7 +7,6 @@ import { favFoodState, modeState } from '../Recoil';
 
 const AverageBloodSugar = ({ averageData, offset }) => {
   useEffect(() => {}, [offset]);
-  console.log(averageData);
 
   const seniorMode = useRecoilValue(modeState);
   return (
