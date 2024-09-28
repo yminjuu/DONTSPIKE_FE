@@ -7,15 +7,15 @@ import { modeState } from '../../Recoil';
 
 // props: foodId, foodName, addedStatem fetchMeal
 
-const FoodItem = ({ foodId, foodName, addedState, fetchMeal }) => {
-  const [added, setAdd] = useState(addedState);
+const FoodItem = ({ foodDataId, foodName, addedState, fetchMeal }) => {
+  const [added, setAdd] = useState(false);
   const mode = useRecoilValue(modeState);
 
   // 음식 추가됨
   const onAddBtnClick = () => {
     if (added === false) {
-      fetchMeal(foodId).then(result => {
-        if (result === true) setAdd(true);
+      fetchMeal(foodDataId).then(result => {
+        setAdd(true);
       });
       // 식단 추가 버튼이 눌린 경우임 => 식단 추가 POST
     }
