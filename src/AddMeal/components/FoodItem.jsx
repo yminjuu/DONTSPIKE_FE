@@ -15,7 +15,7 @@ const FoodItem = ({ foodDataId, foodName, addedState, fetchMeal }) => {
   const onAddBtnClick = () => {
     if (added === false) {
       fetchMeal(foodDataId).then(result => {
-        if (result === false) setAdd(true);
+        setAdd(true);
       });
       // 식단 추가 버튼이 눌린 경우임 => 식단 추가 POST
     }
