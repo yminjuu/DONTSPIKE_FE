@@ -28,7 +28,6 @@ const AddMealPage = () => {
   const fetchMeal = async foodId => {
     const date = new Date(selectedDate);
     try {
-      console.log(foodId);
       const res = await axios.post(
         `${BASE_URL}/api/diet/add-food?foodId=${foodId}&recordDate=${formatDate(date)}`,
         {},

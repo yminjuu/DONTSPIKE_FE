@@ -4,8 +4,6 @@ import FoodItem from '../../FoodItem';
 // 자주 먹은 음식 아이템
 // props: food_name, food_info, addedState
 const OftFoodItem = props => {
-  console.log(props);
-
   return (
     <>
       <ItemWrapper>

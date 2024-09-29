@@ -14,7 +14,6 @@ const override = {
 // 1. MainGraphPage에서 데이터 불러올 때 : "main"
 // 2. FoodInfoPage에서 검색시 : "food"
 const Loader = ({ type }) => {
-  console.log(type);
   return (
     <>
       <LoaderWrapper>

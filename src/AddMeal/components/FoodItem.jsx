@@ -13,21 +13,12 @@ const FoodItem = ({ foodDataId, foodId, foodName, addedState, fetchMeal }) => {
 
   // 음식 추가됨
   const onAddBtnClick = () => {
-    console.log(foodDataId);
-    console.log(foodId);
-    // 리팩토링 필요: 둘 중 하나만 옴 (섞임)
     if (added === false) {
-      if (foodDataId === undefined) {
-        fetchMeal(foodId).then(result => {
-          setAdd(true);
-        });
-      } else {
-        fetchMeal(foodDataId).then(result => {
-          setAdd(true);
-        });
-      }
-      // 식단 추가 버튼이 눌린 경우임 => 식단 추가 POST
+      fetchMeal(foodDataId).then(result => {
+        setAdd(true);
+      });
     }
+    // 식단 추가 버튼이 눌린 경우임 => 식단 추가 POST
   };
 
   return (

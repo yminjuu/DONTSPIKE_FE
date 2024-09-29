@@ -81,7 +81,6 @@ const SearchBox = ({ type, fetchMeal }) => {
   // 바로 추가하려면 food_id 필요!!
   const fetchMealSearchResult = async () => {
     try {
-      console.log(searchText);
       const res = await axios.get(`${BASE_URL}/api/food?search_food=${searchText}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -172,7 +171,7 @@ const SearchBox = ({ type, fetchMeal }) => {
             )
           ) : type === 'SearchSection' ? (
             <SearchItem
-              foodId={searchResult.foodId}
+              foodDataId={searchResult.foodId}
               foodName={searchResult.foodname}
               addedState={false}
               fetchMeal={fetchMeal} // 음식 추가시
