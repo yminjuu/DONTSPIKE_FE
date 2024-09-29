@@ -90,7 +90,6 @@ const SearchBox = ({ type, fetchMeal }) => {
 
       if (res.status === 200 && res.data.length > 0) {
         setSuccess(true); // 검색 성공
-        console.log('addmeal api 검색 결과', res.data[0]);
         const rawData = res.data[0];
 
         const updatedData = {
@@ -100,7 +99,6 @@ const SearchBox = ({ type, fetchMeal }) => {
 
         setResult(updatedData); // state 변경 => 리렌더링
       } else {
-        console.log('검색 실패', res);
         setSuccess(false);
       }
       // 식단에 이미 추가되어있는지 여부: 내가 default로 false로 설정?

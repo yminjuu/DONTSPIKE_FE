@@ -1,6 +1,5 @@
 // 두가지 Date 객체를 받아 시간 제외, "날짜"만 같은지 확인하는 함수
 const isSameDate = (a, b) => {
-  console.log(a, b);
   if (a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()) return true;
   else return false;
 };

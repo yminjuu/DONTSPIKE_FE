@@ -62,7 +62,6 @@ const CustomizedRegularDot = props => {
 
 const CustomizedActiveDot = props => {
   const { cx, cy, payload } = props;
-  console.log(coreColor);
 
   if (payload.significantIncrease) {
     return <></>;

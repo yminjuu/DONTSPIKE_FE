@@ -17,13 +17,10 @@ const FoodNavigationSection = ({ selectedDate, fetchMeal }) => {
   // 직접 음식 등록
   const onFoodReg = async ({ foodname }) => {
     try {
-      console.log('음식 등록', foodname);
       const food = foodname;
       const res = await axios.post(`${BASE_URL}/api/food`, {
         foodname: food,
       });
-
-      console.log('음식 등록 완료 ', res);
     } catch (error) {
       console.log('에러 발생: navigation', error);
       if (error.response && error.response.status === 404) {

@@ -26,7 +26,6 @@ const JoinPage = () => {
         username: id,
         password: pw,
       });
-      console.log(res);
       if (res.data.message === '회원가입 성공') {
         setJoinState(true);
       }
