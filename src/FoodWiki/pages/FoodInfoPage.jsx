@@ -49,7 +49,7 @@ const FoodInfoPage = () => {
   }, []);
 
   if (loading) {
-    return <Loader />;
+    return <Loader type="food" />;
   } else
     return (
       <Wrapper mode={mode}>

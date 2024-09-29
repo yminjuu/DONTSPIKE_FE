@@ -166,7 +166,7 @@ const SearchBox = ({ type, fetchMeal }) => {
           searchSuccess === false ? (
             // loading이 true인지 false인지에 따라 알맞게 처리
             loading === true ? (
-              <StyledNoResult mode={mode}>로딩 중입니다.</StyledNoResult>
+              <StyledNoResult mode={mode}>음식 정보와 팁을 불러오고 있습니다..</StyledNoResult>
             ) : (
               <StyledNoResult mode={mode}>일치하는 결과가 없습니다.</StyledNoResult>
             )

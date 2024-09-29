@@ -294,7 +294,7 @@ const MainGraphPage = () => {
         </FullPageSections>
       </Fullpage>
     );
-  else return <Loader />;
+  else return <Loader type="main" />;
 };
 
 const SectionWrapper = styled.div`
