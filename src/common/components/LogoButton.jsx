@@ -14,7 +14,6 @@ const LogoButton = ({ currState, subPage }) => {
       mode={mode}
       src={Logo}
       onClick={() => {
-        console.log('클릭');
         if (currState === 'graph' || currState === 'foodwiki') {
           navigate(`/main`);
         }

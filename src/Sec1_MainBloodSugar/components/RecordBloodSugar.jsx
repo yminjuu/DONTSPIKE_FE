@@ -45,9 +45,6 @@ const RecordBloodSugar = ({ setBS }) => {
   // 혈당 입력 확인시 데이터 fetch
   const fetchNewBS = async () => {
     try {
-      console.log('fetch');
-      console.log(selectedDate);
-      console.log(localStorage.getItem('token'));
       const token = localStorage.getItem('token');
       const res = await axios.post(
         `${BASE_URL}/api/blood-sugar/record?date=${formatDateToISOString(selectedDate)}&bloodsugar=${text}`,
@@ -59,14 +56,12 @@ const RecordBloodSugar = ({ setBS }) => {
           withCredentials: true, // 쿠키 포함
         },
       );
-      console.log(res);
 
       if (res.status === 200) {
         setBS(text); // props로 전달받은 state 변경함수 실행 => 그래프 리렌더링되도록
         setText(''); // 입력 혈당 초기화
         setDate(new Date()); // 선택 날짜 초기화
         setModalIsOpen(true); // 모달 열기
-        console.log(res);
       }
     } catch (error) {
       if (error.response && error.response.status === 404) {
