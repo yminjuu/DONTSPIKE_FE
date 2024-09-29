@@ -17,10 +17,12 @@
 <img width="1470" alt="스크린샷 2024-08-09 오후 3 52 54" src="https://github.com/user-attachments/assets/cc395fcf-4eb4-4339-8025-2ef60646833f">
 
 3. **혈당백과 페이지**- 음식 검색과 혈당 백과 캐러셀
-<img width="1470" alt="스크린샷 2024-08-09 오후 3 50 45" src="https://github.com/user-attachments/assets/e07dad56-201d-4ada-a8d8-f20a1ca00a1e">
+![image](https://github.com/user-attachments/assets/29634dc1-8475-493d-9950-ffbfc0ccf614)
+
 
 4. **혈당백과 상세 페이지**- 영양 정보와 혈당 관련 팁 제공
-<img width="1468" alt="스크린샷 2024-08-09 오후 3 51 45" src="https://github.com/user-attachments/assets/f801f223-90c2-4efe-924a-3d4598be3005">
+![image](https://github.com/user-attachments/assets/6f2694bb-cad1-4362-9307-7615c85e0984)
+
 
 5. **시니어 모드**- 다양한 연령층을 고려한 시니어 모드 제공
 <img width="768" alt="스크린샷 2024-09-28 오전 1 08 04" src="https://github.com/user-attachments/assets/88ee9f83-383d-4c5d-83ec-75c24452cc17">
