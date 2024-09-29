@@ -76,15 +76,12 @@ const MealWrapper = styled.div`
   left: 28%;
 
   padding: 0.3rem;
-  overflow: scroll;
 `;
 
 const Container = styled.div`
   position: absolute;
   top: -25%;
   left: -10%;
-
-  overflow: scroll;
 `;
 
 const BSText = styled.div`

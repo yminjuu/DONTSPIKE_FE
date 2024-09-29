@@ -143,7 +143,6 @@ const MainBloodSugarChart = ({ mainData }) => {
   // 데이터 중 최대 혈당량을 구함 => reference line 위함
   const dataMax = Math.max(...mainData.map(d => d.bloodsugar));
   const dataMin = Math.min(...mainData.map(d => d.bloodsugar));
-  const chartWidth = calculateChartWidth(mainData.length); // 동적으로 차트의 너비 계산
 
   if (mainData.length > 1) {
     if (chartContainerRef.current) {
