@@ -202,8 +202,7 @@ const HeaderWrap = styled.div`
 `;
 
 const HeaderText = styled.div`
-  border: 0.5px solid #cfcfcf;
-  border-radius: 1rem;
+  border-bottom: 1px solid #cfcfcf;
   font-size: 1.2rem;
   font-weight: 500;
 
@@ -350,7 +349,7 @@ const GraphWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  box-shadow: 2px 3px 3px 2px rgba(126, 126, 126, 0.1);
+  box-shadow: 1px 2px 2px 1px rgba(151, 151, 151, 0.5);
   @media (min-width: 768px) {
   }
 `;
@@ -364,7 +363,7 @@ const BookWrap = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  box-shadow: 2px 3px 3px 2px rgba(126, 126, 126, 0.1);
+  box-shadow: 1px 2px 2px 1px rgba(151, 151, 151, 0.5);
   @media (min-width: 768px) {
   }
 `;
